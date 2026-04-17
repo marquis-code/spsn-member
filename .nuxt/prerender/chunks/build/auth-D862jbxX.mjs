@@ -1,0 +1,35 @@
+import { d as defineNuxtRouteMiddleware } from './server.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/vue/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/ofetch/dist/node.mjs';
+import '../nitro/nitro.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/h3/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/ufo/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/destr/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/nitropack/node_modules/hookable/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/node-mock-http/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/unstorage/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/unstorage/drivers/fs.mjs';
+import 'node:crypto';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/unstorage/drivers/fs-lite.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/unstorage/drivers/lru-cache.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/ohash/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/klona/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/defu/dist/defu.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/scule/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/unctx/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/radix3/dist/index.mjs';
+import 'node:fs';
+import 'node:url';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/pathe/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/@iconify/utils/lib/index.js';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/consola/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/hookable/dist/index.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/vue-router/vue-router.node.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/@iconify/vue/dist/iconify.mjs';
+import 'file:///Users/mac/Documents/spsn/member/node_modules/vue/server-renderer/index.mjs';
+
+const auth = defineNuxtRouteMiddleware((to, from) => {
+});
+
+export { auth as default };
+//# sourceMappingURL=auth-D862jbxX.mjs.map

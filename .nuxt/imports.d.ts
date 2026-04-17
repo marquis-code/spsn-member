@@ -35,4 +35,3 @@ export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useFormValidation } from '../composables/useFormValidation';
 export { useUploadFile } from '../composables/useUploadFile';
 export { useUser } from '../composables/useUser';
-export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
