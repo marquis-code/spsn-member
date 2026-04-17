@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-dark: #033958;
+    --brand-cyan: #00A8B5;
+    --brand-accent: #00D1FF;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+
+  body {
+    @apply font-sans antialiased bg-slate-50 text-slate-900 selection:bg-cyan-100 selection:text-cyan-900;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+@layer components {
+  /* Premium Glassmorphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/30;
+  }
+  
+  .glass-dark {
+    @apply bg-slate-900/80 backdrop-blur-xl border border-white/10;
+  }
+
+  /* Redesigned Buttons */
+  .btn-premium {
+    @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold rounded-full transition-all duration-300 relative overflow-hidden active:scale-95;
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand-cyan));
+    color: white;
+    box-shadow: 0 10px 20px -5px rgba(3, 57, 88, 0.3);
+  }
+
+  .btn-premium:hover {
+    @apply shadow-xl shadow-cyan-500/20 translate-y-[-2px];
+    background: linear-gradient(135deg, var(--brand-cyan), var(--brand-dark));
+  }
+
+  .btn-outline-premium {
+    @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold rounded-full border-2 border-slate-200 transition-all duration-300 hover:border-brand-dark hover:text-brand-dark active:scale-95;
+  }
+
+  /* Modern Card */
+  .interactive-card {
+    @apply glass p-8 rounded-3xl transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 hover:translate-y-[-8px] relative overflow-hidden;
+  }
+
+  /* Dashboard Stats */
+  .stat-glass {
+    @apply glass p-6 rounded-[32px] border border-white/40 flex flex-col gap-2;
+  }
+
+  /* Form Elements */
+  .premium-input {
+    @apply w-full px-6 py-4 bg-white/50 border border-slate-200 rounded-2xl text-sm font-bold text-brand-dark outline-none focus:border-brand-cyan focus:bg-white transition-all;
+  }
+
+  .premium-label {
+    @apply block text-sm font-bold text-brand-dark mb-2 ml-2;
+  }
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#033958] to-[#00A8B5];
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+}
