@@ -2,8 +2,8 @@
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Abstracts</h1>
-        <p class="text-slate-500 font-medium mt-1 text-sm">Submit and manage your scientific papers and conference abstracts.</p>
+        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">{{ cmsConfig?.member?.pages?.abstracts?.title || 'Abstracts' }}</h1>
+        <p class="text-slate-500 font-medium mt-1 text-sm">{{ cmsConfig?.member?.pages?.abstracts?.subtitle || 'Submit and manage your scientific papers and conference abstracts.' }}</p>
       </div>
       <button @click="openSubmitForm" class="btn-premium flex items-center gap-2 px-8 py-4">
         <Icon name="lucide:plus" size="18" />
@@ -17,7 +17,7 @@
         <h3 class="text-xs font-black text-slate-400 lowercase">submission archives</h3>
         <div class="flex gap-2">
            <span class="w-2 h-2 rounded-full bg-emerald-500 border border-white mt-1"></span>
-           <p class="text-xs font-semibold text-slate-500 line-clamp-1 max-w-[200px]">Call for Papers is Open until May 2026</p>
+           <p class="text-xs font-semibold text-slate-500 line-clamp-1 max-w-[200px]">{{ cmsConfig?.member?.pages?.abstracts?.deadlineText || 'Call for Papers is Open until May 2026' }}</p>
         </div>
       </div>
       <div class="overflow-x-auto custom-scrollbar">
@@ -186,6 +186,9 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useCustomToast } from '@/composables/core/useCustomToast'
+import { useCMS } from '@/composables/useCMS'
+
+const { cmsConfig } = useCMS()
 
 definePageMeta({
   layout: 'dashboard',

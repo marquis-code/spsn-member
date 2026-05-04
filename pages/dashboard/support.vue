@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Support Tickets</h1>
-        <p class="text-slate-500 font-medium mt-1 text-sm">Need help? Open a ticket to reach our administrative or technical teams.</p>
+        <p class="text-slate-500 font-medium mt-1 text-sm">{{ cmsConfig?.member?.portal?.announcementText || 'Need help? Open a ticket to reach our administrative or technical teams.' }}</p>
       </div>
       <button @click="openNewTicket" class="btn-premium flex items-center gap-2 px-8 py-4">
         <Icon name="lucide:life-buoy" size="18" />
@@ -215,6 +215,9 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useCustomToast } from '@/composables/core/useCustomToast'
+import { useCMS } from '@/composables/useCMS'
+
+const { cmsConfig } = useCMS()
 
 definePageMeta({
   layout: 'dashboard',

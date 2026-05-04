@@ -7,5 +7,12 @@
 </template>
 
 <script setup>
-// Member Portal entry point
+import { useCMS } from '@/composables/useCMS'
+import { onMounted } from 'vue'
+
+const { loadCMS } = useCMS()
+
+onMounted(() => {
+  loadCMS()
+})
 </script>

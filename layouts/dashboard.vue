@@ -17,12 +17,13 @@
       <!-- Logo Area -->
       <div class="p-8 border-b border-white/5">
         <div class="flex items-center gap-4">
-          <div class="h-10 w-10 bg-white rounded-xl flex items-center justify-center text-[#003366] font-black">
-            SC
+          <div class="h-10 w-10 bg-white rounded-xl flex items-center justify-center text-[#003366] font-black overflow-hidden">
+            <img v-if="cmsConfig?.member?.portal?.sidebarLogo" :src="cmsConfig.member.portal.sidebarLogo" class="w-full h-full object-cover" />
+            <span v-else>{{ cmsConfig?.member?.portal?.siteInitials || 'SC' }}</span>
           </div>
           <div>
-            <span class="font-bold text-white text-xs block uppercase tracking-widest">Scientific Hub</span>
-            <p class="text-[10px] text-white/60 font-medium mt-0.5">Society for Cellular Pathology</p>
+            <span class="font-bold text-white text-xs block uppercase tracking-widest">{{ cmsConfig?.member?.portal?.siteName || 'Scientific Hub' }}</span>
+            <p class="text-[10px] text-white/60 font-medium mt-0.5">{{ cmsConfig?.member?.portal?.siteName ? 'Member Portal' : 'Society for Cellular Pathology' }}</p>
           </div>
         </div>
       </div>
@@ -144,20 +145,23 @@
 import { ref, computed, onMounted } from 'vue'
 import { useNotifications } from '@/composables/useNotifications'
 import { useChat } from '@/composables/useChat'
+import { useCMS } from '@/composables/useCMS'
 
 const route = useRoute()
 const router = useRouter()
 const { user, logOut: logOutUser, loadUser } = useUser()
 const { notifications, unreadCount, addNotification } = useNotifications()
 const { chats } = useChat()
+const { cmsConfig, loadCMS } = useCMS()
 
 const isSidebarOpen = ref(false)
 const isNotifOpen = ref(false)
 const showLogoutModal = ref(false)
 
 // Rehydrate user state
-onMounted(() => {
+onMounted(async () => {
   loadUser()
+  await loadCMS()
   if (!user.value) {
     router.push('/login')
   } else {

@@ -3,20 +3,20 @@
     <!-- Left: Artistic Scientific Narrative -->
     <div class="hidden lg:flex lg:w-1/2 relative bg-brand-dark items-center justify-center p-20 overflow-hidden">
       <div class="absolute inset-0 opacity-40">
-        <img src="/images/hero/1.png" class="w-full h-full object-cover animate-pulse duration-[10000ms]" />
+        <img :src="cmsConfig?.member?.portal?.loginBg || '/images/hero/1.png'" class="w-full h-full object-cover animate-pulse duration-[10000ms]" />
       </div>
       <div class="absolute inset-0 bg-gradient-to-tr from-[#033958] via-transparent to-transparent"></div>
       
       <div class="relative z-10 space-y-12 animate-in fade-in slide-in-from-bottom-12">
         <div class="h-20 w-20 bg-white rounded-3xl flex items-center justify-center text-[#033958] font-black text-3xl">
-          SC
+          {{ cmsConfig?.global?.siteName ? cmsConfig.global.siteName.split(' ').map(n => n[0]).join('').substring(0, 2) : 'SC' }}
         </div>
         <div class="space-y-6">
           <h1 class="text-6xl font-black text-white tracking-tighter leading-none">
             Welcome <br/> <span class="text-brand-cyan">Back</span>.
           </h1>
           <p class="text-xl text-white/50 font-medium max-w-md leading-relaxed">
-            Sign in to access your SCPSN account.
+            Sign in to access your {{ cmsConfig?.global?.siteName || 'SCPSN' }} account.
           </p>
         </div>
         <div class="flex items-center gap-6">
@@ -89,7 +89,7 @@
       
       <!-- Subtle Bottom Attribution -->
       <footer class="absolute bottom-12 left-1/2 -translate-x-1/2 w-full text-center px-6">
-         <p class="text-xs font-semibold text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria</p>
+         <p class="text-xs font-semibold text-slate-400">© {{ new Date().getFullYear() }} {{ cmsConfig?.global?.siteName || 'Society for Cellular Pathology Scientists of Nigeria' }}</p>
       </footer>
     </div>
   </div>
@@ -100,7 +100,9 @@ import { ref, reactive } from 'vue'
 // Lucide icons are auto-imported by lucide-nuxt module
 import { useLogin } from '@/composables/modules/auth/useLogin'
 import { useRouter } from 'vue-router'
+import { useCMS } from '@/composables/useCMS'
 
+const { cmsConfig } = useCMS()
 const { loading, login } = useLogin()
 const router = useRouter()
 const showPassword = ref(false)

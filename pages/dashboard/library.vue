@@ -2,8 +2,8 @@
   <div class="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
       <div>
-        <h1 class="text-4xl font-black text-slate-800 tracking-tight">Scientific Library</h1>
-        <p class="text-slate-500 font-medium mt-1">Access the national archive of journals, protocols, and research papers.</p>
+        <h1 class="text-4xl font-black text-slate-800 tracking-tight">{{ cmsConfig?.member?.pages?.library?.title || 'Scientific Library' }}</h1>
+        <p class="text-slate-500 font-medium mt-1">{{ cmsConfig?.member?.pages?.library?.subtitle || 'Access the national archive of journals, protocols, and research papers.' }}</p>
       </div>
       
       <div class="flex items-center gap-4">
@@ -219,6 +219,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useLibrary } from '@/composables/useLibrary'
+import { useCMS } from '@/composables/useCMS'
+
+const { cmsConfig } = useCMS()
 
 definePageMeta({
   layout: 'dashboard',

@@ -178,6 +178,7 @@ declare global {
   const useBreakpoints: typeof import('@vueuse/core').useBreakpoints
   const useBroadcastChannel: typeof import('@vueuse/core').useBroadcastChannel
   const useBrowserLocation: typeof import('@vueuse/core').useBrowserLocation
+  const useCMS: typeof import('../../composables/useCMS').useCMS
   const useCached: typeof import('@vueuse/core').useCached
   const useChat: typeof import('../../composables/useChat').useChat
   const useClipboard: typeof import('@vueuse/core').useClipboard
@@ -607,6 +608,7 @@ declare module 'vue' {
     readonly useBreakpoints: UnwrapRef<typeof import('@vueuse/core')['useBreakpoints']>
     readonly useBroadcastChannel: UnwrapRef<typeof import('@vueuse/core')['useBroadcastChannel']>
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
+    readonly useCMS: UnwrapRef<typeof import('../../composables/useCMS')['useCMS']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
     readonly useChat: UnwrapRef<typeof import('../../composables/useChat')['useChat']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>

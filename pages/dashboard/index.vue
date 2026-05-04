@@ -2,18 +2,22 @@
   <div class="space-y-10 max-w-7xl mx-auto animate-fade-in">
     <!-- Hero / Status Banner -->
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="lg:col-span-2 bg-gradient-to-br from-[#003366] to-[#004080] rounded-[2rem] p-6 lg:p-10 text-white relative overflow-hidden group border border-white/10">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-700"></div>
+      <div 
+        class="lg:col-span-2 bg-gradient-to-br from-[#003366] to-[#004080] rounded-[2rem] p-6 lg:p-10 text-white relative overflow-hidden group border border-white/10"
+        :style="cmsConfig?.member?.portal?.heroBg ? { backgroundImage: `url(${cmsConfig.member.portal.heroBg})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}"
+      >
+        <div v-if="!cmsConfig?.member?.portal?.heroBg" class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-700"></div>
+        <div v-else class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
         <div class="relative z-10 space-y-6">
           <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/10">
             <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
             <span class="text-xs font-bold lowercase">scientific network active</span>
           </div>
           <h1 class="text-4xl font-bold tracking-tight leading-none">
-            Welcome Back, <br/> <span class="text-brand-cyan">{{ user?.fullName?.split(' ')[0] || 'Practitioner' }}</span>
+            {{ cmsConfig?.member?.portal?.welcomeTitle || 'Welcome Back,' }} <br/> <span class="text-brand-cyan">{{ user?.fullName?.split(' ')[0] || 'Practitioner' }}</span>
           </h1>
           <p class="text-white/80 text-sm font-medium max-w-md leading-relaxed">
-            Your credentials have been re-validated for the 2026 diagnostic cycle. You have access to the latest pathological archives.
+            {{ cmsConfig?.member?.portal?.welcomeSubtitle || 'Your credentials have been re-validated for the current diagnostic cycle. You have access to the latest pathological archives.' }}
           </p>
           <div class="flex items-center gap-6 pt-4">
             <NuxtLink to="/dashboard/library" class="bg-brand-cyan text-[#003366] px-8 py-3 rounded-xl text-xs font-bold hover:scale-105 transition-all">Explore Archives</NuxtLink>
@@ -113,10 +117,10 @@
         <h3 class="text-sm font-bold text-slate-500 lowercase">quick support</h3>
         <div class="bg-white p-6 lg:p-8 rounded-[2rem] border border-slate-200 space-y-6">
            <div class="space-y-2">
-             <h4 class="text-sm font-bold text-[#003366]">Scientific Abstract Due</h4>
-             <p class="text-xs text-slate-500 font-medium leading-relaxed">The International Scientific Congress abstract submission closes in 14 days.</p>
+             <h4 class="text-sm font-bold text-[#003366]">{{ cmsConfig?.member?.portal?.announcementTitle || 'Scientific Abstract Due' }}</h4>
+             <p class="text-xs text-slate-500 font-medium leading-relaxed">{{ cmsConfig?.member?.portal?.announcementText || 'The International Scientific Congress abstract submission is currently open for members.' }}</p>
            </div>
-           <NuxtLink to="/dashboard/abstracts" class="block w-full text-center bg-[#003366] text-white py-4 rounded-xl text-sm font-bold hover:bg-[#004080] transition-all">Submit Abstract Now</NuxtLink>
+           <NuxtLink :to="cmsConfig?.member?.portal?.announcementLink || '/dashboard/abstracts'" class="block w-full text-center bg-[#003366] text-white py-4 rounded-xl text-sm font-bold hover:bg-[#004080] transition-all">Take Action</NuxtLink>
            <div class="h-[1px] bg-slate-100"></div>
            <div class="flex items-center gap-4 text-slate-500 hover:text-[#003366] cursor-pointer transition-colors">
               <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
@@ -132,6 +136,7 @@
 
 <script setup>
 import { useLibrary } from '@/composables/useLibrary'
+import { useCMS } from '@/composables/useCMS'
 
 definePageMeta({
   layout: 'dashboard'
@@ -139,12 +144,9 @@ definePageMeta({
 
 const { user } = useUser()
 const { publications, trackRead } = useLibrary()
+const { cmsConfig } = useCMS()
 
 const statusClass = computed(() => {
-  const status = user.value?.status || 'Active'
-  switch (status) {
-    case 'Active': return 'bg-emerald-50 text-emerald-600 border border-emerald-100'
-    case 'Pending': return 'bg-amber-50 text-amber-600 border border-amber-100'
   const status = user.value?.status?.toLowerCase() || 'active'
   return status === 'active' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-amber-50 text-amber-600 border border-amber-100'
 })

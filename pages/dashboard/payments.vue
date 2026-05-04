@@ -2,8 +2,8 @@
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Payments</h1>
-        <p class="text-slate-500 font-medium mt-1 text-sm">Manage your membership dues, conference tickets, and transaction history.</p>
+        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">{{ cmsConfig?.member?.pages?.payments?.title || 'Payments' }}</h1>
+        <p class="text-slate-500 font-medium mt-1 text-sm">{{ cmsConfig?.member?.pages?.payments?.subtitle || 'Manage your membership dues, conference tickets, and transaction history.' }}</p>
       </div>
       <button @click="showPaymentModal = true" class="btn-premium flex items-center gap-2">
         <Icon name="lucide:plus" size="18" />
@@ -156,6 +156,9 @@
 <script setup>
 import { ref } from 'vue'
 import { useCustomToast } from '@/composables/core/useCustomToast'
+import { useCMS } from '@/composables/useCMS'
+
+const { cmsConfig } = useCMS()
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth'

@@ -40,7 +40,7 @@
              <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg text-xs font-bold mt-1">Verified Practitioner</span>
           </div>
           <p class="text-sm font-semibold text-slate-400">{{ user?.category || 'General' }} Member • Registry ID: {{ user?.membershipId || 'SC-PENDING' }}</p>
-          <p class="text-sm font-medium text-slate-500 max-w-xl leading-relaxed italic">"{{ profileData.bio || 'Scientific bio not yet provided. Update your profile to showcase your expertise.' }}"</p>
+          <p class="text-sm font-medium text-slate-500 max-w-xl leading-relaxed italic">"{{ profileData.bio || cmsConfig?.member?.pages?.portfolio?.subtitle || 'Scientific bio not yet provided. Update your profile to showcase your expertise.' }}"</p>
         </div>
 
         <div class="flex flex-col gap-3 min-w-[200px]">
@@ -210,6 +210,9 @@ import { useUploadFile } from '@/composables/useUploadFile'
 import { useCustomToast } from '@/composables/core/useCustomToast'
 import { members_api } from '@/api_factory/modules/members'
 import { media_api } from '@/api_factory/modules/media'
+import { useCMS } from '@/composables/useCMS'
+
+const { cmsConfig } = useCMS()
 
 definePageMeta({
   layout: 'dashboard'
