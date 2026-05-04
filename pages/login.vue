@@ -1,105 +1,109 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex items-center justify-center p-6 lg:p-12 relative overflow-hidden font-sans">
-    <!-- Sophisticated Background Decor -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-      <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#003366]/5 rounded-full blur-[100px]"></div>
-      <div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#00707E]/5 rounded-full blur-[100px]"></div>
+  <div class="min-h-screen bg-slate-50 flex font-sans selection:bg-brand-cyan/20 overflow-hidden">
+    <!-- Left: Artistic Scientific Narrative -->
+    <div class="hidden lg:flex lg:w-1/2 relative bg-brand-dark items-center justify-center p-20 overflow-hidden">
+      <div class="absolute inset-0 opacity-40">
+        <img src="/images/hero/1.png" class="w-full h-full object-cover animate-pulse duration-[10000ms]" />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-tr from-[#033958] via-transparent to-transparent"></div>
+      
+      <div class="relative z-10 space-y-12 animate-in fade-in slide-in-from-bottom-12">
+        <div class="h-20 w-20 bg-white rounded-3xl flex items-center justify-center text-[#033958] font-black text-3xl">
+          SC
+        </div>
+        <div class="space-y-6">
+          <h1 class="text-6xl font-black text-white tracking-tighter leading-none">
+            Welcome <br/> <span class="text-brand-cyan">Back</span>.
+          </h1>
+          <p class="text-xl text-white/50 font-medium max-w-md leading-relaxed">
+            Sign in to access your SCPSN account.
+          </p>
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="flex -space-x-3">
+             <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-brand-dark bg-slate-200"></div>
+          </div>
+          <p class="text-sm font-semibold text-white/60">500+ members joined</p>
+        </div>
+      </div>
     </div>
 
-    <main class="w-full max-w-[440px] relative z-10">
-      <!-- Branding & Title -->
-      <header class="text-center mb-10 space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white shadow-sm border border-slate-200">
-          <LucideShieldCheck :size="14" class="text-[#003366]" />
-          <span class="text-xs font-bold text-slate-500">Practitioner Portal</span>
-        </div>
-        <h1 class="text-4xl font-bold text-slate-800 tracking-tight">
-          SCPSN <span class="text-[#003366]">Member Login</span>
-        </h1>
-        <p class="text-slate-500 text-sm font-medium leading-relaxed px-4">
-          Access your professional dashboard and scientific resources.
-        </p>
-      </header>
-      
-      <!-- Professional White Login Card -->
-      <section class="bg-white border border-slate-200 p-10 lg:p-12 rounded-3xl shadow-xl shadow-slate-200/40">
-        <form @submit.prevent="handleLogin" class="space-y-6">
-          <!-- Email Field -->
-          <AnimatedInput 
-            v-model="form.email" 
-            type="email" 
-            label="Email Address"
-            placeholder="practitioner@institution.edu.ng"
-          >
-            <template #right>
-              <LucideMail :size="18" class="text-slate-400 group-focus-within:text-[#003366] transition-colors" />
-            </template>
-          </AnimatedInput>
-
-          <!-- Password Field -->
-          <div class="relative">
-            <AnimatedInput 
-              v-model="form.password" 
-              type="password" 
-              label="Password"
-              placeholder="••••••••••••"
-            />
-            <!-- <button type="button" class="absolute right-12 top-[18px] text-[10px] font-bold text-[#003366] uppercase tracking-widest hover:underline z-20 transition-colors">Forgot?</button> -->
+    <!-- Right: Authentication Portal -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-24 bg-white relative">
+      <div class="w-full max-w-md space-y-12 relative z-10">
+        <header class="space-y-4">
+          <div class="inline-flex items-center gap-3 px-5 py-2 bg-slate-50 border border-slate-100 rounded-full">
+            <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
+            <span class="text-xs font-semibold text-slate-500">Secure Connection</span>
           </div>
+          <h2 class="text-4xl font-black text-[#033958] tracking-tighter leading-none">Sign In.</h2>
+          <p class="text-sm text-slate-500 font-medium leading-relaxed">Enter your details below to continue.</p>
+        </header>
 
-          <!-- Login Action -->
-          <div class="pt-4">
-            <button 
-              type="submit" 
-              :disabled="loading"
-              class="w-full flex items-center justify-center gap-4 bg-[#003366] hover:bg-[#004080] text-white py-3.5 rounded-xl text-sm font-bold shadow-md transition-all active:scale-95 disabled:opacity-50"
-            >
-              <span v-if="loading" class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
-              <span v-else class="flex items-center gap-2">
-                Sign In
-                <LucideArrowRight :size="16" />
-              </span>
-            </button>
-          </div>
+        <form @submit.prevent="handleLogin" class="space-y-8">
+           <div class="space-y-6">
+              <div class="space-y-3">
+                 <AnimatedInput 
+                    v-model="form.email" 
+                    type="email" 
+                    label="Email Address"
+                    placeholder="john@example.com" 
+                 >
+                    <template #right>
+                      <Icon name="lucide:mail" class="text-slate-300 group-focus-within:text-brand-cyan transition-colors" :size="20" />
+                    </template>
+                 </AnimatedInput>
+              </div>
+
+              <div class="space-y-3">
+                 <div class="flex justify-between items-center mb-1">
+                     <NuxtLink to="/forgot-password" class="text-xs font-semibold text-brand-cyan hover:underline ml-auto">Forgot Password?</NuxtLink>
+                 </div>
+                 <AnimatedInput 
+                    v-model="form.password" 
+                    type="password" 
+                    label="Password"
+                    placeholder="••••••••••••" 
+                 />
+              </div>
+           </div>
+
+           <button 
+             type="submit" 
+             :disabled="loading"
+             class="w-full bg-[#033958] text-white py-3 rounded-[32px] font-bold text-base flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:scale-100"
+           >
+             <span v-if="loading" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+             <span v-else>Sign In</span>
+             <Icon v-if="!loading" name="lucide:arrow-right" :size="18" />
+           </button>
         </form>
 
-        <footer class="mt-10 pt-8 border-t border-slate-100 italic text-center">
-          <p class="text-slate-400 text-[11px] font-medium leading-relaxed">
-            "Advancing Pathology through Scientific Excellence & Innovation"
-          </p>
-        </footer>
-      </section>
-
-      <!-- Redirect to Signup -->
-      <nav class="mt-8 text-center">
-        <p class="text-slate-500 text-xs font-medium">
-          Not yet a registered member? 
-          <NuxtLink to="/signup" class="text-[#003366] font-bold hover:underline">Apply for Membership</NuxtLink>
-        </p>
-      </nav>
-    </main>
-
-    <!-- Bottom Attribution -->
-    <footer class="absolute bottom-8 left-0 w-full text-center">
-      <p class="text-xs font-bold text-slate-300">&copy; 2024 Society of Clinical Pathologists</p>
-    </footer>
+        <div class="text-center">
+           <p class="text-sm font-medium text-slate-500 leading-relaxed">
+              Don't have an account? 
+              <NuxtLink to="/signup" class="text-brand-cyan font-bold hover:underline ml-2">Create an account</NuxtLink>
+           </p>
+        </div>
+      </div>
+      
+      <!-- Subtle Bottom Attribution -->
+      <footer class="absolute bottom-12 left-1/2 -translate-x-1/2 w-full text-center px-6">
+         <p class="text-xs font-semibold text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria</p>
+      </footer>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import { 
-  LucideMail, 
-  LucideLock, 
-  LucideArrowRight,
-  LucideShieldCheck
-} from 'lucide-vue-next'
-import AnimatedInput from '@/components/AnimatedInput.vue'
+import { ref, reactive } from 'vue'
+// Lucide icons are auto-imported by lucide-nuxt module
 import { useLogin } from '@/composables/modules/auth/useLogin'
 import { useRouter } from 'vue-router'
 
 const { loading, login } = useLogin()
 const router = useRouter()
+const showPassword = ref(false)
 
 const form = reactive({
   email: '',
@@ -112,5 +116,24 @@ const handleLogin = async () => {
     router.push('/dashboard')
   }
 }
+
+definePageMeta({
+  layout: 'auth'
+})
 </script>
 
+<style scoped>
+.animate-in {
+  animation: slideIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+::selection {
+  background: #00b8d4;
+  color: #033958;
+}
+</style>

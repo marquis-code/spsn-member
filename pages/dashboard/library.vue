@@ -1,185 +1,267 @@
 <template>
-  <div class="space-y-10 max-w-7xl mx-auto animate-fade-in">
-    <!-- Search and Filter Header -->
-    <header class="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-xl shadow-slate-200/20 flex flex-col md:flex-row gap-8 items-center justify-between">
-      <div class="flex-1 min-w-0">
-        <h1 class="text-3xl font-bold text-slate-800 tracking-tight leading-none">Digital Library</h1>
-        <p class="text-sm font-semibold text-slate-400 mt-2">Authenticated Access to SCPSN Scientific Archives</p>
+  <div class="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div>
+        <h1 class="text-4xl font-black text-slate-800 tracking-tight">Scientific Library</h1>
+        <p class="text-slate-500 font-medium mt-1">Access the national archive of journals, protocols, and research papers.</p>
       </div>
       
-      <div class="flex items-center gap-4 w-full md:w-auto">
-        <div class="relative flex-1 md:w-80 group">
+      <div class="flex items-center gap-4">
+        <div class="relative group min-w-[300px]">
           <input 
+            type="text" 
             v-model="searchQuery"
-            placeholder="Search publications..."
-            class="w-full bg-slate-50 border border-slate-100 py-4 pl-12 pr-6 rounded-2xl text-[11px] font-bold text-slate-600 focus:ring-4 focus:ring-brand-cyan/5 focus:border-brand-cyan/20 outline-none transition-all placeholder:text-slate-300"
+            placeholder="Search publications..." 
+            class="w-full h-12 pl-12 pr-4 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-[#003366]/5 focus:border-[#003366]/20 transition-all shadow-sm"
           />
-          <Icon name="lucide:search" size="18" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-cyan transition-colors" />
+          <Icon name="lucide:search" size="18" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#003366] transition-colors" />
         </div>
-        
-        <select v-model="selectedCategory" class="bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl text-xs font-bold text-[#003366] outline-none hover:border-brand-cyan/20 transition-all cursor-pointer">
-          <option value="all">All Categories</option>
-          <option value="journal">Scientific Journals</option>
-          <option value="guidelines">Clinical Guidelines</option>
-          <option value="monograph">Monographs</option>
-          <option value="digest">Congress Digests</option>
-        </select>
       </div>
-    </header>
-
-    <!-- Restricted Access Message (If Pending) -->
-    <div v-if="user?.status !== 'Active'" class="bg-amber-50 border border-amber-200 rounded-2xl p-8 flex items-center gap-8 shadow-lg shadow-amber-500/5">
-       <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-amber-500 shadow-sm shrink-0 border border-amber-100">
-         <Icon name="lucide:lock" size="28" />
-       </div>
-       <div class="space-y-1">
-          <h4 class="text-sm font-bold text-amber-900">Access Restricted • Verification Required</h4>
-          <p class="text-xs text-amber-700/80 font-medium leading-relaxed">Full access to the digital library is exclusive to active members. Your status is currently <span class="font-bold text-amber-900">Pending</span>. Please complete your registration documents to unlock the archives.</p>
-       </div>
-       <NuxtLink to="/dashboard/portfolio" class="ml-auto bg-amber-500 text-white px-8 py-3 rounded-xl text-xs font-bold hover:bg-amber-600 transition-all whitespace-nowrap">Verify Status</NuxtLink>
     </div>
 
-    <!-- Library Grid -->
-    <div v-if="filteredPublications.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-       <div 
-        v-for="pub in filteredPublications" 
-        :key="pub.title"
-        class="bg-white rounded-[2rem] border border-slate-200 p-8 flex flex-col group hover:border-brand-cyan/20 hover:shadow-2xl transition-all relative"
-        :class="user?.status !== 'Active' ? 'opacity-50 grayscale pointer-events-none' : 'cursor-pointer'"
+    <!-- Categories Tab -->
+    <div class="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar">
+       <button 
+         v-for="cat in ['All', 'Journal', 'Research', 'Digest', 'Guidelines']" 
+         :key="cat"
+         @click="activeCategory = cat"
+         :class="[
+           'px-6 py-2.5 rounded-xl text-xs font-black transition-all border shrink-0',
+           activeCategory === cat ? 'bg-[#003366] text-white border-[#003366] shadow-lg shadow-[#003366]/20' : 'bg-white text-slate-400 border-slate-100 hover:border-slate-300'
+         ]"
        >
-         <!-- Category Tag -->
-         <div class="mb-6 flex justify-between items-start">
-            <span class="px-3 py-1 bg-slate-50 border border-slate-100 rounded-lg text-[8px] font-black text-brand-cyan uppercase tracking-widest">{{ pub.category }}</span>
-            <button class="p-2 text-slate-300 hover:text-[#003366] transition-colors"><Icon name="lucide:bookmark" size="18" /></button>
-         </div>
+         {{ cat }}
+       </button>
+    </div>
 
-         <!-- Thumbnail / Icon -->
-         <div class="w-full aspect-[4/5] bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 mb-8 relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 shadow-inner">
-            <Icon name="lucide:book-marked" size="48" class="text-slate-200" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent"></div>
-         </div>
+    <!-- Recent Reads Section (List Format) -->
+    <section v-if="recentReads.length > 0" class="space-y-6">
+       <div class="flex items-center gap-3">
+          <Icon name="lucide:history" size="18" class="text-brand-cyan" />
+          <h3 class="text-xs font-black text-slate-400">Continue reading</h3>
+       </div>
+       <div class="space-y-3">
+          <div 
+            v-for="pub in recentReads" 
+            :key="'recent-'+pub.id"
+            @click="openReader(pub)"
+            class="bg-white p-4 rounded-2xl border border-slate-100 hover:border-brand-cyan transition-all cursor-pointer group shadow-sm flex items-center gap-6"
+          >
+             <div class="w-12 h-14 bg-slate-50 rounded-xl relative overflow-hidden flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-[#003366] group-hover:text-white transition-all duration-300">
+                <Icon name="lucide:file-text" size="20" />
+                <div class="absolute inset-x-0 bottom-0 h-1.5 bg-brand-cyan"></div>
+             </div>
+             <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-3">
+                   <h4 class="text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-brand-cyan transition-colors">{{ pub.title }}</h4>
+                   <span class="px-2 py-0.5 rounded-md text-[8px] font-black bg-slate-100 text-slate-500">{{ pub.category }}</span>
+                </div>
+                <p class="text-[10px] font-medium text-slate-400 mt-0.5">Last opened on {{ pub.date }} • {{ pub.pages }} pages</p>
+             </div>
+             <div class="px-4 py-2 bg-slate-50 rounded-xl text-[10px] font-black text-slate-400 group-hover:text-[#003366] transition-colors">
+                Resume Reading
+             </div>
+          </div>
+       </div>
+    </section>
 
-         <!-- Meta -->
-         <div class="space-y-3 flex-grow">
-            <h3 class="text-sm font-bold text-slate-800 tracking-tight leading-tight line-clamp-2 group-hover:text-[#003366] transition-colors">{{ pub.title }}</h3>
-            <p class="text-[10px] text-slate-400 font-medium leading-relaxed line-clamp-3 italic">"{{ pub.description }}"</p>
-         </div>
-
-         <div class="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
-            <div class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">
-              {{ pub.publishDate }}
-            </div>
-            <button 
-              @click="download(pub)"
-              class="flex items-center gap-3 text-[9px] font-black text-[#003366] uppercase tracking-widest group-hover:text-brand-cyan transition-colors"
+    <!-- Main Library Table -->
+    <div class="bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden shadow-sm">
+      <div class="overflow-x-auto custom-scrollbar-light">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50/50 border-b border-slate-100">
+              <th class="px-8 py-6 text-[10px] font-black text-slate-400">Scientific title</th>
+              <th class="px-8 py-6 text-[10px] font-black text-slate-400">Category</th>
+              <th class="px-8 py-6 text-[10px] font-black text-slate-400">Authors</th>
+              <th class="px-8 py-6 text-[10px] font-black text-slate-400">Engagement</th>
+              <th class="px-8 py-6 text-[10px] font-black text-slate-400 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-50">
+            <tr 
+              v-for="pub in filteredPublications" 
+              :key="pub.id"
+              class="hover:bg-slate-50/50 transition-all group"
             >
-              Secure Link
-              <Icon name="lucide:external-link" size="14" />
+              <td class="px-8 py-6">
+                <div class="flex items-center gap-4">
+                   <div class="w-10 h-12 bg-slate-50 rounded-lg flex items-center justify-center border border-slate-100 group-hover:bg-[#003366] group-hover:text-white transition-all duration-300">
+                      <Icon name="lucide:file-text" size="18" />
+                   </div>
+                   <div class="min-w-0">
+                      <h4 class="text-sm font-bold text-slate-800 tracking-tight group-hover:text-brand-cyan transition-colors truncate max-w-md">{{ pub.title }}</h4>
+                      <p class="text-[11px] font-medium text-slate-400 mt-0.5">{{ pub.date }} • {{ pub.size }}</p>
+                   </div>
+                </div>
+              </td>
+              <td class="px-8 py-6">
+                <span :class="[
+                  'px-3 py-1 rounded-lg text-[9px] font-black border whitespace-nowrap',
+                  pub.category === 'Journal' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                  pub.category === 'Research' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
+                  pub.category === 'Guidelines' ? 'bg-rose-50 text-rose-600 border-rose-100' :
+                  'bg-amber-50 text-amber-600 border-amber-100'
+                ]">
+                  {{ pub.category }}
+                </span>
+              </td>
+              <td class="px-8 py-6">
+                <p class="text-xs font-semibold text-slate-500 truncate max-w-[200px]">{{ pub.authors }}</p>
+              </td>
+              <td class="px-8 py-6">
+                <div class="flex items-center gap-4 text-[10px] font-black text-slate-400">
+                   <div class="flex items-center gap-1.5">
+                      <Icon name="lucide:book-open" size="14" class="text-slate-300" />
+                      {{ pub.pages }} p
+                   </div>
+                   <div class="flex items-center gap-1.5">
+                      <Icon name="lucide:eye" size="14" class="text-slate-300" />
+                      {{ pub.readCount }}
+                   </div>
+                </div>
+              </td>
+              <td class="px-8 py-6">
+                <div class="flex items-center justify-end gap-2">
+                   <button 
+                     @click="openReader(pub)"
+                     class="px-4 py-2 bg-[#003366] text-white rounded-lg text-[10px] font-black hover:bg-[#002244] transition-all flex items-center gap-2"
+                   >
+                      <Icon name="lucide:glasses" size="14" />
+                      Read
+                   </button>
+                   <button class="w-10 h-10 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-400 hover:text-brand-cyan hover:border-brand-cyan transition-all">
+                      <Icon name="lucide:download" size="16" />
+                   </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div v-if="filteredPublications.length === 0" class="p-20 text-center">
+           <Icon name="lucide:search-x" size="48" class="text-slate-200 mx-auto mb-4" />
+           <p class="text-sm font-bold text-slate-400">No publications match your search criteria.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scientific Reader Overlay -->
+    <SideDrawer 
+      :isOpen="isReaderOpen" 
+      :title="selectedPub?.title" 
+      :subtitle="selectedPub?.category + ' • ' + selectedPub?.authors"
+      @close="isReaderOpen = false"
+    >
+      <div v-if="selectedPub" class="space-y-12 pb-20">
+         <!-- Document Stats -->
+         <div class="grid grid-cols-4 gap-4">
+            <div v-for="(val, lab) in { Pages: selectedPub.pages, Size: selectedPub.size, Date: selectedPub.date, Reads: selectedPub.readCount }" :key="lab" class="p-4 bg-white border border-slate-100 rounded-2xl text-center">
+               <p class="text-[10px] font-black text-slate-400">{{ lab }}</p>
+               <p class="text-xs font-bold text-[#003366] mt-1">{{ val }}</p>
+            </div>
+         </div>
+
+         <!-- Abstract / Summary -->
+         <div class="space-y-4">
+            <h4 class="text-xs font-black text-slate-400 flex items-center gap-2">
+               <Icon name="lucide:info" size="14" class="text-brand-cyan" />
+               Executive Summary
+            </h4>
+            <div class="bg-blue-50/30 p-8 rounded-[2rem] border border-blue-100/50">
+               <p class="text-base text-slate-700 leading-relaxed italic font-serif">
+                  "{{ selectedPub.desc }} This document provides a comprehensive analysis for practitioners in the field of cellular pathology. It covers the latest diagnostic frameworks and standardizes the reporting protocols as of {{ selectedPub.date }}."
+               </p>
+            </div>
+         </div>
+
+         <!-- Content Simulator -->
+         <div class="space-y-8 bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -z-10"></div>
+            <div class="space-y-6">
+               <div v-for="i in 5" :key="i" class="space-y-3">
+                  <div class="h-4 bg-slate-100 rounded-full w-1/3"></div>
+                  <div class="space-y-2">
+                     <div class="h-2.5 bg-slate-50 rounded-full w-full"></div>
+                     <div class="h-2.5 bg-slate-50 rounded-full w-5/6"></div>
+                     <div class="h-2.5 bg-slate-50 rounded-full w-4/6"></div>
+                  </div>
+               </div>
+            </div>
+            <!-- Immersive Warning -->
+            <div class="absolute inset-0 bg-white/60 backdrop-blur-sm flex items-center justify-center p-12 text-center">
+               <div class="max-w-xs space-y-4">
+                  <Icon name="lucide:lock" size="32" class="text-[#003366] mx-auto" />
+                  <h4 class="text-lg font-bold text-slate-800">Secure Document Viewer</h4>
+                  <p class="text-sm text-slate-500 font-medium">To maintain scientific integrity, full documents are available in PDF format for verified practitioners.</p>
+                  <button class="w-full bg-[#003366] text-white py-4 rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex items-center justify-center gap-2">
+                     <Icon name="lucide:file-down" size="16" />
+                     Download Full Paper
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <template #footer>
+         <div class="flex gap-3">
+            <button @click="isReaderOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold">Close Reader</button>
+            <button class="flex-1 py-3 bg-brand-cyan text-[#003366] rounded-xl text-xs font-bold hover:scale-[1.02] transition-all flex justify-center items-center gap-2">
+               <Icon name="lucide:share-2" size="16" />
+               Share Archive
             </button>
          </div>
-       </div>
-    </div>
-
-    <!-- Empty State -->
-    <div v-else class="py-40 text-center flex flex-col items-center justify-center bg-white rounded-[4rem] border border-slate-100 shadow-inner group">
-       <div class="w-24 h-24 bg-slate-50 rounded-[2.5rem] flex items-center justify-center border border-slate-100 mb-8 group-hover:rotate-12 transition-transform duration-500">
-         <Icon name="lucide:file-search" size="32" class="text-slate-200" />
-       </div>
-       <h3 class="text-lg font-bold text-slate-800 tracking-tight mb-2">No scientific matches found</h3>
-       <p class="text-xs text-slate-400 font-medium max-w-xs mx-auto leading-relaxed">Adjust your search parameters or filter by a different scientific category.</p>
-       <button @click="resetFilters" class="mt-8 text-sm font-bold text-brand-cyan hover:underline">Reset Diagnostic Filter</button>
-    </div>
+      </template>
+    </SideDrawer>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
+import { useLibrary } from '@/composables/useLibrary'
+
 definePageMeta({
-  layout: 'dashboard'
+  layout: 'dashboard',
+  middleware: 'auth'
 })
 
-const { user } = useUser()
-
+const { publications, recentReads, trackRead } = useLibrary()
 const searchQuery = ref('')
-const selectedCategory = ref('all')
-const publications = ref([])
-
-onMounted(async () => {
-  try {
-    const config = useRuntimeConfig()
-    const apiBase = config.public.apiBase || 'http://localhost:3000/api'
-    const siteConfig = await $fetch(`${apiBase}/cms/config`)
-    publications.value = siteConfig.publications || [
-      { 
-        title: 'Cytopathology National Journal v4', 
-        description: 'Comprehensive analysis of diagnostic variances in tropical cellular pathology.', 
-        category: 'journal', 
-        publishDate: 'Mar 2026',
-        fileUrl: '#'
-      },
-      { 
-        title: 'Diagnostic Safety Standards 2026', 
-        description: 'New safety protocols for laboratory practitioners across Nigeria.', 
-        category: 'guidelines', 
-        publishDate: 'Feb 2026',
-        fileUrl: '#'
-      },
-      { 
-        title: 'SCPSN Scientific Digest', 
-        description: 'Key highlights and abstracts from the 2025 International Congress.', 
-        category: 'digest', 
-        publishDate: 'Jan 2026',
-        fileUrl: '#'
-      },
-      { 
-        title: 'Advanced Microscopy Monograph', 
-        description: 'A deep dive into electron microscopy advancements in cellular science.', 
-        category: 'monograph', 
-        publishDate: 'Dec 2025',
-        fileUrl: '#'
-      }
-    ]
-  } catch (err) {
-    console.error('Library fetch error:', err)
-  }
-})
+const activeCategory = ref('All')
+const isReaderOpen = ref(false)
+const selectedPub = ref(null)
 
 const filteredPublications = computed(() => {
   return publications.value.filter(pub => {
     const matchesSearch = pub.title.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
-                          pub.description.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchesCategory = selectedCategory.value === 'all' || pub.category === selectedCategory.value
+                         pub.authors.toLowerCase().includes(searchQuery.value.toLowerCase())
+    const matchesCategory = activeCategory.value === 'All' || pub.category === activeCategory.value
     return matchesSearch && matchesCategory
   })
 })
 
-const resetFilters = () => {
-  searchQuery.value = ''
-  selectedCategory.value = 'all'
-}
-
-const download = (pub) => {
-  if (user.value?.status !== 'Active') {
-    alert('Full access is restricted. Please complete your registration verification.')
-    return
-  }
-  // Logic to open/download PDF would go here
-  if (pub.fileUrl !== '#') window.open(pub.fileUrl, '_blank')
-  else alert('Scientific Link not yet active for this publication. Please check back shortly.')
+const openReader = (pub) => {
+  selectedPub.value = pub
+  isReaderOpen.value = true
+  trackRead(pub)
 }
 </script>
 
 <style scoped>
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+.animate-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-::selection {
-  background: #00b8d4;
-  color: #003366;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>

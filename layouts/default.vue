@@ -1,14 +1,13 @@
 <template>
   <div class="min-h-screen bg-slate-50">
     <slot />
-    <AIChatWidget />
-    <Toast />
+    <LazyAIChatWidget />
+    <LazyToast />
   </div>
 </template>
 
 <script setup>
-import Toast from '@/components/core/Toast.vue'
-import AIChatWidget from '@/components/AIChatWidget.vue'
+// Nuxt auto-imports components
 </script>
 
 <style>

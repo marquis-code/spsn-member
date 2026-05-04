@@ -17,7 +17,7 @@
             <span class="text-lg">{{ selectedCountry.flag }}</span>
             <span>{{ selectedCountry.dialCode }}</span>
           </span>
-          <LucideChevronDown :size="14" class="text-slate-400" />
+          <Icon name="lucide:chevron-down" :size="14" class="text-slate-400" />
         </button>
 
         <!-- Dropdown menu -->
@@ -66,7 +66,7 @@
 
       <!-- Icon indicator -->
       <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-        <LucidePhone :size="18" :class="error ? 'text-red-400' : 'text-slate-300 group-focus-within:text-[#003366] transition-colors'" />
+        <Icon name="lucide:phone" :size="18" :class="error ? 'text-red-400' : 'text-slate-300 group-focus-within:text-[#003366] transition-colors'" />
       </div>
     </div>
 
@@ -88,7 +88,6 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { LucideChevronDown, LucidePhone } from 'lucide-vue-next'
 
 const props = defineProps({
   modelValue: String,

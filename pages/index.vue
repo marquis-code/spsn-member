@@ -1,175 +1,200 @@
 <template>
-  <div class="min-h-screen bg-white font-sans text-slate-900 selection:bg-brand-cyan/20 selection:text-brand-dark overflow-x-hidden">
-    <!-- Ultra-Compact Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-[100] transition-all duration-500 py-4" :class="isScrolled ? 'glass py-3 shadow-xl shadow-brand-dark/5' : 'bg-transparent'">
-      <div class="container mx-auto px-6 flex justify-between items-center">
-        <div class="flex items-center gap-4 group cursor-pointer" @click="router.push('/')">
-          <div class="h-10 w-10 bg-[#003366] rounded-xl flex items-center justify-center text-brand-cyan font-black border border-white/10 shadow-lg group-hover:scale-110 transition-transform duration-500">
-             SC
-          </div>
-          <div class="hidden md:block">
-             <span class="font-black text-[#003366] uppercase tracking-[0.3em] text-[10px]">Scientific Portal</span>
-             <p class="text-[8px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Society for Cellular Pathology</p>
-          </div>
-        </div>
+  <div class="min-h-screen bg-white font-sans selection:bg-brand-cyan/20 selection:text-brand-dark overflow-x-hidden">
+    <!-- Sophisticated Navigation -->
+    <Header />
 
-        <nav class="hidden lg:flex items-center gap-8">
-          <a v-for="link in ['Vision', 'Benefits', 'Pathways', 'Network']" :key="link" :href="'#'+link.toLowerCase()" class="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-[#003366] transition-colors relative group">
-            {{ link }}
-            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-cyan transition-all duration-300 group-hover:w-full"></span>
-          </a>
-        </nav>
+    <!-- Master Carousel Hero -->
+    <section class="h-screen relative overflow-hidden bg-brand-dark">
+      <div v-for="(slide, i) in slides" :key="i" class="absolute inset-0 transition-all duration-[1500ms] ease-in-out" :class="currentSlide === i ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-110'">
+        <img :src="slide.image" class="absolute inset-0 w-full h-full object-cover" />
+        <!-- Sophisticated Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#033958] via-[#033958]/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent h-40"></div>
+        
+        <div class="container mx-auto px-6 h-full flex items-center relative z-20">
+          <div class="max-w-4xl space-y-8" :class="currentSlide === i ? 'animate-in fade-in slide-in-from-bottom-12 duration-1000' : 'opacity-0'">
+            <div class="inline-flex items-center gap-3 px-4 py-1.5 glass-dark rounded-lg border border-white/10">
+              <span class="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-pulse"></span>
+              <span class="text-sm font-semibold text-white/90">{{ slide.tagline }}</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-[90px] font-black text-white tracking-tighter leading-[0.9]">
+              {{ slide.titlePart1 }} <br/> <span class="text-brand-cyan">{{ slide.titlePart2 }}</span>.
+            </h1>
+            
+            <p class="text-lg md:text-xl text-white/70 font-medium max-w-2xl leading-relaxed">
+              {{ slide.description }}
+            </p>
 
-        <div class="flex items-center gap-4">
-          <NuxtLink to="/login" class="text-[9px] font-black uppercase tracking-widest text-[#003366] hover:text-brand-cyan transition-colors">
-            Portal Login
-          </NuxtLink>
-          <NuxtLink to="/signup" class="bg-[#003366] text-white px-6 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#003366]/20 hover:bg-[#004080] transition-all">
-            Join Network
-          </NuxtLink>
-        </div>
-      </div>
-    </header>
-
-    <!-- Deep Hero Section -->
-    <section class="min-h-screen flex items-center relative overflow-hidden bg-[#003366]">
-      <img src="https://images.unsplash.com/photo-1532187875605-1ef6c20090d8?q=80&w=2070&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay grayscale" />
-      <div class="absolute inset-0 bg-gradient-to-br from-[#003366] via-[#003366]/90 to-transparent"></div>
-      
-      <div class="container mx-auto px-6 relative z-10 pt-20">
-        <div class="max-w-4xl space-y-8 animate-fade-in">
-          <div class="inline-flex items-center gap-3 px-4 py-1.5 glass-dark rounded-full border border-white/10">
-            <span class="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-pulse shadow-[0_0_10px_rgba(0,184,212,0.8)]"></span>
-            <span class="text-[9px] font-black text-white/70 uppercase tracking-widest">Enrollment Cycle 2026 Active</span>
-          </div>
-          
-          <h1 class="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] uppercase">
-            Advancing <br/> <span class="text-brand-cyan">Diagnostic</span> <br/> Mastery.
-          </h1>
-          
-          <p class="text-lg md:text-xl text-white/60 font-medium max-w-2xl leading-relaxed">
-            The elite registry for practitioners of Cellular Pathology Scientists in Nigeria. Validating credentials, fostering research, and leading laboratory excellence.
-          </p>
-
-          <div class="flex flex-wrap items-center gap-6 pt-4">
-            <NuxtLink to="/signup" class="bg-brand-cyan text-[#003366] px-10 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-brand-cyan/20 hover:scale-105 transition-all">
-              Begin Enrollment Process
-            </NuxtLink>
-            <a href="#benefits" class="flex items-center gap-3 text-[10px] font-black text-white hover:text-brand-cyan transition-colors uppercase tracking-widest">
-              Review Membership Tiers
-              <LucideArrowRight :size="16" />
-            </a>
-          </div>
-
-          <div class="pt-12 grid grid-cols-3 gap-12 max-w-2xl">
-            <div v-for="stat in stats" :key="stat.label" class="space-y-1 border-l border-white/10 pl-6">
-              <p class="text-3xl font-black text-white tracking-tighter">{{ stat.value }}</p>
-              <p class="text-[9px] font-bold text-white/40 uppercase tracking-widest">{{ stat.label }}</p>
+            <div class="flex flex-wrap items-center gap-6 pt-4">
+              <NuxtLink to="/signup" class="btn-cyan !normal-case !text-base">
+                Sign Up
+              </NuxtLink>
+              <button class="flex items-center gap-4 text-sm font-semibold text-white group">
+                <span>View pricing plans</span>
+                <div class="w-10 h-10 rounded-xl border border-white/20 flex items-center justify-center group-hover:bg-brand-cyan group-hover:border-brand-cyan group-hover:text-white transition-all">
+                  <Icon name="lucide:arrow-right" :size="16" />
+                </div>
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Carousel Navigation Dots -->
+      <div class="absolute bottom-12 left-6 md:left-24 flex gap-3 z-30">
+        <button 
+          v-for="(_, i) in slides" 
+          :key="i" 
+          @click="currentSlide = i"
+          class="h-1 rounded-full transition-all duration-700"
+          :class="currentSlide === i ? 'w-12 bg-brand-cyan' : 'w-4 bg-white/20 hover:bg-white/40'"
+        ></button>
+      </div>
     </section>
 
-    <!-- Compact Scientific Values -->
-    <section id="vision" class="py-24 bg-white relative border-b border-slate-100">
+    <!-- Core Values Section -->
+    <section id="about" class="py-32 bg-white">
        <div class="container mx-auto px-6">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-             <div v-for="(v, i) in values" :key="i" class="space-y-4 group">
-                <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-[#003366] border border-slate-100 group-hover:bg-[#003366] group-hover:text-white transition-all duration-500">
-                   <component :is="v.icon" :size="20" />
+             <div v-for="(v, i) in values" :key="i" class="space-y-6 group p-8 rounded-3xl border border-transparent hover:bg-slate-50 transition-all duration-500">
+                <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-[#033958] border border-slate-100 group-hover:bg-[#033958] group-hover:text-white transition-all duration-500">
+                   <Icon :name="v.icon" :size="24" />
                 </div>
-                <h3 class="text-sm font-black text-[#003366] uppercase tracking-wider">{{ v.title }}</h3>
-                <p class="text-slate-400 text-[11px] font-medium leading-relaxed max-w-[220px]">{{ v.desc }}</p>
+                <div class="space-y-3">
+                   <h3 class="text-lg font-semibold text-[#033958]">{{ v.title }}</h3>
+                   <p class="text-slate-500 text-sm font-medium leading-relaxed">{{ v.desc }}</p>
+                </div>
              </div>
           </div>
        </div>
     </section>
 
-    <!-- Compact Benefits -->
-    <section id="benefits" class="py-24 relative overflow-hidden">
+    <!-- Excellence Section -->
+    <section id="features" class="py-32 bg-slate-50 relative overflow-hidden">
        <div class="container mx-auto px-6">
-          <div class="flex flex-col lg:flex-row gap-20 items-center">
-             <div class="lg:w-1/2 space-y-10">
-                <div class="space-y-4">
-                   <span class="text-[9px] font-black text-brand-cyan uppercase tracking-widest">Why SCPSN Membership?</span>
-                   <h2 class="text-4xl font-black text-[#003366] tracking-tighter leading-tight uppercase">Scientific <br/> Empowerment.</h2>
-                   <p class="text-slate-400 font-medium text-xs leading-relaxed max-w-md">Access international monographs, peer-reviewed journals, and a global network of pathological excellence.</p>
+          <div class="flex flex-col lg:flex-row gap-24 items-center">
+             <div class="lg:w-1/2 space-y-12">
+                <div class="space-y-6">
+                   <span class="inline-block px-4 py-1.5 bg-[#033958]/5 text-[#033958] font-semibold text-sm rounded-lg border border-[#033958]/10">
+                      Scientific Excellence
+                   </span>
+                   <h2 class="text-5xl md:text-6xl font-black text-[#033958] tracking-tighter leading-none">Precision in <br/> <span class="text-brand-cyan">Diagnostics</span>.</h2>
+                   <p class="text-slate-500 font-medium text-lg leading-relaxed max-w-xl">
+                     We are committed to standardizing cellular pathology through rigorous research and global collaboration.
+                   </p>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                   <div v-for="b in benefits" :key="b.title" class="space-y-2 border-t border-slate-50 pt-4">
-                      <h4 class="font-black text-[#003366] uppercase tracking-tight text-[10px]">{{ b.title }}</h4>
-                      <p class="text-[10px] text-slate-400 font-medium leading-normal">{{ b.desc }}</p>
+                   <div v-for="b in benefits" :key="b.title" class="space-y-4 p-8 bg-white rounded-3xl border border-slate-100 transition-all hover:-translate-y-1">
+                      <div class="w-10 h-10 bg-brand-cyan/10 rounded-xl flex items-center justify-center text-brand-cyan">
+                        <Icon name="lucide:activity" :size="20" />
+                      </div>
+                      <h4 class="font-semibold text-[#033958] tracking-tight text-lg">{{ b.title }}</h4>
+                      <p class="text-sm text-slate-500 font-medium leading-relaxed">{{ b.desc }}</p>
                    </div>
                 </div>
              </div>
 
-             <div class="lg:w-1/2">
-                <div class="rounded-3xl overflow-hidden aspect-video relative group border border-slate-200 shadow-2xl">
-                   <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" />
-                   <div class="absolute inset-0 bg-[#003366]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <NuxtLink to="/signup" class="bg-white text-[#003366] px-8 py-3 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-xl">Secure Your Seat</NuxtLink>
-                   </div>
+             <div class="lg:w-1/2 relative">
+                <div class="rounded-[40px] overflow-hidden aspect-[4/5] relative border border-slate-200 p-4 bg-white">
+                   <img src="/images/hero/3.png" class="w-full h-full object-cover rounded-[28px]" />
+                   <div class="absolute inset-0 bg-gradient-to-t from-[#033958]/40 to-transparent m-4 rounded-[28px]"></div>
                 </div>
              </div>
           </div>
        </div>
     </section>
 
-    <!-- Pathway Selection: Compact Cards -->
-    <section id="pathways" class="py-24 bg-slate-50 relative">
+    <!-- Professional Pathways -->
+    <section id="pricing" class="py-32 bg-white">
        <div class="container mx-auto px-6">
-          <div class="text-center space-y-4 mb-20 animate-fade-in">
-             <h2 class="text-4xl font-black text-[#003366] tracking-tighter uppercase">Professional Pathways.</h2>
-             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">Select your tier to begin the automated verification process.</p>
+          <div class="max-w-2xl mx-auto text-center space-y-4 mb-20">
+             <span class="text-sm font-semibold text-brand-cyan mb-2 inline-block">Member Tiers</span>
+             <h2 class="text-5xl md:text-6xl font-black text-[#033958] tracking-tighter leading-none">Choose Your Path.</h2>
+             <p class="text-base font-medium text-slate-500">Select a professional tier to begin your enrollment.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-             <div v-for="(tier, i) in tiers" :key="i" class="bg-white p-10 rounded-2xl border border-slate-100 space-y-8 group hover:border-brand-cyan transition-all duration-500 hover:shadow-2xl">
-                <div class="space-y-4">
-                   <span class="text-[8px] font-black text-brand-cyan uppercase tracking-[0.4em]">{{ tier.tag }}</span>
-                   <h3 class="text-xl font-black text-[#003366] tracking-tight uppercase leading-none">{{ tier.title }}</h3>
+             <div v-for="(tier, i) in tiers" :key="i" class="p-10 rounded-[32px] border border-slate-100 flex flex-col space-y-8 group transition-all duration-500 hover:border-brand-cyan" :class="i === 1 ? 'bg-slate-50' : 'bg-white'">
+                <div class="space-y-3">
+                   <span class="text-sm font-semibold text-brand-cyan">{{ tier.tag }}</span>
+                   <h3 class="text-2xl font-bold text-[#033958] tracking-tight">{{ tier.title }}</h3>
                 </div>
-                <div class="text-4xl font-black text-[#003366] tracking-tighter flex items-baseline">
-                   <span class="text-sm font-bold mr-1">₦</span>{{ tier.price }}<span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest ml-2"> / Year</span>
+                
+                <div class="text-4xl font-black text-[#033958] tracking-tighter flex items-baseline">
+                   <span class="text-sm font-bold mr-1">₦</span>{{ tier.price }}<span class="text-sm font-medium text-slate-400 ml-2 opacity-50"> / Year</span>
                 </div>
-                <ul class="space-y-3 border-t border-slate-50 pt-6">
-                   <li v-for="feat in tier.features" :key="feat" class="text-slate-400 text-[10px] font-medium flex items-center gap-3">
-                      <LucideCheck :size="12" class="text-brand-cyan" /> {{ feat }}
+                
+                <div class="h-[1px] bg-slate-200/60 w-full"></div>
+                
+                <ul class="space-y-4 flex-1">
+                   <li v-for="feat in tier.features" :key="feat" class="text-slate-500 text-sm font-medium flex items-center gap-3">
+                      <Icon name="lucide:check" :size="14" class="text-brand-cyan shrink-0" />
+                      <span class="tracking-wide">{{ feat }}</span>
                    </li>
                 </ul>
-                <NuxtLink :to="'/signup?tier='+tier.title.toLowerCase()" class="block w-full text-center bg-[#003366] text-white py-4 rounded-xl text-[9px] font-extrabold uppercase tracking-widest group-hover:bg-brand-cyan group-hover:text-[#003366] transition-all">SELECT PATHWAY</NuxtLink>
+                
+                <NuxtLink :to="'/signup?tier='+tier.title.toLowerCase()" class="block w-full text-center py-5 rounded-2xl text-base font-semibold transition-all" :class="i === 1 ? 'bg-[#033958] text-white hover:bg-brand-cyan hover:text-white' : 'bg-slate-100 text-slate-600 hover:bg-[#033958] hover:text-white'">
+                  Choose Plan
+                </NuxtLink>
              </div>
           </div>
        </div>
     </section>
 
-    <!-- Final Compact Footer -->
-    <footer class="py-16 bg-[#003366] text-white">
+    <!-- Global Network -->
+    <section id="community" class="py-32 bg-[#033958] text-white relative overflow-hidden">
+       <div class="container mx-auto px-6 relative z-10 text-center space-y-12">
+          <div class="max-w-3xl mx-auto space-y-6">
+             <h2 class="text-5xl md:text-7xl font-black tracking-tighter leading-none">Leading the <span class="text-brand-cyan">Future</span>.</h2>
+             <p class="text-lg text-white/60 font-medium max-w-xl mx-auto leading-relaxed">
+               Join a specialized community of pathology scientists advancing laboratory diagnostics.
+             </p>
+          </div>
+          
+          <div class="flex flex-wrap justify-center gap-16">
+             <div v-for="stat in stats" :key="stat.label" class="space-y-1 text-center">
+                <p class="text-5xl font-black text-brand-cyan tracking-tighter">{{ stat.value }}</p>
+                <p class="text-sm font-semibold text-white/60">{{ stat.label }}</p>
+             </div>
+          </div>
+
+          <div class="pt-8">
+             <NuxtLink to="/signup" class="btn-cyan !px-16 !py-3 !normal-case !text-lg !font-semibold">
+                Join Now
+             </NuxtLink>
+          </div>
+       </div>
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer class="py-20 bg-white text-slate-800 border-t border-slate-100">
        <div class="container mx-auto px-6">
-          <div class="flex flex-col md:flex-row items-center justify-between gap-12">
-            <div class="space-y-4 text-center md:text-left">
-              <div class="h-10 w-10 bg-white rounded-xl flex items-center justify-center text-[#003366] font-black shadow-lg mx-auto md:mx-0">SC</div>
-              <p class="text-[10px] font-medium text-white/50 max-w-xs leading-relaxed uppercase tracking-wider">Advancing the science of cellular pathology through elite collaboration and rigorous standardization.</p>
+          <div class="flex flex-col md:flex-row items-start justify-between gap-16">
+            <div class="space-y-6 max-w-xs">
+              <div class="h-16 w-16 rounded-xl flex items-center justify-center font-black text-xl">
+                <img src="~/assets/img/logo.jpeg" />
+              </div>
+              <p class="text-sm font-medium text-slate-500 leading-relaxed opacity-80">Society for Cellular Pathology Scientists of Nigeria. Advancing pathological science through innovation and integrity.</p>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-16">
-              <div v-for="col in footerLinks" :key="col.title" class="space-y-4">
-                <h5 class="text-[10px] font-black text-brand-cyan uppercase tracking-widest">{{ col.title }}</h5>
-                <ul class="space-y-2">
-                  <li v-for="link in col.links" :key="link" class="text-[10px] font-medium text-white/40 hover:text-white transition-colors cursor-pointer uppercase tracking-wider">{{ link }}</li>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-16 md:gap-24">
+              <div v-for="col in footerLinks" :key="col.title" class="space-y-6">
+                <h5 class="text-sm font-semibold text-brand-cyan">{{ col.title }}</h5>
+                <ul class="space-y-3">
+                  <li v-for="link in col.links" :key="link" class="text-sm font-medium text-slate-500 hover:text-[#033958] transition-colors cursor-pointer">{{ link }}</li>
                 </ul>
               </div>
             </div>
           </div>
           
-          <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-             <p class="text-[9px] font-black text-white/20 uppercase tracking-[0.3em]">© 2026 SCPSN Scientific Network. SECURE PORTAL ACCESS.</p>
+          <div class="mt-20 pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
+             <p class="text-xs font-medium text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria &bull; All Rights Reserved.</p>
              <div class="flex gap-8">
-                <NuxtLink to="/signup" class="text-[9px] font-black text-white/40 uppercase tracking-widest hover:text-brand-cyan transition-colors">Apply Now</NuxtLink>
-                <NuxtLink to="/login" class="text-[9px] font-black text-white/40 uppercase tracking-widest hover:text-brand-cyan transition-colors">Member Sign-In</NuxtLink>
-                <a href="#" class="text-[9px] font-black text-white/40 uppercase tracking-widest hover:text-brand-cyan transition-colors">Privacy Shield</a>
+                <NuxtLink to="/signup" class="text-xs font-medium text-slate-400 hover:text-[#033958]">Sign Up</NuxtLink>
+                <NuxtLink to="/login" class="text-xs font-medium text-slate-400 hover:text-[#033958]">Login</NuxtLink>
+                <a href="#" class="text-xs font-medium text-slate-400 hover:text-[#033958]">Privacy</a>
              </div>
           </div>
        </div>
@@ -178,79 +203,96 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { 
-  LucideArrowRight, 
-  LucideCheck, 
-  LucideMicroscope, 
-  LucideGlobe, 
-  LucideDna, 
-  LucideShieldCheck
-} from 'lucide-vue-next'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const router = useRouter()
-const isScrolled = ref(false)
+const currentSlide = ref(0)
+let slideInterval = null
+
+const slides = [
+  {
+    image: '/images/hero/1.png',
+    tagline: 'Excellence in Pathology 2026',
+    titlePart1: 'Advancing',
+    titlePart2: 'Diagnostics',
+    description: 'The professional network for pathology scientists in Nigeria. We verify credentials and promote high standards.'
+  },
+  {
+    image: '/images/hero/2.png',
+    tagline: 'Working Together',
+    titlePart1: 'Fostering',
+    titlePart2: 'Collaboration',
+    description: 'Connect with pathology professionals worldwide. Share knowledge and collaborate on research.'
+  },
+  {
+    image: '/images/hero/3.png',
+    tagline: 'Accurate Results',
+    titlePart1: 'Mastering',
+    titlePart2: 'The Cell',
+    description: 'Using advanced research and standard procedures to improve pathology services in Nigeria.'
+  }
+]
 
 const stats = [
-  { value: '1.2k+', label: 'Active Fellows' },
-  { value: '24/7', label: 'Lab Support' },
-  { value: '₦2B+', label: 'Research Grants' }
+  { value: '1,200+', label: 'Active Members' },
+  { value: '₦2.4B+', label: 'Research Funding' },
+  { value: 'Top 5%', label: 'Global Rank' }
 ]
 
 const values = [
-  { title: 'Standardization', desc: 'Implementing national protocols for diagnostic precision.', icon: LucideMicroscope },
-  { title: 'Collaboration', desc: 'Fostering partnerships with global scientific bodies.', icon: LucideGlobe },
-  { title: 'Innovation', desc: 'Pioneering Al-driven and molecular pathology.', icon: LucideDna },
-  { title: 'Integrity', desc: 'Upholding highest ethical standards in medicine.', icon: LucideShieldCheck },
+  { title: 'Standardization', desc: 'Implementing national protocols for diagnostic precision and laboratory excellence.', icon: 'lucide:microscope' },
+  { title: 'Collaboration', desc: 'Fostering partnerships with global scientific bodies and research institutions.', icon: 'lucide:globe' },
+  { title: 'Innovation', desc: 'Pioneering Al-driven diagnostics and cutting-edge molecular pathology research.', icon: 'lucide:dna' },
+  { title: 'Integrity', desc: 'Upholding the highest ethical standards in laboratory medicine and scientific reporting.', icon: 'lucide:shield-check' },
 ]
 
 const benefits = [
-  { title: 'Scientific Repository', desc: 'Access to peer-reviewed journals and monographs.' },
-  { title: 'Global Recognition', desc: 'SCPSN certified credentials recognized internationally.' },
-  { title: 'Grant Eligibility', desc: 'Priority access to research grants and funding.' },
-  { title: 'Scientific Congress', desc: 'Discounted VIP access to International Scientific Congress.' }
+  { title: 'Scientific Repository', desc: 'Access to peer-reviewed journals, monographs, and research databases.' },
+  { title: 'Global Recognition', desc: 'SCPSN credentials recognized by international laboratory bodies.' },
+  { title: 'Grant Eligibility', desc: 'Priority access to research grants and institutional funding.' },
+  { title: 'Event Access', desc: 'Guaranteed access to the International Scientific Congress.' }
 ]
 
 const tiers = [
-  { tag: 'Academic Entry', title: 'Student Member', price: '15,000', features: ['Library Access', 'Student Forum', 'Congress Discounts'] },
-  { tag: 'Core Practitioner', title: 'Full Member', price: '35,000', features: ['Board Certification', 'Voting Privileges', 'Grant Eligibility', 'Expert Listing'] },
-  { tag: 'Strategic Leadership', title: 'Fellow', price: '75,000', features: ['Advisory Role', 'Review Board', 'Fellowship Title', 'VIP Access'] }
+  { tag: 'Academic Entry', title: 'Student Member', price: '15,000', features: ['Repository Access', 'Forum Entry', 'Congress Discounts'] },
+  { tag: 'Core Practitioner', title: 'Full Member', price: '35,000', features: ['Board Certification', 'Voting Privileges', 'Grant Eligibility', 'Directory Listing'] },
+  { tag: 'Strategic Leadership', title: 'Fellow', price: '75,000', features: ['Advisory Role', 'Peer Review Board', 'Fellowship Title', 'VIP Event Access'] }
 ]
 
 const footerLinks = [
-  { title: 'Ecosystem', links: ['Vision', 'Protocols', 'Research', 'Integrity'] },
-  { title: 'Resources', links: ['Archive', 'Journals', 'Monographs', 'Guidelines'] },
-  { title: 'Network', links: ['Directory', 'Colleges', 'Global Hub', 'Ethics'] }
+  { title: 'Ecosystem', links: ['Vision', 'Protocols', 'Research Hub', 'Ethics Board'] },
+  { title: 'Resources', links: ['Archive', 'Peer Journals', 'Clinical Guidelines'] },
+  { title: 'Strategic', links: ['Directory', 'Affiliated Colleges', 'Global Hub'] }
 ]
 
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slides.length
+}
+
 onMounted(() => {
-  window.addEventListener('scroll', () => {
-    isScrolled.value = window.scrollY > 20
-  })
+  slideInterval = setInterval(nextSlide, 8000)
+})
+
+onUnmounted(() => {
+  if (slideInterval) clearInterval(slideInterval)
 })
 </script>
 
 <style scoped>
-.glass {
-  @apply bg-white/80 backdrop-blur-md border-b border-white/20;
-}
-
 .glass-dark {
-  @apply bg-[#003366]/40 backdrop-blur-md border border-white/10;
+  @apply bg-[#033958]/40 backdrop-blur-xl border border-white/10;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
+.animate-in {
+  animation: slideIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 ::selection {
-  background: #00b8d4;
-  color: #003366;
+  background: #00A8B5;
+  color: white;
 }
 </style>

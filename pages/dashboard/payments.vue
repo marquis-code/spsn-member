@@ -38,14 +38,14 @@
     <!-- Filter & Search -->
     <div class="flex flex-wrap gap-4 items-center justify-between mt-8">
       <div class="flex items-center gap-2">
-        <button class="px-5 py-2.5 bg-white border-2 border-brand-dark text-brand-dark rounded-full text-xs font-bold shadow-sm transition-all focus:ring-2 focus:ring-brand-dark/20">All Transactions</button>
+        <button class="px-5 py-2.5 bg-white border-2 border-brand-dark text-brand-dark rounded-full text-xs font-bold transition-all focus:ring-2 focus:ring-brand-dark/20">All Transactions</button>
         <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-bold hover:border-slate-300 transition-all focus:ring-2 focus:ring-slate-200">Membership</button>
         <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-bold hover:border-slate-300 transition-all focus:ring-2 focus:ring-slate-200">Events</button>
       </div>
     </div>
 
     <!-- Payments Table -->
-    <div class="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
+    <div class="bg-white rounded-[2rem] border border-slate-200 overflow-hidden mt-8">
       <div class="overflow-x-auto custom-scrollbar">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -90,36 +90,37 @@
     <!-- Transaction Drawer -->
     <SideDrawer 
       :isOpen="isDrawerOpen" 
-      title="Transaction Details" 
+      title="transaction details" 
       :subtitle="selectedTransaction?.id"
+      size="md"
       @close="isDrawerOpen = false"
     >
-      <div v-if="selectedTransaction" class="p-8 space-y-8">
-        <div class="text-center p-8 bg-slate-50 rounded-3xl border border-slate-100">
-          <p class="text-xs font-bold text-slate-500 mb-2">Amount Paid</p>
-          <h2 class="text-4xl font-extrabold text-brand-dark tracking-tight">${{ selectedTransaction.amount.toFixed(2) }}</h2>
+      <div v-if="selectedTransaction" class="space-y-8">
+        <div class="bg-slate-50 p-6 rounded-2xl rounded-tl-none border border-slate-100">
+          <p class="text-[10px] font-black text-slate-400 lowercase mb-2">amount paid</p>
+          <h2 class="text-4xl font-extrabold text-[#003366] tracking-tight">${{ selectedTransaction.amount.toFixed(2) }}</h2>
           <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-bold border border-emerald-100">
             <Icon name="lucide:check-circle" size="14" />
-            Successful Payment
+            successful payment
           </div>
         </div>
 
         <div class="space-y-6">
-          <h4 class="text-sm font-bold text-slate-800 border-b border-slate-100 pb-2">Invoice Summary</h4>
+          <h4 class="text-sm font-bold text-slate-800 border-b border-slate-100 pb-2 lowercase">invoice summary</h4>
           <div class="grid grid-cols-2 gap-y-4">
             <div>
-              <p class="text-xs font-semibold text-slate-400 mb-1">Date</p>
+              <p class="text-[10px] font-black text-slate-400 mb-1 lowercase">date</p>
               <p class="text-sm font-bold text-slate-800">{{ selectedTransaction.date }}</p>
             </div>
             <div>
-              <p class="text-xs font-semibold text-slate-400 mb-1">Payment Method</p>
+              <p class="text-[10px] font-black text-slate-400 mb-1 lowercase">payment method</p>
               <p class="text-sm font-bold text-slate-800 flex items-center gap-2">
                 <Icon name="lucide:credit-card" size="16" class="text-slate-400" />
                 •••• {{ selectedTransaction.cardLast4 }}
               </p>
             </div>
             <div class="col-span-2">
-              <p class="text-xs font-semibold text-slate-400 mb-1">Description</p>
+              <p class="text-[10px] font-black text-slate-400 mb-1 lowercase">description</p>
               <p class="text-sm font-bold text-slate-800">{{ selectedTransaction.description }}</p>
             </div>
           </div>
@@ -128,10 +129,10 @@
 
       <template #footer>
         <div class="flex gap-3">
-          <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 rounded-xl text-xs font-bold transition-all">Close</button>
-          <button class="flex-1 py-3 bg-brand-dark text-white rounded-xl text-xs font-bold shadow-lg hover:bg-[#002244] transition-all flex justify-center items-center gap-2">
+          <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 rounded-xl text-xs font-bold transition-all lowercase">close</button>
+          <button @click="downloadReceipt" class="flex-1 py-3 bg-[#003366] text-white rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 lowercase">
              <Icon name="lucide:download" size="16" />
-             Download Receipt
+             download receipt
           </button>
         </div>
       </template>
@@ -153,6 +154,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { useCustomToast } from '@/composables/core/useCustomToast'
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth'
@@ -170,5 +173,19 @@ const transactions = ref([
 const openTransactionDrawer = (tx) => {
   selectedTransaction.value = tx
   isDrawerOpen.value = true
+}
+
+const downloadReceipt = () => {
+  if (!selectedTransaction.value) return
+  const { showToast } = useCustomToast()
+  showToast({
+    title: 'Generating Receipt',
+    message: `Your receipt for ${selectedTransaction.value.id} is being generated...`,
+    toastType: 'info'
+  })
+  
+  setTimeout(() => {
+    window.print()
+  }, 1000)
 }
 </script>

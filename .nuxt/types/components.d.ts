@@ -17,9 +17,12 @@ interface _GlobalComponents {
   AIChatWidget: typeof import("../../components/AIChatWidget.vue")['default']
   AnimatedInput: typeof import("../../components/AnimatedInput.vue")['default']
   ConfirmModal: typeof import("../../components/ConfirmModal.vue")['default']
+  Header: typeof import("../../components/Header.vue")['default']
+  NotificationDropdown: typeof import("../../components/NotificationDropdown.vue")['default']
   PhoneInput: typeof import("../../components/PhoneInput.vue")['default']
   SelectInput: typeof import("../../components/SelectInput.vue")['default']
   SideDrawer: typeof import("../../components/SideDrawer.vue")['default']
+  VirtualID: typeof import("../../components/VirtualID.vue")['default']
   CoreToast: typeof import("../../components/core/Toast.vue")['default']
   NuxtWelcome: typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']
   NuxtLayout: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -1504,9 +1507,12 @@ interface _GlobalComponents {
   LazyAIChatWidget: LazyComponent<typeof import("../../components/AIChatWidget.vue")['default']>
   LazyAnimatedInput: LazyComponent<typeof import("../../components/AnimatedInput.vue")['default']>
   LazyConfirmModal: LazyComponent<typeof import("../../components/ConfirmModal.vue")['default']>
+  LazyHeader: LazyComponent<typeof import("../../components/Header.vue")['default']>
+  LazyNotificationDropdown: LazyComponent<typeof import("../../components/NotificationDropdown.vue")['default']>
   LazyPhoneInput: LazyComponent<typeof import("../../components/PhoneInput.vue")['default']>
   LazySelectInput: LazyComponent<typeof import("../../components/SelectInput.vue")['default']>
   LazySideDrawer: LazyComponent<typeof import("../../components/SideDrawer.vue")['default']>
+  LazyVirtualID: LazyComponent<typeof import("../../components/VirtualID.vue")['default']>
   LazyCoreToast: LazyComponent<typeof import("../../components/core/Toast.vue")['default']>
   LazyNuxtWelcome: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
   LazyNuxtLayout: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>

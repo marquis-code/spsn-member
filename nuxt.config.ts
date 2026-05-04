@@ -1,14 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   devServer: {
-    port: 3003
+    port: 3003,
+    host: 'localhost'
   },
   modules: ['@nuxtjs/tailwindcss', 'lucide-nuxt', '@vueuse/nuxt', '@nuxt/icon'],
   css: ['~/assets/font/stylesheet.css', '~/assets/css/main.css'],
   tailwindcss: {
     viewer: true,
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   },
   runtimeConfig: {
     public: {
@@ -23,4 +30,5 @@ export default defineNuxtConfig({
       ]
     }
   },
+  ssr: true,
 })

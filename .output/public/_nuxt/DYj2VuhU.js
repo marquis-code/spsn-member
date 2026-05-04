@@ -1,1 +1,0 @@
-import{c}from"./BbaqdHCw.js";const a=c("check",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]]);const o=c("globe",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20",key:"13o1zl"}],["path",{d:"M2 12h20",key:"9i4pu4"}]]);export{a as C,o as G};

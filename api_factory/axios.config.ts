@@ -1,11 +1,6 @@
 import axios, { type AxiosResponse } from "axios";
 import { useUser } from "@/composables/modules/auth/user";
 import { useCustomToast } from '@/composables/core/useCustomToast'
-import { useTokenManager } from '@/composables/core/useTokenManager'
-
-const { showToast } = useCustomToast();
-const { token, logOut } = useUser();
-const tokenManager = useTokenManager();
 
 const $GATEWAY_ENDPOINT = import.meta.env.VITE_BASE_URL || "http://localhost:3000/api";
 
@@ -19,6 +14,7 @@ export interface CustomAxiosResponse extends AxiosResponse {
 }
 
 GATEWAY_ENDPOINT.interceptors.request.use((config: any) => {
+  const { token } = useUser();
   if (token.value) {
     config.headers.Authorization = `Bearer ${token.value}`;
   }
@@ -28,6 +24,9 @@ GATEWAY_ENDPOINT.interceptors.request.use((config: any) => {
 GATEWAY_ENDPOINT.interceptors.response.use(
   (response: CustomAxiosResponse) => response,
   (err: any) => {
+    const { logOut } = useUser();
+    const { showToast } = useCustomToast();
+    
     if (err.response?.status === 401) {
       logOut();
       showToast({ title: "Session Expired", message: "Please login again", toastType: "error" });

@@ -17,9 +17,12 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 export const AIChatWidget: typeof import("../components/AIChatWidget.vue")['default']
 export const AnimatedInput: typeof import("../components/AnimatedInput.vue")['default']
 export const ConfirmModal: typeof import("../components/ConfirmModal.vue")['default']
+export const Header: typeof import("../components/Header.vue")['default']
+export const NotificationDropdown: typeof import("../components/NotificationDropdown.vue")['default']
 export const PhoneInput: typeof import("../components/PhoneInput.vue")['default']
 export const SelectInput: typeof import("../components/SelectInput.vue")['default']
 export const SideDrawer: typeof import("../components/SideDrawer.vue")['default']
+export const VirtualID: typeof import("../components/VirtualID.vue")['default']
 export const CoreToast: typeof import("../components/core/Toast.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
@@ -1504,9 +1507,12 @@ export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components
 export const LazyAIChatWidget: LazyComponent<typeof import("../components/AIChatWidget.vue")['default']>
 export const LazyAnimatedInput: LazyComponent<typeof import("../components/AnimatedInput.vue")['default']>
 export const LazyConfirmModal: LazyComponent<typeof import("../components/ConfirmModal.vue")['default']>
+export const LazyHeader: LazyComponent<typeof import("../components/Header.vue")['default']>
+export const LazyNotificationDropdown: LazyComponent<typeof import("../components/NotificationDropdown.vue")['default']>
 export const LazyPhoneInput: LazyComponent<typeof import("../components/PhoneInput.vue")['default']>
 export const LazySelectInput: LazyComponent<typeof import("../components/SelectInput.vue")['default']>
 export const LazySideDrawer: LazyComponent<typeof import("../components/SideDrawer.vue")['default']>
+export const LazyVirtualID: LazyComponent<typeof import("../components/VirtualID.vue")['default']>
 export const LazyCoreToast: LazyComponent<typeof import("../components/core/Toast.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>

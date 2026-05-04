@@ -17,10 +17,10 @@
       <div class="p-4">
         <div class="flex items-start">
           <div class="flex-shrink-0">
-            <LucideCheckCircle v-if="toast.type === 'success'" class="h-6 w-6 text-green-400" />
-            <LucideXCircle v-else-if="toast.type === 'error'" class="h-6 w-6 text-red-400" />
-            <LucideAlertCircle v-else-if="toast.type === 'warning'" class="h-6 w-6 text-yellow-400" />
-            <LucideInfo v-else class="h-6 w-6 text-blue-400" />
+            <Icon v-if="toast.type === 'success'" name="lucide:check-circle" class="h-6 w-6 text-green-400" />
+            <Icon v-else-if="toast.type === 'error'" name="lucide:x-circle" class="h-6 w-6 text-red-400" />
+            <Icon v-else-if="toast.type === 'warning'" name="lucide:alert-circle" class="h-6 w-6 text-yellow-400" />
+            <Icon v-else name="lucide:info" class="h-6 w-6 text-blue-400" />
           </div>
           <div class="ml-3 w-0 flex-1 pt-0.5">
             <p class="text-sm font-medium text-gray-900">{{ toast.title }}</p>
@@ -32,7 +32,7 @@
               class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
             >
               <span class="sr-only">Close</span>
-              <LucideX class="h-5 w-5" />
+              <Icon name="lucide:x" class="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -43,7 +43,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { LucideCheckCircle, LucideXCircle, LucideAlertCircle, LucideInfo, LucideX } from 'lucide-vue-next'
 
 const toasts = ref([])
 let nextId = 0

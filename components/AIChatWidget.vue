@@ -105,12 +105,12 @@
           </button>
           
           <div class="flex-grow">
-            <input 
+            <AnimatedInput 
               v-model="input"
               @keyup.enter="send"
               type="text" 
+              label=""
               placeholder="Type a message"
-              class="w-full px-5 py-3 bg-white border-none rounded-2xl text-sm font-medium focus:ring-0 outline-none shadow-sm"
             />
           </div>
 
@@ -130,7 +130,8 @@
 
 <script setup>
 import { ref, nextTick, onMounted, onUnmounted, watch } from 'vue'
-import { io } from 'socket.io-client'
+// Remove static import to prevent SSR issues
+// import { io } from 'socket.io-client'
 
 const isOpen = ref(false)
 const input = ref('')
@@ -144,7 +145,8 @@ const apiBase = config.public.apiBase || 'http://localhost:3001'
 
 const messages = ref([])
 
-onMounted(() => {
+onMounted(async () => {
+  const { io } = await import('socket.io-client')
   const baseUrl = apiBase.replace('/api', '')
   socket.value = io(`${baseUrl}/chat`, {
     transports: ['websocket', 'polling'],
