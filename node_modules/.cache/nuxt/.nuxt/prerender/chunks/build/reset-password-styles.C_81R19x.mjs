@@ -1,0 +1,8 @@
+const resetPassword_vue_vue_type_style_index_0_scoped_f3567305_lang = ".animate-in[data-v-f3567305]{animation:slideIn-f3567305 1.2s cubic-bezier(.16,1,.3,1) forwards}@keyframes slideIn-f3567305{0%{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}[data-v-f3567305]::-moz-selection{background:#00b8d4;color:#033958}[data-v-f3567305]::selection{background:#00b8d4;color:#033958}";
+
+const resetPasswordStyles_C_81R19x = [
+  resetPassword_vue_vue_type_style_index_0_scoped_f3567305_lang
+];
+
+export { resetPasswordStyles_C_81R19x as default };
+//# sourceMappingURL=reset-password-styles.C_81R19x.mjs.map

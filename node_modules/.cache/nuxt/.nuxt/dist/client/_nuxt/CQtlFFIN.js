@@ -1,0 +1,1 @@
+import{v as e,x as o}from"./BlRbX8zj.js";const r=e((t,n)=>{if(typeof window<"u"&&!localStorage.getItem("token")&&!["/","/login","/signup","/register"].includes(t.path))return o("/login")});export{r as default};

@@ -66,7 +66,7 @@
         </form>
 
         <div class="text-center">
-           <NuxtLink to="/login" class="text-sm font-bold text-slate-400 hover:text-[#033958] transition-colors">
+           <NuxtLink to="/login" class="text-sm font-bold px-6 text-slate-400 hover:text-[#033958] transition-colors">
               Return to Sign In
            </NuxtLink>
         </div>

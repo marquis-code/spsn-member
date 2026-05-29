@@ -19,7 +19,7 @@
 
     <!-- WhatsApp-style Chat Window -->
     <transition
-      enter-active-class="transition duration-400 cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      enter-active-class="transition duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.275)"
       enter-from-class="transform translate-y-20 opacity-0 scale-90"
       enter-to-class="transform translate-y-0 opacity-100 scale-100"
       leave-active-class="transition duration-300 ease-in"
