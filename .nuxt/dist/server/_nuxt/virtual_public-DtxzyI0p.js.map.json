@@ -1,0 +1,1 @@
+{"file":"virtual_public-DtxzyI0p.js","mappings":";AAAuD,MAAA,aAAe,gBAAgB,oBAAoB;","names":[],"sources":["../../../../virtual:public?%2Fimages%2Fhero%2F3.png"],"sourcesContent":["import { publicAssetsURL } from '#internal/nuxt/paths';export default publicAssetsURL(\"/images/hero/3.png\")"],"version":3}

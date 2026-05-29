@@ -1,0 +1,448 @@
+import { a as useCMS, b as useCustomToast, _ as __nuxt_component_0 } from './server.mjs';
+import { _ as __nuxt_component_1 } from './SideDrawer-BQ9HavFF.mjs';
+import { _ as __nuxt_component_1$1 } from './AnimatedInput-EWtNoB2_.mjs';
+import { _ as __nuxt_component_4 } from './SelectInput-DKSyFlyk.mjs';
+import { _ as _sfc_main$1 } from './ConfirmModal-D0gIV_87.mjs';
+import { ref, reactive, mergeProps, unref, withCtx, openBlock, createBlock, createVNode, toDisplayString, createCommentVNode, createTextVNode, useSSRContext } from 'file:///Users/marquis/scpsn/member/node_modules/vue/index.mjs';
+import { ssrRenderAttrs, ssrInterpolate, ssrRenderComponent, ssrRenderList, ssrRenderClass, ssrIncludeBooleanAttr } from 'file:///Users/marquis/scpsn/member/node_modules/vue/server-renderer/index.mjs';
+import { _ as _export_sfc } from './_plugin-vue_export-helper-1tPrXgE0.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/ofetch/dist/node.mjs';
+import '../nitro/nitro.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/h3/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/ufo/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/destr/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/nitropack/node_modules/hookable/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/node-mock-http/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/unstorage/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/unstorage/drivers/fs.mjs';
+import 'node:crypto';
+import 'file:///Users/marquis/scpsn/member/node_modules/unstorage/drivers/fs-lite.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/unstorage/drivers/lru-cache.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/ohash/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/klona/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/defu/dist/defu.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/scule/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/unctx/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/radix3/dist/index.mjs';
+import 'node:fs';
+import 'node:url';
+import 'file:///Users/marquis/scpsn/member/node_modules/pathe/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/@iconify/utils/lib/index.js';
+import 'file:///Users/marquis/scpsn/member/node_modules/consola/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/hookable/dist/index.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/vue-router/vue-router.node.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/@iconify/vue/dist/iconify.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/axios/index.js';
+import 'file:///Users/marquis/scpsn/member/node_modules/@iconify/utils/lib/css/icon.js';
+import 'file:///Users/marquis/scpsn/member/node_modules/perfect-debounce/dist/index.mjs';
+import '../_/renderer.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/unhead/dist/server.mjs';
+import 'file:///Users/marquis/scpsn/member/node_modules/devalue/index.js';
+import 'file:///Users/marquis/scpsn/member/node_modules/unhead/dist/utils.mjs';
+
+const _sfc_main = {
+  __name: "support",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const { cmsConfig } = useCMS();
+    const { showToast } = useCustomToast();
+    const isDrawerOpen = ref(false);
+    const isNewTicketDrawerOpen = ref(false);
+    const isCreating = ref(false);
+    const showCancelModal = ref(false);
+    const selectedTicket = ref(null);
+    const ticketForm = reactive({
+      subject: "",
+      category: "Technical Support",
+      priority: "Normal",
+      content: ""
+    });
+    const tickets = ref([
+      {
+        id: "TKT-9912",
+        subject: "Cannot upload multiple abstract documents",
+        category: "Technical Support",
+        date: "Apr 07, 2026",
+        priority: "Normal",
+        status: "Open",
+        content: "When I try to upload my PDF along with the images, the system says the payload is too large. What is the limit?",
+        response: null
+      },
+      {
+        id: "TKT-8451",
+        subject: "Membership fee discrepancy",
+        category: "Billing",
+        date: "Jan 10, 2026",
+        priority: "High",
+        status: "Resolved",
+        content: "My credit card was charged $350 but the invoice says $300.",
+        response: "Apologies for the confusion. The additional $50 was the late penalty as outlined in the invoice footer. We have waived it for you and issued a refund."
+      }
+    ]);
+    const createTicket = async () => {
+      if (!ticketForm.subject || !ticketForm.content) {
+        showToast({ title: "Missing Info", message: "Please provide a subject and description.", toastType: "warning" });
+        return;
+      }
+      isCreating.value = true;
+      setTimeout(() => {
+        const newTicket = {
+          id: `TKT-${Math.floor(1e3 + Math.random() * 9e3)}`,
+          subject: ticketForm.subject,
+          category: ticketForm.category,
+          date: (/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }),
+          priority: ticketForm.priority,
+          status: "Open",
+          content: ticketForm.content,
+          response: null
+        };
+        tickets.value.unshift(newTicket);
+        isCreating.value = false;
+        isNewTicketDrawerOpen.value = false;
+        ticketForm.subject = "";
+        ticketForm.category = "Technical Support";
+        ticketForm.priority = "Normal";
+        ticketForm.content = "";
+        showToast({ title: "Ticket Opened", message: "Your support request has been queued.", toastType: "success" });
+      }, 1500);
+    };
+    const requestCancel = () => {
+      showCancelModal.value = true;
+    };
+    const confirmCancel = () => {
+      showCancelModal.value = false;
+      isDrawerOpen.value = false;
+      if (selectedTicket.value) {
+        selectedTicket.value.status = "Resolved";
+        showToast({ title: "Ticket Resolved", message: "The ticket has been archived.", toastType: "info" });
+      }
+    };
+    return (_ctx, _push, _parent, _attrs) => {
+      var _a, _b, _c, _d;
+      const _component_Icon = __nuxt_component_0;
+      const _component_SideDrawer = __nuxt_component_1;
+      const _component_AnimatedInput = __nuxt_component_1$1;
+      const _component_SelectInput = __nuxt_component_4;
+      const _component_ConfirmModal = _sfc_main$1;
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20" }, _attrs))} data-v-356132d8><div class="flex items-center justify-between" data-v-356132d8><div data-v-356132d8><h1 class="text-3xl font-bold text-slate-800 tracking-tight" data-v-356132d8>Support Tickets</h1><p class="text-slate-500 font-medium mt-1 text-sm" data-v-356132d8>${ssrInterpolate(((_c = (_b = (_a = unref(cmsConfig)) == null ? void 0 : _a.member) == null ? void 0 : _b.portal) == null ? void 0 : _c.announcementText) || "Need help? Open a ticket to reach our administrative or technical teams.")}</p></div><button class="btn-premium flex items-center gap-2 px-8 py-4" data-v-356132d8>`);
+      _push(ssrRenderComponent(_component_Icon, {
+        name: "lucide:life-buoy",
+        size: "18"
+      }, null, _parent));
+      _push(` New Request </button></div><div class="bg-white rounded-[2rem] border border-slate-200 overflow-hidden mt-8" data-v-356132d8><div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50" data-v-356132d8><h3 class="text-base font-bold text-slate-800 tracking-tight" data-v-356132d8>Support History</h3><div class="flex items-center gap-4" data-v-356132d8><div class="flex items-center gap-1.5" data-v-356132d8><span class="w-2 h-2 rounded-full bg-blue-500" data-v-356132d8></span><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" data-v-356132d8>Active Tickets</p></div></div></div><div class="overflow-x-auto custom-scrollbar" data-v-356132d8><table class="w-full text-left border-collapse" data-v-356132d8><thead data-v-356132d8><tr class="bg-slate-50 border-b border-slate-100" data-v-356132d8><th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest" data-v-356132d8>Ticket ID</th><th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest" data-v-356132d8>Subject</th><th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest" data-v-356132d8>Priority</th><th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest" data-v-356132d8>Status</th></tr></thead><tbody class="divide-y divide-slate-50" data-v-356132d8><!--[-->`);
+      ssrRenderList(tickets.value, (ticket) => {
+        _push(`<tr class="hover:bg-slate-50/50 cursor-pointer transition-colors group" data-v-356132d8><td class="px-8 py-5 text-xs font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors" data-v-356132d8> #${ssrInterpolate(ticket.id)}</td><td class="px-8 py-5" data-v-356132d8><p class="text-sm font-bold text-slate-800" data-v-356132d8>${ssrInterpolate(ticket.subject)}</p><div class="flex items-center gap-2 mt-0.5" data-v-356132d8><p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter" data-v-356132d8>${ssrInterpolate(ticket.category)}</p><span class="text-[10px] text-slate-300" data-v-356132d8>\u2022</span><p class="text-[10px] font-medium text-slate-400" data-v-356132d8>${ssrInterpolate(ticket.date)}</p></div></td><td class="px-8 py-5" data-v-356132d8><span class="${ssrRenderClass([ticket.priority === "High" ? "text-rose-500" : "text-slate-400", "text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5"])}" data-v-356132d8>`);
+        if (ticket.priority === "High") {
+          _push(ssrRenderComponent(_component_Icon, {
+            name: "lucide:alert-circle",
+            size: "14"
+          }, null, _parent));
+        } else {
+          _push(ssrRenderComponent(_component_Icon, {
+            name: "lucide:minus",
+            size: "14"
+          }, null, _parent));
+        }
+        _push(` ${ssrInterpolate(ticket.priority)}</span></td><td class="px-8 py-5" data-v-356132d8><span class="${ssrRenderClass([
+          "px-3 py-1 text-[10px] font-bold rounded-lg inline-flex items-center gap-1.5",
+          ticket.status === "Resolved" ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : ticket.status === "Open" ? "bg-blue-50 text-blue-600 border border-blue-100" : "bg-slate-100 text-slate-600 border border-slate-200"
+        ])}" data-v-356132d8>`);
+        if (ticket.status === "Open") {
+          _push(`<span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" data-v-356132d8></span>`);
+        } else {
+          _push(`<!---->`);
+        }
+        _push(` ${ssrInterpolate(ticket.status)}</span></td></tr>`);
+      });
+      _push(`<!--]--></tbody></table>`);
+      if (tickets.value.length === 0) {
+        _push(`<div class="p-16 text-center" data-v-356132d8><div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4" data-v-356132d8>`);
+        _push(ssrRenderComponent(_component_Icon, {
+          name: "lucide:life-buoy",
+          size: "24"
+        }, null, _parent));
+        _push(`</div><h4 class="text-base font-bold text-slate-800" data-v-356132d8>No Support Requests</h4><p class="text-sm font-medium text-slate-500 mt-1" data-v-356132d8>Everything looks clear in your help center.</p></div>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div></div>`);
+      _push(ssrRenderComponent(_component_SideDrawer, {
+        isOpen: isDrawerOpen.value,
+        title: "Support Conversation",
+        subtitle: "#" + ((_d = selectedTicket.value) == null ? void 0 : _d.id),
+        onClose: ($event) => isDrawerOpen.value = false
+      }, {
+        footer: withCtx((_, _push2, _parent2, _scopeId) => {
+          var _a2, _b2;
+          if (_push2) {
+            _push2(`<div class="flex gap-3" data-v-356132d8${_scopeId}><button class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold transition-all" data-v-356132d8${_scopeId}>Close Viewer</button>`);
+            if (((_a2 = selectedTicket.value) == null ? void 0 : _a2.status) === "Open") {
+              _push2(`<button class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-rose-50 hover:text-rose-600 transition-all flex justify-center items-center gap-2" data-v-356132d8${_scopeId}>`);
+              _push2(ssrRenderComponent(_component_Icon, {
+                name: "lucide:lock",
+                size: "16"
+              }, null, _parent2, _scopeId));
+              _push2(` Mark as Resolved </button>`);
+            } else {
+              _push2(`<!---->`);
+            }
+            _push2(`</div>`);
+          } else {
+            return [
+              createVNode("div", { class: "flex gap-3" }, [
+                createVNode("button", {
+                  onClick: ($event) => isDrawerOpen.value = false,
+                  class: "flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold transition-all"
+                }, "Close Viewer", 8, ["onClick"]),
+                ((_b2 = selectedTicket.value) == null ? void 0 : _b2.status) === "Open" ? (openBlock(), createBlock("button", {
+                  key: 0,
+                  onClick: requestCancel,
+                  class: "flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-rose-50 hover:text-rose-600 transition-all flex justify-center items-center gap-2"
+                }, [
+                  createVNode(_component_Icon, {
+                    name: "lucide:lock",
+                    size: "16"
+                  }),
+                  createTextVNode(" Mark as Resolved ")
+                ])) : createCommentVNode("", true)
+              ])
+            ];
+          }
+        }),
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            if (selectedTicket.value) {
+              _push2(`<div class="p-8 space-y-8" data-v-356132d8${_scopeId}><div class="flex items-center justify-between border-b border-slate-100 pb-4" data-v-356132d8${_scopeId}><div class="space-y-1" data-v-356132d8${_scopeId}><h3 class="text-sm font-black text-[#033958] uppercase tracking-widest" data-v-356132d8${_scopeId}>${ssrInterpolate(selectedTicket.value.category)}</h3><p class="text-xs font-bold text-slate-400" data-v-356132d8${_scopeId}>Opened on ${ssrInterpolate(selectedTicket.value.date)}</p></div><span class="${ssrRenderClass([
+                "px-3 py-1 text-[10px] font-bold rounded-lg",
+                selectedTicket.value.status === "Resolved" ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "bg-blue-50 text-blue-600 border border-blue-100"
+              ])}" data-v-356132d8${_scopeId}>${ssrInterpolate(selectedTicket.value.status)}</span></div><div class="space-y-10" data-v-356132d8${_scopeId}><div class="space-y-3" data-v-356132d8${_scopeId}><div class="flex items-center gap-3" data-v-356132d8${_scopeId}><div class="w-8 h-8 bg-[#033958] text-white rounded-full flex items-center justify-center font-bold text-xs" data-v-356132d8${_scopeId}>SC</div><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" data-v-356132d8${_scopeId}>Inquiry Message</p></div><div class="bg-slate-50 p-6 rounded-3xl rounded-tl-none border border-slate-100" data-v-356132d8${_scopeId}><h4 class="text-sm font-bold text-[#033958] mb-2" data-v-356132d8${_scopeId}>${ssrInterpolate(selectedTicket.value.subject)}</h4><p class="text-sm font-medium text-slate-600 leading-relaxed" data-v-356132d8${_scopeId}>${ssrInterpolate(selectedTicket.value.content)}</p></div></div>`);
+              if (selectedTicket.value.response) {
+                _push2(`<div class="space-y-3" data-v-356132d8${_scopeId}><div class="flex items-center justify-end gap-3" data-v-356132d8${_scopeId}><p class="text-[10px] font-bold text-brand-cyan uppercase tracking-widest" data-v-356132d8${_scopeId}>Administrative Response</p><div class="w-8 h-8 bg-brand-cyan text-[#033958] rounded-full flex items-center justify-center font-bold text-xs" data-v-356132d8${_scopeId}>`);
+                _push2(ssrRenderComponent(_component_Icon, {
+                  name: "lucide:shield-check",
+                  size: "14"
+                }, null, _parent2, _scopeId));
+                _push2(`</div></div><div class="bg-brand-cyan/5 p-6 rounded-3xl rounded-tr-none border border-brand-cyan/10 ml-10" data-v-356132d8${_scopeId}><p class="text-sm font-bold text-[#033958] leading-relaxed" data-v-356132d8${_scopeId}>${ssrInterpolate(selectedTicket.value.response)}</p></div></div>`);
+              } else {
+                _push2(`<!---->`);
+              }
+              _push2(`</div>`);
+              if (selectedTicket.value.status === "Resolved") {
+                _push2(`<div class="bg-slate-50 p-4 rounded-2xl text-center" data-v-356132d8${_scopeId}><p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]" data-v-356132d8${_scopeId}>Ticket Resolved &amp; Archived</p></div>`);
+              } else {
+                _push2(`<!---->`);
+              }
+              _push2(`</div>`);
+            } else {
+              _push2(`<!---->`);
+            }
+          } else {
+            return [
+              selectedTicket.value ? (openBlock(), createBlock("div", {
+                key: 0,
+                class: "p-8 space-y-8"
+              }, [
+                createVNode("div", { class: "flex items-center justify-between border-b border-slate-100 pb-4" }, [
+                  createVNode("div", { class: "space-y-1" }, [
+                    createVNode("h3", { class: "text-sm font-black text-[#033958] uppercase tracking-widest" }, toDisplayString(selectedTicket.value.category), 1),
+                    createVNode("p", { class: "text-xs font-bold text-slate-400" }, "Opened on " + toDisplayString(selectedTicket.value.date), 1)
+                  ]),
+                  createVNode("span", {
+                    class: [
+                      "px-3 py-1 text-[10px] font-bold rounded-lg",
+                      selectedTicket.value.status === "Resolved" ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "bg-blue-50 text-blue-600 border border-blue-100"
+                    ]
+                  }, toDisplayString(selectedTicket.value.status), 3)
+                ]),
+                createVNode("div", { class: "space-y-10" }, [
+                  createVNode("div", { class: "space-y-3" }, [
+                    createVNode("div", { class: "flex items-center gap-3" }, [
+                      createVNode("div", { class: "w-8 h-8 bg-[#033958] text-white rounded-full flex items-center justify-center font-bold text-xs" }, "SC"),
+                      createVNode("p", { class: "text-[10px] font-bold text-slate-400 uppercase tracking-widest" }, "Inquiry Message")
+                    ]),
+                    createVNode("div", { class: "bg-slate-50 p-6 rounded-3xl rounded-tl-none border border-slate-100" }, [
+                      createVNode("h4", { class: "text-sm font-bold text-[#033958] mb-2" }, toDisplayString(selectedTicket.value.subject), 1),
+                      createVNode("p", { class: "text-sm font-medium text-slate-600 leading-relaxed" }, toDisplayString(selectedTicket.value.content), 1)
+                    ])
+                  ]),
+                  selectedTicket.value.response ? (openBlock(), createBlock("div", {
+                    key: 0,
+                    class: "space-y-3"
+                  }, [
+                    createVNode("div", { class: "flex items-center justify-end gap-3" }, [
+                      createVNode("p", { class: "text-[10px] font-bold text-brand-cyan uppercase tracking-widest" }, "Administrative Response"),
+                      createVNode("div", { class: "w-8 h-8 bg-brand-cyan text-[#033958] rounded-full flex items-center justify-center font-bold text-xs" }, [
+                        createVNode(_component_Icon, {
+                          name: "lucide:shield-check",
+                          size: "14"
+                        })
+                      ])
+                    ]),
+                    createVNode("div", { class: "bg-brand-cyan/5 p-6 rounded-3xl rounded-tr-none border border-brand-cyan/10 ml-10" }, [
+                      createVNode("p", { class: "text-sm font-bold text-[#033958] leading-relaxed" }, toDisplayString(selectedTicket.value.response), 1)
+                    ])
+                  ])) : createCommentVNode("", true)
+                ]),
+                selectedTicket.value.status === "Resolved" ? (openBlock(), createBlock("div", {
+                  key: 0,
+                  class: "bg-slate-50 p-4 rounded-2xl text-center"
+                }, [
+                  createVNode("p", { class: "text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]" }, "Ticket Resolved & Archived")
+                ])) : createCommentVNode("", true)
+              ])) : createCommentVNode("", true)
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_component_SideDrawer, {
+        isOpen: isNewTicketDrawerOpen.value,
+        title: "Open Support Ticket",
+        subtitle: "How can we assist you today?",
+        onClose: ($event) => isNewTicketDrawerOpen.value = false
+      }, {
+        footer: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<div class="flex gap-3" data-v-356132d8${_scopeId}><button class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold" data-v-356132d8${_scopeId}>Cancel</button><button${ssrIncludeBooleanAttr(isCreating.value) ? " disabled" : ""} class="flex-1 py-3 bg-brand-dark text-white rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 disabled:opacity-50" data-v-356132d8${_scopeId}>`);
+            if (isCreating.value) {
+              _push2(ssrRenderComponent(_component_Icon, {
+                name: "lucide:loader-2",
+                class: "animate-spin",
+                size: "16"
+              }, null, _parent2, _scopeId));
+            } else {
+              _push2(ssrRenderComponent(_component_Icon, {
+                name: "lucide:plus",
+                size: "16"
+              }, null, _parent2, _scopeId));
+            }
+            _push2(` Open Ticket </button></div>`);
+          } else {
+            return [
+              createVNode("div", { class: "flex gap-3" }, [
+                createVNode("button", {
+                  onClick: ($event) => isNewTicketDrawerOpen.value = false,
+                  class: "flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold"
+                }, "Cancel", 8, ["onClick"]),
+                createVNode("button", {
+                  onClick: createTicket,
+                  disabled: isCreating.value,
+                  class: "flex-1 py-3 bg-brand-dark text-white rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 disabled:opacity-50"
+                }, [
+                  isCreating.value ? (openBlock(), createBlock(_component_Icon, {
+                    key: 0,
+                    name: "lucide:loader-2",
+                    class: "animate-spin",
+                    size: "16"
+                  })) : (openBlock(), createBlock(_component_Icon, {
+                    key: 1,
+                    name: "lucide:plus",
+                    size: "16"
+                  })),
+                  createTextVNode(" Open Ticket ")
+                ], 8, ["disabled"])
+              ])
+            ];
+          }
+        }),
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(`<div class="p-8 space-y-8" data-v-356132d8${_scopeId}><div class="space-y-6" data-v-356132d8${_scopeId}>`);
+            _push2(ssrRenderComponent(_component_AnimatedInput, {
+              modelValue: ticketForm.subject,
+              "onUpdate:modelValue": ($event) => ticketForm.subject = $event,
+              label: "Subject",
+              placeholder: "Brief summary of your inquiry...",
+              required: ""
+            }, null, _parent2, _scopeId));
+            _push2(`<div class="space-y-6" data-v-356132d8${_scopeId}>`);
+            _push2(ssrRenderComponent(_component_SelectInput, {
+              modelValue: ticketForm.category,
+              "onUpdate:modelValue": ($event) => ticketForm.category = $event,
+              label: "department / category",
+              options: ["Technical Support", "Billing", "Membership", "Events"]
+            }, null, _parent2, _scopeId));
+            _push2(ssrRenderComponent(_component_SelectInput, {
+              modelValue: ticketForm.priority,
+              "onUpdate:modelValue": ($event) => ticketForm.priority = $event,
+              label: "priority level",
+              options: ["Normal", "High"]
+            }, null, _parent2, _scopeId));
+            _push2(`</div>`);
+            _push2(ssrRenderComponent(_component_AnimatedInput, {
+              modelValue: ticketForm.content,
+              "onUpdate:modelValue": ($event) => ticketForm.content = $event,
+              type: "textarea",
+              label: "Detailed Description",
+              placeholder: "Please provide as much detail as possible to help us assist you faster...",
+              rows: 6,
+              required: ""
+            }, null, _parent2, _scopeId));
+            _push2(`</div></div>`);
+          } else {
+            return [
+              createVNode("div", { class: "p-8 space-y-8" }, [
+                createVNode("div", { class: "space-y-6" }, [
+                  createVNode(_component_AnimatedInput, {
+                    modelValue: ticketForm.subject,
+                    "onUpdate:modelValue": ($event) => ticketForm.subject = $event,
+                    label: "Subject",
+                    placeholder: "Brief summary of your inquiry...",
+                    required: ""
+                  }, null, 8, ["modelValue", "onUpdate:modelValue"]),
+                  createVNode("div", { class: "space-y-6" }, [
+                    createVNode(_component_SelectInput, {
+                      modelValue: ticketForm.category,
+                      "onUpdate:modelValue": ($event) => ticketForm.category = $event,
+                      label: "department / category",
+                      options: ["Technical Support", "Billing", "Membership", "Events"]
+                    }, null, 8, ["modelValue", "onUpdate:modelValue"]),
+                    createVNode(_component_SelectInput, {
+                      modelValue: ticketForm.priority,
+                      "onUpdate:modelValue": ($event) => ticketForm.priority = $event,
+                      label: "priority level",
+                      options: ["Normal", "High"]
+                    }, null, 8, ["modelValue", "onUpdate:modelValue"])
+                  ]),
+                  createVNode(_component_AnimatedInput, {
+                    modelValue: ticketForm.content,
+                    "onUpdate:modelValue": ($event) => ticketForm.content = $event,
+                    type: "textarea",
+                    label: "Detailed Description",
+                    placeholder: "Please provide as much detail as possible to help us assist you faster...",
+                    rows: 6,
+                    required: ""
+                  }, null, 8, ["modelValue", "onUpdate:modelValue"])
+                ])
+              ])
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(ssrRenderComponent(_component_ConfirmModal, {
+        isOpen: showCancelModal.value,
+        title: "Resolve Ticket",
+        message: "This will mark the ticket as resolved and archive the conversation. Proceed?",
+        confirmText: "Yes, resolve it",
+        cancelText: "Keep open",
+        confirmStyle: "primary",
+        icon: "lucide:check-circle",
+        onConfirm: confirmCancel,
+        onCancel: ($event) => showCancelModal.value = false
+      }, null, _parent));
+      _push(`</div>`);
+    };
+  }
+};
+const _sfc_setup = _sfc_main.setup;
+_sfc_main.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/dashboard/support.vue");
+  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+const support = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-356132d8"]]);
+
+export { support as default };
+//# sourceMappingURL=support-CijAJmqG.mjs.map
