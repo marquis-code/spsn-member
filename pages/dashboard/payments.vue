@@ -2,7 +2,7 @@
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800 -tight">{{ cmsConfig?.member?.pages?.payments?.title || 'Payments' }}</h1>
+        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">{{ cmsConfig?.member?.pages?.payments?.title || 'Payments' }}</h1>
         <p class="text-slate-500 font-medium mt-1 text-base">{{ cmsConfig?.member?.pages?.payments?.subtitle || 'Manage your membership dues, conference tickets, and transaction history.' }}</p>
       </div>
       <button @click="showPaymentModal = true" class="btn-premium flex items-center gap-2">
@@ -108,7 +108,7 @@
       <div v-if="selectedTransaction" class="space-y-8">
         <div class="bg-slate-50 p-6 rounded-2xl rounded-tl-none border border-slate-100">
           <p class="text-[10px] font-black text-slate-400 lowercase mb-2">amount paid</p>
-          <h2 class="text-4xl font-extrabold text-[#003366] -tight">${{ selectedTransaction.amount.toFixed(2) }}</h2>
+          <h2 class="text-4xl font-extrabold text-[#003366] tracking-tight">${{ selectedTransaction.amount.toFixed(2) }}</h2>
           <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-bold border border-emerald-100">
             <Icon name="lucide:check-circle" size="14" />
             successful payment
@@ -161,12 +161,12 @@
            </div>
            
            <div class="bg-brand-dark p-6 rounded-2xl text-white space-y-4">
-              <p class="text-[10px] font-black -widest text-brand-cyan">PAY INTO THIS ACCOUNT</p>
+              <p class="text-[10px] font-black tracking-widest text-brand-cyan">PAY INTO THIS ACCOUNT</p>
               <h4 class="text-xl font-bold">{{ activeAccount?.bankName || 'Loading...' }}</h4>
               <div class="flex justify-between items-end">
                  <div>
                     <p class="text-[10px] text-slate-400 font-bold mb-1">Account Number</p>
-                    <p class="text-2xl font-mono -wider font-bold">{{ activeAccount?.accountNumber || '---' }}</p>
+                    <p class="text-2xl font-mono tracking-wider font-bold">{{ activeAccount?.accountNumber || '---' }}</p>
                  </div>
               </div>
               <div>
@@ -211,7 +211,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue'
 import { useCustomToast } from '@/composables/core/useCustomToast'
 import { useCMS } from '@/composables/useCMS'

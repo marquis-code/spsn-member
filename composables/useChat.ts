@@ -1,7 +1,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { io, Socket } from 'socket.io-client'
 import { useRuntimeConfig } from '#app'
-import { useAuth } from '@/composables/useAuth'
+import { useUser } from '@/composables/useUser'
 
 export type AttachmentType = 'image' | 'video' | 'audio' | 'pdf' | 'document'
 
@@ -53,7 +53,7 @@ let socket: Socket | null = null
 
 export const useChat = () => {
   const config = useRuntimeConfig()
-  const { user } = useAuth()
+  const { user } = useUser()
   const apiBase = config.public.apiBase || 'https://spsn-backend.onrender.com'
   
   const activeChat = computed(() => chats.value.find(c => c.id === activeChatId.value))

@@ -22,7 +22,7 @@
   h4,
   .font-heading {
     font-family: 'Outfit', sans-serif;
-    @apply -tight;
+    @apply tracking-tight;
   }
 
   input,
