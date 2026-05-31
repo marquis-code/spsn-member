@@ -5,12 +5,11 @@ export const useCMS = () => {
   const cmsConfig = useState('cms_config', () => null)
   const loading = ref(false)
 
-  const loadCMS = async () => {
-    if (cmsConfig.value) return cmsConfig.value
-    
+  const loadCMS = async (forceLang?: string) => {
+    const langToUse = forceLang || 'en'
     loading.value = true
     try {
-      const res = await cms_api.getConfig()
+      const res = await cms_api.getConfig(langToUse)
       cmsConfig.value = res.data
       return res.data
     } catch (error) {

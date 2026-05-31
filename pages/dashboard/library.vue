@@ -2,7 +2,7 @@
   <div class="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
       <div>
-        <h1 class="text-4xl font-black text-slate-800 tracking-tight">{{ cmsConfig?.member?.pages?.library?.title || 'Scientific Library' }}</h1>
+        <h1 class="text-4xl font-black text-slate-800 -tight">{{ cmsConfig?.member?.pages?.library?.title || 'Scientific Library' }}</h1>
         <p class="text-slate-500 font-medium mt-1">{{ cmsConfig?.member?.pages?.library?.subtitle || 'Access the national archive of journals, protocols, and research papers.' }}</p>
       </div>
       
@@ -12,7 +12,7 @@
             type="text" 
             v-model="searchQuery"
             placeholder="Search publications..." 
-            class="w-full h-12 pl-12 pr-4 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 outline-none focus:ring-4 focus:ring-[#003366]/5 focus:border-[#003366]/20 transition-all shadow-sm"
+            class="w-full h-12 pl-12 pr-4 bg-white border border-slate-200 rounded-2xl text-base font-bold text-slate-700 outline-none focus:ring-4 focus:ring-[#003366]/5 focus:border-[#003366]/20 transition-all shadow-sm"
           />
           <Icon name="lucide:search" size="18" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-[#003366] transition-colors" />
         </div>
@@ -53,7 +53,7 @@
              </div>
              <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3">
-                   <h4 class="text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-brand-cyan transition-colors">{{ pub.title }}</h4>
+                   <h4 class="text-base font-bold text-slate-800 line-clamp-1 group-hover:text-brand-cyan transition-colors">{{ pub.title }}</h4>
                    <span class="px-2 py-0.5 rounded-md text-[8px] font-black bg-slate-100 text-slate-500">{{ pub.category }}</span>
                 </div>
                 <p class="text-[10px] font-medium text-slate-400 mt-0.5">Last opened on {{ pub.date }} • {{ pub.pages }} pages</p>
@@ -90,7 +90,7 @@
                       <Icon name="lucide:file-text" size="18" />
                    </div>
                    <div class="min-w-0">
-                      <h4 class="text-sm font-bold text-slate-800 tracking-tight group-hover:text-brand-cyan transition-colors truncate max-w-md">{{ pub.title }}</h4>
+                      <h4 class="text-base font-bold text-slate-800 -tight group-hover:text-brand-cyan transition-colors truncate max-w-md">{{ pub.title }}</h4>
                       <p class="text-[11px] font-medium text-slate-400 mt-0.5">{{ pub.date }} • {{ pub.size }}</p>
                    </div>
                 </div>
@@ -141,7 +141,7 @@
         
         <div v-if="filteredPublications.length === 0" class="p-20 text-center">
            <Icon name="lucide:search-x" size="48" class="text-slate-200 mx-auto mb-4" />
-           <p class="text-sm font-bold text-slate-400">No publications match your search criteria.</p>
+           <p class="text-base font-bold text-slate-400">No publications match your search criteria.</p>
         </div>
       </div>
     </div>
@@ -193,7 +193,7 @@
                <div class="max-w-xs space-y-4">
                   <Icon name="lucide:lock" size="32" class="text-[#003366] mx-auto" />
                   <h4 class="text-lg font-bold text-slate-800">Secure Document Viewer</h4>
-                  <p class="text-sm text-slate-500 font-medium">To maintain scientific integrity, full documents are available in PDF format for verified practitioners.</p>
+                  <p class="text-base text-slate-500 font-medium">To maintain scientific integrity, full documents are available in PDF format for verified practitioners.</p>
                   <button class="w-full bg-[#003366] text-white py-4 rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex items-center justify-center gap-2">
                      <Icon name="lucide:file-down" size="16" />
                      Download Full Paper

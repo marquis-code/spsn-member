@@ -20,8 +20,8 @@
              <img src="@/assets/img/logo.jpeg" class="w-full h-full object-contain" alt="Logo" />
           </div>
           <div class="flex flex-col">
-             <span class="text-lg font-black tracking-tighter leading-none" :class="(isScrolled || !isHomePage || isHomePage) ? 'text-white' : 'text-white'">SCPSN</span>
-             <span class="text-[10px] font-bold text-brand-cyan tracking-wide">Member Hub</span>
+             <span class="text-lg font-black -tighter leading-none" :class="(isScrolled || !isHomePage || isHomePage) ? 'text-white' : 'text-white'">SCPSN</span>
+             <span class="text-[10px] font-bold text-brand-cyan -wide">Member Hub</span>
           </div>
         </NuxtLink>
 
@@ -31,7 +31,7 @@
             <NuxtLink 
               :to="link.to"
               :class="[
-                'px-5 py-2.5 text-sm font-bold transition-all duration-300 rounded-2xl relative flex items-center gap-1',
+                'px-5 py-2.5 text-base font-bold transition-all duration-300 rounded-2xl relative flex items-center gap-1',
                 (isScrolled || !isHomePage) ? 'text-white/80 hover:text-white hover:bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/10'
               ]"
               active-class="!text-brand-cyan !bg-white/5"
@@ -43,10 +43,10 @@
 
         <!-- Desktop CTA -->
         <div class="hidden lg:flex items-center gap-4">
-          <NuxtLink to="/login" class="px-5 py-2.5 text-sm font-bold transition-colors text-white hover:text-brand-cyan">
+          <NuxtLink to="/login" class="px-5 py-2.5 text-base font-bold transition-colors text-white hover:text-brand-cyan">
             Login
           </NuxtLink>
-          <NuxtLink to="/signup" class="bg-brand-cyan text-white px-8 py-3 rounded-2xl text-sm font-bold hover:bg-white hover:text-brand-dark hover:scale-105 active:scale-95 transition-all shadow-lg shadow-brand-cyan/20">
+          <NuxtLink to="/signup" class="bg-brand-cyan text-white px-8 py-3 rounded-2xl text-base font-bold hover:bg-white hover:text-brand-dark hover:scale-105 active:scale-95 transition-all shadow-lg shadow-brand-cyan/20">
             Sign Up
           </NuxtLink>
         </div>
@@ -81,10 +81,10 @@
             <NuxtLink 
               :to="link.to"
               @click="isMobileMenuOpen = false"
-              class="block py-4 text-2xl font-semibold text-white tracking-tight group"
+              class="block py-4 text-2xl font-semibold text-white -tight group"
             >
               <div class="flex items-center gap-4">
-                <span class="text-sm font-medium text-brand-cyan/60 font-mono">0{{ i + 1 }}</span>
+                <span class="text-base font-medium text-brand-cyan/60 font-mono">0{{ i + 1 }}</span>
                 <span class="group-hover:translate-x-3 transition-transform duration-500">{{ link.label }}</span>
               </div>
             </NuxtLink>

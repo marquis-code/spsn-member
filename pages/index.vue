@@ -15,10 +15,10 @@
           <div class="max-w-4xl space-y-8" :class="currentSlide === i ? 'animate-in fade-in slide-in-from-bottom-12 duration-1000' : 'opacity-0'">
             <div class="inline-flex items-center gap-3 px-4 py-1.5 glass-dark rounded-lg border border-white/10">
               <span class="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-pulse"></span>
-              <span class="text-sm font-semibold text-white/90">{{ slide.tagline }}</span>
+              <span class="text-base font-semibold text-white/90">{{ slide.tagline }}</span>
             </div>
             
-            <h1 class="text-6xl md:text-[90px] font-black text-white tracking-tighter leading-[0.9]">
+            <h1 class="text-6xl md:text-[90px] font-black text-white -tighter leading-[0.9]">
               {{ slide.titlePart1 }} <br/> <span class="text-brand-cyan">{{ slide.titlePart2 }}</span>.
             </h1>
             
@@ -30,7 +30,7 @@
               <NuxtLink to="/signup" class="btn-cyan !normal-case !text-base">
                 Sign Up
               </NuxtLink>
-              <button class="flex items-center gap-4 text-sm font-semibold text-white group">
+              <button class="flex items-center gap-4 text-base font-semibold text-white group">
                 <span>View pricing plans</span>
                 <div class="w-10 h-10 rounded-xl border border-white/20 flex items-center justify-center group-hover:bg-brand-cyan group-hover:border-brand-cyan group-hover:text-white transition-all">
                   <Icon name="lucide:arrow-right" :size="16" />
@@ -63,7 +63,7 @@
                 </div>
                 <div class="space-y-3">
                    <h3 class="text-lg font-semibold text-[#033958]">{{ v.title }}</h3>
-                   <p class="text-slate-500 text-sm font-medium leading-relaxed">{{ v.desc }}</p>
+                   <p class="text-slate-500 text-base font-medium leading-relaxed">{{ v.desc }}</p>
                 </div>
              </div>
           </div>
@@ -76,10 +76,10 @@
           <div class="flex flex-col lg:flex-row gap-24 items-center">
              <div class="lg:w-1/2 space-y-12">
                 <div class="space-y-6">
-                   <span class="inline-block px-4 py-1.5 bg-[#033958]/5 text-[#033958] font-semibold text-sm rounded-lg border border-[#033958]/10">
+                   <span class="inline-block px-4 py-1.5 bg-[#033958]/5 text-[#033958] font-semibold text-base rounded-lg border border-[#033958]/10">
                       Scientific Excellence
                    </span>
-                   <h2 class="text-5xl md:text-6xl font-black text-[#033958] tracking-tighter leading-none">Precision in <br/> <span class="text-brand-cyan">Diagnostics</span>.</h2>
+                   <h2 class="text-5xl md:text-6xl font-black text-[#033958] -tighter leading-none">Precision in <br/> <span class="text-brand-cyan">Diagnostics</span>.</h2>
                    <p class="text-slate-500 font-medium text-lg leading-relaxed max-w-xl">
                      We are committed to standardizing cellular pathology through rigorous research and global collaboration.
                    </p>
@@ -90,8 +90,8 @@
                       <div class="w-10 h-10 bg-brand-cyan/10 rounded-xl flex items-center justify-center text-brand-cyan">
                         <Icon name="lucide:activity" :size="20" />
                       </div>
-                      <h4 class="font-semibold text-[#033958] tracking-tight text-lg">{{ b.title }}</h4>
-                      <p class="text-sm text-slate-500 font-medium leading-relaxed">{{ b.desc }}</p>
+                      <h4 class="font-semibold text-[#033958] -tight text-lg">{{ b.title }}</h4>
+                      <p class="text-base text-slate-500 font-medium leading-relaxed">{{ b.desc }}</p>
                    </div>
                 </div>
              </div>
@@ -110,28 +110,28 @@
     <section id="pricing" class="py-32 bg-white">
        <div class="container mx-auto px-6">
           <div class="max-w-2xl mx-auto text-center space-y-4 mb-20">
-             <span class="text-sm font-semibold text-brand-cyan mb-2 inline-block">Member Tiers</span>
-             <h2 class="text-5xl md:text-6xl font-black text-[#033958] tracking-tighter leading-none">Choose Your Path.</h2>
+             <span class="text-base font-semibold text-brand-cyan mb-2 inline-block">Member Tiers</span>
+             <h2 class="text-5xl md:text-6xl font-black text-[#033958] -tighter leading-none">Choose Your Path.</h2>
              <p class="text-base font-medium text-slate-500">Select a professional tier to begin your enrollment.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
              <div v-for="(tier, i) in tiers" :key="i" class="p-10 rounded-[32px] border border-slate-100 flex flex-col space-y-8 group transition-all duration-500 hover:border-brand-cyan" :class="i === 1 ? 'bg-slate-50' : 'bg-white'">
                 <div class="space-y-3">
-                   <span class="text-sm font-semibold text-brand-cyan">{{ tier.tag }}</span>
-                   <h3 class="text-2xl font-bold text-[#033958] tracking-tight">{{ tier.title }}</h3>
+                   <span class="text-base font-semibold text-brand-cyan">{{ tier.tag }}</span>
+                   <h3 class="text-2xl font-bold text-[#033958] -tight">{{ tier.title }}</h3>
                 </div>
                 
-                <div class="text-4xl font-black text-[#033958] tracking-tighter flex items-baseline">
-                   <span class="text-sm font-bold mr-1">₦</span>{{ tier.price }}<span class="text-sm font-medium text-slate-400 ml-2 opacity-50"> / Year</span>
+                <div class="text-4xl font-black text-[#033958] -tighter flex items-baseline">
+                   <span class="text-base font-bold mr-1">₦</span>{{ tier.price }}<span class="text-base font-medium text-slate-400 ml-2 opacity-50"> / Year</span>
                 </div>
                 
                 <div class="h-[1px] bg-slate-200/60 w-full"></div>
                 
                 <ul class="space-y-4 flex-1">
-                   <li v-for="feat in tier.features" :key="feat" class="text-slate-500 text-sm font-medium flex items-center gap-3">
+                   <li v-for="feat in tier.features" :key="feat" class="text-slate-500 text-base font-medium flex items-center gap-3">
                       <Icon name="lucide:check" :size="14" class="text-brand-cyan shrink-0" />
-                      <span class="tracking-wide">{{ feat }}</span>
+                      <span class="-wide">{{ feat }}</span>
                    </li>
                 </ul>
                 
@@ -147,7 +147,7 @@
     <section id="community" class="py-32 bg-[#033958] text-white relative overflow-hidden">
        <div class="container mx-auto px-6 relative z-10 text-center space-y-12">
           <div class="max-w-3xl mx-auto space-y-6">
-             <h2 class="text-5xl md:text-7xl font-black tracking-tighter leading-none">Leading the <span class="text-brand-cyan">Future</span>.</h2>
+             <h2 class="text-5xl md:text-7xl font-black -tighter leading-none">Leading the <span class="text-brand-cyan">Future</span>.</h2>
              <p class="text-lg text-white/60 font-medium max-w-xl mx-auto leading-relaxed">
                Join a specialized community of pathology scientists advancing laboratory diagnostics.
              </p>
@@ -155,8 +155,8 @@
           
           <div class="flex flex-wrap justify-center gap-16">
              <div v-for="stat in stats" :key="stat.label" class="space-y-1 text-center">
-                <p class="text-5xl font-black text-brand-cyan tracking-tighter">{{ stat.value }}</p>
-                <p class="text-sm font-semibold text-white/60">{{ stat.label }}</p>
+                <p class="text-5xl font-black text-brand-cyan -tighter">{{ stat.value }}</p>
+                <p class="text-base font-semibold text-white/60">{{ stat.label }}</p>
              </div>
           </div>
 
@@ -176,14 +176,14 @@
               <div class="h-16 w-16 rounded-xl flex items-center justify-center font-black text-xl">
                 <img src="~/assets/img/logo.jpeg" />
               </div>
-              <p class="text-sm font-medium text-slate-500 leading-relaxed opacity-80">Society for Cellular Pathology Scientists of Nigeria. Advancing pathological science through innovation and integrity.</p>
+              <p class="text-base font-medium text-slate-500 leading-relaxed opacity-80">Society for Cellular Pathology Scientists of Nigeria. Advancing pathological science through innovation and integrity.</p>
             </div>
             
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-16 md:gap-24">
               <div v-for="col in footerLinks" :key="col.title" class="space-y-6">
-                <h5 class="text-sm font-semibold text-brand-cyan">{{ col.title }}</h5>
+                <h5 class="text-base font-semibold text-brand-cyan">{{ col.title }}</h5>
                 <ul class="space-y-3">
-                  <li v-for="link in col.links" :key="link" class="text-sm font-medium text-slate-500 hover:text-[#033958] transition-colors cursor-pointer">{{ link }}</li>
+                  <li v-for="link in col.links" :key="link" class="text-base font-medium text-slate-500 hover:text-[#033958] transition-colors cursor-pointer">{{ link }}</li>
                 </ul>
               </div>
             </div>

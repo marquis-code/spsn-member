@@ -36,11 +36,11 @@
 
         <div class="flex-1 text-center md:text-left space-y-2">
           <div class="flex flex-wrap items-center gap-4 justify-center md:justify-start">
-             <h1 class="text-4xl font-bold text-slate-800 tracking-tight leading-none">{{ user?.fullName || 'Scientific Practitioner' }}</h1>
+             <h1 class="text-4xl font-bold text-slate-800 -tight leading-none">{{ user?.fullName || 'Scientific Practitioner' }}</h1>
              <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg text-xs font-bold mt-1">Verified Practitioner</span>
           </div>
-          <p class="text-sm font-semibold text-slate-400">{{ user?.category || 'General' }} Member • Registry ID: {{ user?.membershipId || 'SC-PENDING' }}</p>
-          <p class="text-sm font-medium text-slate-500 max-w-xl leading-relaxed italic">"{{ profileData.bio || cmsConfig?.member?.pages?.portfolio?.subtitle || 'Scientific bio not yet provided. Update your profile to showcase your expertise.' }}"</p>
+          <p class="text-base font-semibold text-slate-400">{{ user?.category || 'General' }} Member • Registry ID: {{ user?.membershipId || 'SC-PENDING' }}</p>
+          <p class="text-base font-medium text-slate-500 max-w-xl leading-relaxed italic">"{{ profileData.bio || cmsConfig?.member?.pages?.portfolio?.subtitle || 'Scientific bio not yet provided. Update your profile to showcase your expertise.' }}"</p>
         </div>
 
         <div class="flex flex-col gap-3 min-w-[200px]">

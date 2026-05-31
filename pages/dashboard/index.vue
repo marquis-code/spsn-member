@@ -13,10 +13,10 @@
             <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
             <span class="text-xs font-bold lowercase">scientific network active</span>
           </div>
-          <h1 class="text-4xl font-bold tracking-tight leading-none">
+          <h1 class="text-4xl font-bold -tight leading-none">
             {{ cmsConfig?.member?.portal?.welcomeTitle || 'Welcome Back,' }} <br/> <span class="text-brand-cyan">{{ user?.fullName?.split(' ')[0] || 'Practitioner' }}</span>
           </h1>
-          <p class="text-white/80 text-sm font-medium max-w-md leading-relaxed">
+          <p class="text-white/80 text-base font-medium max-w-md leading-relaxed">
             {{ cmsConfig?.member?.portal?.welcomeSubtitle || 'Your credentials have been re-validated for the current diagnostic cycle. You have access to the latest pathological archives.' }}
           </p>
           <div class="flex items-center gap-6 pt-4">
@@ -30,7 +30,7 @@
         <div class="space-y-4">
           <span class="text-xs font-bold text-slate-400 lowercase">membership identity</span>
           <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-bold text-[#003366] tracking-tight leading-none">{{ user?.category || 'Professional' }}</h3>
+            <h3 class="text-2xl font-bold text-[#003366] -tight leading-none">{{ user?.category || 'Professional' }}</h3>
             <div :class="statusClass" class="px-3 py-1 rounded-lg text-xs font-bold">
               {{ user?.status || 'Active' }}
             </div>
@@ -49,7 +49,7 @@
         <button 
           @click="downloadVirtualID" 
           :disabled="isDownloading"
-          class="w-full mt-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-[#003366] hover:bg-slate-100 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+          class="w-full mt-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-base font-bold text-[#003366] hover:bg-slate-100 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
         >
           <Icon v-if="isDownloading" name="lucide:loader-2" class="animate-spin" size="18" />
           {{ isDownloading ? 'Generating ID...' : 'Download Virtual ID' }}
@@ -66,8 +66,8 @@
           </div>
           <span class="text-xs font-bold text-emerald-500 leading-none">+{{ metric.growth }}%</span>
         </div>
-        <p class="text-sm font-semibold text-slate-500">{{ metric.label }}</p>
-        <h4 class="text-3xl font-bold text-slate-800 tracking-tight mt-1">{{ metric.value }}</h4>
+        <p class="text-base font-semibold text-slate-500">{{ metric.label }}</p>
+        <h4 class="text-3xl font-bold text-slate-800 -tight mt-1">{{ metric.value }}</h4>
       </div>
     </section>
 
@@ -94,7 +94,7 @@
             
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-3">
-                 <h4 class="text-base font-bold text-slate-800 tracking-tight truncate group-hover:text-brand-cyan transition-colors">{{ pub.title }}</h4>
+                 <h4 class="text-base font-bold text-slate-800 -tight truncate group-hover:text-brand-cyan transition-colors">{{ pub.title }}</h4>
                  <span class="px-2 py-0.5 rounded-md text-[8px] font-black bg-slate-100 text-slate-500 lowercase">{{ pub.category }}</span>
               </div>
               <p class="text-xs text-slate-500 font-medium leading-relaxed line-clamp-1 mt-1">{{ pub.desc }}</p>
@@ -114,19 +114,19 @@
 
       <!-- Quick Actions / Support -->
       <div class="space-y-6">
-        <h3 class="text-sm font-bold text-slate-500 lowercase">quick support</h3>
+        <h3 class="text-base font-bold text-slate-500 lowercase">quick support</h3>
         <div class="bg-white p-6 lg:p-8 rounded-[2rem] border border-slate-200 space-y-6">
            <div class="space-y-2">
-             <h4 class="text-sm font-bold text-[#003366]">{{ cmsConfig?.member?.portal?.announcementTitle || 'Scientific Abstract Due' }}</h4>
+             <h4 class="text-base font-bold text-[#003366]">{{ cmsConfig?.member?.portal?.announcementTitle || 'Scientific Abstract Due' }}</h4>
              <p class="text-xs text-slate-500 font-medium leading-relaxed">{{ cmsConfig?.member?.portal?.announcementText || 'The International Scientific Congress abstract submission is currently open for members.' }}</p>
            </div>
-           <NuxtLink :to="cmsConfig?.member?.portal?.announcementLink || '/dashboard/abstracts'" class="block w-full text-center bg-[#003366] text-white py-4 rounded-xl text-sm font-bold hover:bg-[#004080] transition-all">Take Action</NuxtLink>
+           <NuxtLink :to="cmsConfig?.member?.portal?.announcementLink || '/dashboard/abstracts'" class="block w-full text-center bg-[#003366] text-white py-4 rounded-xl text-base font-bold hover:bg-[#004080] transition-all">Take Action</NuxtLink>
            <div class="h-[1px] bg-slate-100"></div>
            <div class="flex items-center gap-4 text-slate-500 hover:text-[#003366] cursor-pointer transition-colors">
               <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
                 <Icon name="lucide:help-circle" size="18" />
               </div>
-              <span class="text-sm font-bold text-[#003366]">Enquiry Helpdesk</span>
+              <span class="text-base font-bold text-[#003366]">Enquiry Helpdesk</span>
            </div>
         </div>
       </div>

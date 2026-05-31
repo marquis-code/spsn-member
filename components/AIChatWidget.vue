@@ -37,8 +37,8 @@
               <Icon name="lucide:bot" size="20" />
             </div>
             <div>
-              <h4 class="font-bold text-sm leading-tight">SCPSN Assistant</h4>
-              <p class="text-[10px] text-white/70 flex items-center gap-1.5 font-bold uppercase tracking-wider">
+              <h4 class="font-bold text-base leading-tight">SCPSN Assistant</h4>
+              <p class="text-[10px] text-white/70 flex items-center gap-1.5 font-bold uppercase -wider">
                 <span class="w-2 h-2 bg-[#25D366] rounded-full animate-pulse"></span>
                 Online & Secure
               </p>
@@ -54,7 +54,7 @@
         <!-- Messages Area -->
         <div class="flex-grow overflow-y-auto p-4 space-y-3 z-10 scrollbar-thin" ref="messageArea">
           <div class="flex justify-center my-4">
-             <span class="bg-[#D1E9FF] text-[9px] font-black text-[#075E54] px-3 py-1 rounded-lg uppercase tracking-[0.2em] shadow-sm">
+             <span class="bg-[#D1E9FF] text-[9px] font-black text-[#075E54] px-3 py-1 rounded-lg uppercase -[0.2em] shadow-sm">
                Today
              </span>
           </div>
@@ -77,7 +77,7 @@
                 <svg viewBox="0 0 16 16"><path d="M0 0h16v16L0 0z"/></svg>
               </div>
 
-            <div v-if="msg.sender !== 'user'" class="text-[9px] font-black text-[#075E54]/60 uppercase tracking-widest mb-1 flex items-center gap-1">
+            <div v-if="msg.sender !== 'user'" class="text-[9px] font-black text-[#075E54]/60  mb-1 flex items-center gap-1">
                <Icon v-if="msg.sender === 'ai'" name="lucide:bot" size="10" />
                {{ msg.senderName || 'Assistant' }}
             </div>

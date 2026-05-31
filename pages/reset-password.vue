@@ -12,7 +12,7 @@
           SC
         </div>
         <div class="space-y-6">
-          <h1 class="text-6xl font-black text-white tracking-tighter leading-none">
+          <h1 class="text-6xl font-black text-white -tighter leading-none">
             New <br> <span class="text-brand-cyan">Security</span>.
           </h1>
           <p class="text-xl text-white/50 font-medium max-w-md leading-relaxed">
@@ -30,8 +30,8 @@
             <div class="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-ping"></div>
             <span class="text-xs font-semibold text-slate-500">Security Update</span>
           </div>
-          <h2 class="text-4xl font-black text-[#033958] tracking-tighter leading-none">Reset Password.</h2>
-          <p class="text-sm text-slate-500 font-medium leading-relaxed">Enter your new password below to finalize the update.</p>
+          <h2 class="text-4xl font-black text-[#033958] -tighter leading-none">Reset Password.</h2>
+          <p class="text-base text-slate-500 font-medium leading-relaxed">Enter your new password below to finalize the update.</p>
         </header>
 
         <form @submit.prevent="handleReset" class="space-y-8">
@@ -66,7 +66,7 @@
         </form>
 
         <div class="text-center">
-           <NuxtLink to="/login" class="text-sm font-bold px-6 text-slate-400 hover:text-[#033958] transition-colors">
+           <NuxtLink to="/login" class="text-base font-bold px-6 text-slate-400 hover:text-[#033958] transition-colors">
               Return to Sign In
            </NuxtLink>
         </div>

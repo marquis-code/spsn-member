@@ -2,7 +2,7 @@
   <div class="absolute right-0 mt-4 w-96 bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden z-[100] animate-in fade-in zoom-in-95 duration-200 origin-top-right">
     <div class="p-6 border-b border-slate-50 flex items-center justify-between">
       <h3 class="text-base font-bold text-slate-800">Notifications</h3>
-      <button @click="markAllAsRead" class="text-[10px] font-black uppercase tracking-widest text-brand-cyan hover:text-[#003366] transition-colors">Mark all as read</button>
+      <button @click="markAllAsRead" class="text-[10px] font-black  text-brand-cyan hover:text-[#003366] transition-colors">Mark all as read</button>
     </div>
     
     <div class="max-h-[400px] overflow-y-auto custom-scrollbar-light">
@@ -29,7 +29,7 @@
         </div>
         <div class="space-y-1 flex-1">
           <div class="flex items-center justify-between">
-            <h4 class="text-sm font-bold text-slate-800">{{ notif.title }}</h4>
+            <h4 class="text-base font-bold text-slate-800">{{ notif.title }}</h4>
             <span class="text-[10px] font-medium text-slate-400">{{ notif.time }}</span>
           </div>
           <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">{{ notif.message }}</p>

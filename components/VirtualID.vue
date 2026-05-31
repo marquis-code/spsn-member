@@ -11,8 +11,8 @@
            <Icon name="lucide:layers" size="24" class="text-brand-cyan" />
         </div>
         <div>
-          <h2 class="text-lg font-black tracking-tighter">SCPSN</h2>
-          <p class="text-[10px] font-bold text-brand-cyan uppercase tracking-widest">Scientific Registry</p>
+          <h2 class="text-lg font-black -tighter">SCPSN</h2>
+          <p class="text-[10px] font-bold text-brand-cyan ">Scientific Registry</p>
         </div>
       </div>
       
@@ -26,17 +26,17 @@
         </div>
         
         <div>
-          <h3 class="text-2xl font-black text-slate-800 tracking-tight leading-none">{{ user?.fullName }}</h3>
-          <p class="text-sm font-bold text-brand-cyan mt-2 uppercase tracking-widest">{{ user?.category }} Member</p>
+          <h3 class="text-2xl font-black text-slate-800 -tight leading-none">{{ user?.fullName }}</h3>
+          <p class="text-base font-bold text-brand-cyan mt-2 ">{{ user?.category }} Member</p>
         </div>
         
         <div class="w-full grid grid-cols-2 gap-4 pt-4 text-left">
            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-              <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Registry ID</p>
+              <p class="text-[8px] font-black text-slate-400 ">Registry ID</p>
               <p class="text-xs font-bold text-[#003366] mt-1">{{ user?.membershipId || 'SC-PENDING' }}</p>
            </div>
            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-              <p class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Valid Until</p>
+              <p class="text-[8px] font-black text-slate-400 ">Valid Until</p>
               <p class="text-xs font-bold text-slate-800 mt-1">Dec 2026</p>
            </div>
         </div>
@@ -48,7 +48,7 @@
                  <div v-for="i in 20" :key="i" class="w-[2px] bg-slate-400" :style="{ height: Math.random() * 100 + '%' }"></div>
               </div>
            </div>
-           <p class="text-[8px] font-black text-slate-300 uppercase tracking-[0.4em]">Validation Protocol 2.0</p>
+           <p class="text-[8px] font-black text-slate-300 uppercase -[0.4em]">Validation Protocol 2.0</p>
         </div>
       </div>
       

@@ -11,7 +11,7 @@
         <button 
           type="button"
           @click="isOpen = !isOpen"
-          class="h-[60px] w-full flex items-center justify-between px-4 bg-gray-50 border border-slate-200 rounded-l-2xl hover:bg-white transition-all text-sm font-bold text-slate-700"
+          class="h-[60px] w-full flex items-center justify-between px-4 bg-gray-50 border border-slate-200 rounded-l-2xl hover:bg-white transition-all text-base font-bold text-slate-700"
         >
           <span class="flex items-center gap-2">
             <span class="text-lg">{{ selectedCountry.flag }}</span>
@@ -58,7 +58,7 @@
           :placeholder="placeholder"
           :required="required"
           :class="[
-            'w-full h-[60px] px-5 bg-white border border-l-0 border-slate-200 rounded-r-2xl text-sm font-bold text-slate-800 placeholder:text-slate-300 focus:ring-2 focus:ring-[#003366]/5 focus:border-[#003366] outline-none transition-all',
+            'w-full h-[60px] px-5 bg-white border border-l-0 border-slate-200 rounded-r-2xl text-base font-bold text-slate-800 placeholder:text-slate-300 focus:ring-2 focus:ring-[#003366]/5 focus:border-[#003366] outline-none transition-all',
             error ? 'border-red-300 bg-red-50/10' : ''
           ]"
         />

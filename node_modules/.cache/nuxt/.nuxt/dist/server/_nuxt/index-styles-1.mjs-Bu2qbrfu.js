@@ -1,5 +1,0 @@
-const index_vue_vue_type_style_index_0_scoped_5aac24a3_lang = ".animate-fade-in[data-v-5aac24a3]{animation:fadeIn-5aac24a3 .6s ease-out forwards}@keyframes fadeIn-5aac24a3{0%{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}[data-v-5aac24a3]::-moz-selection{background:#00b8d4;color:#036}[data-v-5aac24a3]::selection{background:#00b8d4;color:#036}";
-export {
-  index_vue_vue_type_style_index_0_scoped_5aac24a3_lang as default
-};
-//# sourceMappingURL=index-styles-1.mjs-Bu2qbrfu.js.map

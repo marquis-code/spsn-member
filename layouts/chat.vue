@@ -15,7 +15,7 @@
             SC
           </div>
           <div>
-            <h1 class="text-sm font-bold tracking-tight">Scientific Communication Hub</h1>
+            <h1 class="text-base font-bold -tight">Scientific Communication Hub</h1>
             <p class="text-[10px] text-white/60 font-medium">Secure registry network</p>
           </div>
         </div>

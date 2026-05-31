@@ -2,8 +2,8 @@
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">{{ cmsConfig?.member?.pages?.abstracts?.title || 'Abstracts' }}</h1>
-        <p class="text-slate-500 font-medium mt-1 text-sm">{{ cmsConfig?.member?.pages?.abstracts?.subtitle || 'Submit and manage your scientific papers and conference abstracts.' }}</p>
+        <h1 class="text-3xl font-bold text-slate-800 -tight">{{ cmsConfig?.member?.pages?.abstracts?.title || 'Abstracts' }}</h1>
+        <p class="text-slate-500 font-medium mt-1 text-base">{{ cmsConfig?.member?.pages?.abstracts?.subtitle || 'Submit and manage your scientific papers and conference abstracts.' }}</p>
       </div>
       <button @click="openSubmitForm" class="btn-premium flex items-center gap-2 px-8 py-4">
         <Icon name="lucide:plus" size="18" />
@@ -24,10 +24,10 @@
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-slate-50 border-b border-slate-100">
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">ID</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Scientific Title</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Date</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">ID</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Scientific Title</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Date</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-50">
@@ -41,7 +41,7 @@
                 #{{ paper.id }}
               </td>
               <td class="px-8 py-5">
-                <p class="text-sm font-bold text-slate-800">{{ paper.title }}</p>
+                <p class="text-base font-bold text-slate-800">{{ paper.title }}</p>
                 <p class="text-[11px] font-medium text-slate-400 mt-0.5 line-clamp-1 w-64">{{ paper.authors }}</p>
               </td>
               <td class="px-8 py-5 text-xs font-medium text-slate-500">{{ paper.date }}</td>
@@ -64,7 +64,7 @@
               <Icon name="lucide:file-text" size="24" />
             </div>
             <h4 class="text-base font-bold text-slate-800">No Submissions Found</h4>
-            <p class="text-sm font-medium text-slate-500 mt-1">You haven't submitted any abstracts yet.</p>
+            <p class="text-base font-medium text-slate-500 mt-1">You haven't submitted any abstracts yet.</p>
         </div>
       </div>
     </div>
@@ -87,17 +87,17 @@
                   Status: {{ selectedAbstract.status }}
            </span>
            <h3 class="text-xl font-bold text-slate-800 leading-snug">{{ selectedAbstract.title }}</h3>
-           <p class="text-sm font-medium text-brand-cyan mt-2">{{ selectedAbstract.authors }}</p>
+           <p class="text-base font-medium text-brand-cyan mt-2">{{ selectedAbstract.authors }}</p>
         </div>
 
         <div class="space-y-4">
-           <h4 class="text-sm font-bold text-slate-800 border-b border-slate-100 pb-2">Full Abstract</h4>
-           <p class="text-sm text-slate-600 leading-relaxed indent-4">{{ selectedAbstract.content }}</p>
+           <h4 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2">Full Abstract</h4>
+           <p class="text-base text-slate-600 leading-relaxed indent-4">{{ selectedAbstract.content }}</p>
         </div>
         
         <div class="space-y-4" v-if="selectedAbstract.feedback">
-           <h4 class="text-sm font-bold text-slate-800 border-b border-slate-100 pb-2">Reviewer Feedback</h4>
-           <div class="p-4 bg-amber-50 border border-amber-100 rounded-2xl text-sm font-medium text-amber-800">
+           <h4 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2">Reviewer Feedback</h4>
+           <div class="p-4 bg-amber-50 border border-amber-100 rounded-2xl text-base font-medium text-amber-800">
               "{{ selectedAbstract.feedback }}"
            </div>
         </div>

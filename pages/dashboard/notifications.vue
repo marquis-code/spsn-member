@@ -2,8 +2,8 @@
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Notifications</h1>
-        <p class="text-slate-500 font-medium mt-1 text-sm">Stay updated with the latest activity in the scientific network.</p>
+        <h1 class="text-3xl font-bold text-slate-800 -tight">Notifications</h1>
+        <p class="text-slate-500 font-medium mt-1 text-base">Stay updated with the latest activity in the scientific network.</p>
       </div>
       <button @click="markAllAsRead" class="px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold hover:border-[#003366] hover:text-[#003366] transition-all">
         Mark all as read
@@ -17,7 +17,7 @@
              <Icon name="lucide:bell-off" size="32" class="text-slate-200" />
            </div>
            <h3 class="text-lg font-bold text-slate-800">No Notifications Yet</h3>
-           <p class="text-sm text-slate-400 mt-2">When you receive updates, they will appear here.</p>
+           <p class="text-base text-slate-400 mt-2">When you receive updates, they will appear here.</p>
         </div>
 
         <div 
@@ -40,11 +40,11 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <h4 class="text-base font-bold text-slate-800">{{ notif.title }}</h4>
-                <span v-if="!notif.read" class="px-2 py-0.5 bg-brand-cyan text-[#003366] text-[9px] font-black rounded-full tracking-widest">New</span>
+                <span v-if="!notif.read" class="px-2 py-0.5 bg-brand-cyan text-[#003366] text-[9px] font-black rounded-full -widest">New</span>
               </div>
               <span class="text-xs font-medium text-slate-400">{{ notif.time }}</span>
             </div>
-            <p class="text-sm text-slate-500 leading-relaxed max-w-3xl">{{ notif.message }}</p>
+            <p class="text-base text-slate-500 leading-relaxed max-w-3xl">{{ notif.message }}</p>
             
             <div class="pt-4 flex items-center gap-4">
                <button @click="markAsRead(notif.id)" v-if="!notif.read" class="text-[10px] font-black text-brand-cyan hover:underline">Mark as read</button>

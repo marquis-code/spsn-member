@@ -22,7 +22,7 @@
             <span v-else>{{ cmsConfig?.member?.portal?.siteInitials || 'SC' }}</span>
           </div>
           <div>
-            <span class="font-bold text-white text-xs block uppercase tracking-widest">{{ cmsConfig?.member?.portal?.siteName || 'Scientific Hub' }}</span>
+            <span class="font-bold text-white text-xs block ">{{ cmsConfig?.member?.portal?.siteName || 'Scientific Hub' }}</span>
             <p class="text-[10px] text-white/60 font-medium mt-0.5">{{ cmsConfig?.member?.portal?.siteName ? 'Member Portal' : 'Society for Cellular Pathology' }}</p>
           </div>
         </div>
@@ -35,7 +35,7 @@
           :key="item.label"
           :to="item.to"
           @click="isSidebarOpen = false"
-          class="flex items-center gap-4 px-6 py-4 rounded-2xl text-sm font-bold transition-all group relative overflow-hidden"
+          class="flex items-center gap-4 px-6 py-4 rounded-2xl text-base font-bold transition-all group relative overflow-hidden"
           :class="route.path === item.to ? 'bg-white/10 text-white shadow-lg shadow-black/10' : 'text-white/50 hover:text-white hover:bg-white/5'"
         >
           <div v-if="route.path === item.to" class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-brand-cyan rounded-r-full"></div>
@@ -60,8 +60,8 @@
              <span v-else>{{ userInitials }}</span>
           </div>
           <div class="min-w-0">
-            <h4 class="text-sm font-bold tracking-tight truncate">{{ userName }}</h4>
-            <span class="text-xs font-semibold text-emerald-400 block mt-0.5 uppercase tracking-tighter">{{ userStatus }}</span>
+            <h4 class="text-base font-bold -tight truncate">{{ userName }}</h4>
+            <span class="text-xs font-semibold text-emerald-400 block mt-0.5 uppercase -tighter">{{ userStatus }}</span>
           </div>
         </div>
         <button @click="showLogoutModal = true" class="w-full py-3 bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white rounded-xl text-xs font-bold transition-all border border-rose-500/20 flex items-center justify-center gap-2">
@@ -82,7 +82,7 @@
           </button>
           
           <div class="hidden sm:block">
-            <h2 class="text-lg lg:text-xl font-black text-slate-800 tracking-tighter uppercase">{{ pageTitle }}</h2>
+            <h2 class="text-lg lg:text-xl font-black text-slate-800 -tighter uppercase">{{ pageTitle }}</h2>
           </div>
 
           <!-- Tidy Search Bar -->
@@ -97,6 +97,12 @@
         </div>
 
         <div class="flex items-center gap-2 lg:gap-6">
+          <!-- Language Badge -->
+          <div class="flex items-center gap-1.5 uppercase text-xs font-bold text-slate-500">
+            <Icon name="lucide:globe" size="16" />
+            EN
+          </div>
+
           <!-- Notification Button -->
           <div class="relative">
             <button 
@@ -115,7 +121,7 @@
           
           <div class="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
             <div class="text-right hidden sm:block">
-              <p class="text-[10px] font-black text-[#003366] leading-none uppercase tracking-widest">Cycle 2026</p>
+              <p class="text-[10px] font-black text-[#003366] leading-none ">Cycle 2026</p>
               <span class="text-[9px] font-bold text-emerald-500 uppercase mt-1 block">Active Registry</span>
             </div>
           </div>
@@ -146,6 +152,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useNotifications } from '@/composables/useNotifications'
 import { useChat } from '@/composables/useChat'
 import { useCMS } from '@/composables/useCMS'
+
 
 const route = useRoute()
 const router = useRouter()

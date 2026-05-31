@@ -35,7 +35,7 @@
                     <Icon name="lucide:layers" size="20" />
                  </div>
                  <div>
-                   <h2 class="text-lg lg:text-xl font-black text-slate-800 tracking-tight leading-tight lowercase">{{ title }}</h2>
+                   <h2 class="text-lg lg:text-xl font-black text-slate-800 -tight leading-tight lowercase">{{ title }}</h2>
                    <p v-if="subtitle" class="text-[10px] font-black text-slate-400 mt-0.5 lowercase">{{ subtitle }}</p>
                  </div>
               </div>

@@ -15,7 +15,7 @@
            <img src="@/assets/img/logo.jpeg" alt="logo" class="rounded-3xl" />
           </div>
           <div class="space-y-6">
-            <h1 class="text-5xl font-black tracking-tighter leading-[0.9]">
+            <h1 class="text-5xl font-black -tighter leading-[0.9]">
               Join the <br/>
               <span class="text-brand-cyan font-black">SCPSN</span> <br/>
               Community.
@@ -31,7 +31,7 @@
             <div class="w-10 h-10 rounded-2xl border border-white/10 flex items-center justify-center group-hover:bg-brand-cyan group-hover:border-brand-cyan group-hover:text-brand-dark transition-all duration-500 shadow-xl">
               <Icon name="lucide:check" :size="16" />
             </div>
-            <p class="text-sm font-semibold text-white/70">{{ feat }}</p>
+            <p class="text-base font-semibold text-white/70">{{ feat }}</p>
           </div>
         </div>
       </div>
@@ -44,10 +44,10 @@
         <header class="mb-16 space-y-4">
           <div class="flex items-center justify-between">
             <div class="space-y-1">
-               <h2 class="text-3xl font-black text-[#033958] tracking-tighter">Create Account</h2>
-               <p class="text-sm font-semibold text-slate-400">Step {{ step }} of 3</p>
+               <h2 class="text-3xl font-black text-[#033958] -tighter">Create Account</h2>
+               <p class="text-base font-semibold text-slate-400">Step {{ step }} of 3</p>
             </div>
-            <NuxtLink to="/" class="text-sm font-bold text-brand-cyan hover:underline flex items-center gap-2">
+            <NuxtLink to="/" class="text-base font-bold text-brand-cyan hover:underline flex items-center gap-2">
                <Icon name="lucide:layout-grid" :size="14" />
                Go Back
             </NuxtLink>
@@ -166,7 +166,7 @@
               v-if="step > 1" 
               type="button" 
               @click="handleBack" 
-              class="px-10 py-5 text-sm font-bold text-[#033958] flex items-center gap-3 hover:-translate-x-3 transition-transform"
+              class="px-10 py-5 text-base font-bold text-[#033958] flex items-center gap-3 hover:-translate-x-3 transition-transform"
             >
               <Icon name="lucide:arrow-left" :size="16" /> Previous Step
             </button>
@@ -177,7 +177,7 @@
               type="button" 
               @click="handleNext"
               :disabled="Object.values(uploadStatuses).includes('uploading')"
-              class="bg-[#033958] text-white px-12 py-3 rounded-2xl text-sm font-bold flex items-center gap-3 hover:scale-105 active:scale-95 transition-all"
+              class="bg-[#033958] text-white px-12 py-3 rounded-2xl text-base font-bold flex items-center gap-3 hover:scale-105 active:scale-95 transition-all"
             >
               Next Step <Icon name="lucide:arrow-right" :size="16" />
             </button>
@@ -186,7 +186,7 @@
               v-else 
               type="submit" 
               :disabled="loading || Object.values(uploadStatuses).includes('uploading')" 
-              class="bg-brand-cyan text-brand-dark px-14 py-3 rounded-2xl text-sm font-bold flex items-center gap-3 hover:rotate-2 hover:scale-110 active:scale-95 transition-all"
+              class="bg-brand-cyan text-brand-dark px-14 py-3 rounded-2xl text-base font-bold flex items-center gap-3 hover:rotate-2 hover:scale-110 active:scale-95 transition-all"
             >
               <span v-if="loading" class="w-5 h-5 border-2 border-brand-dark/30 border-t-brand-dark rounded-full animate-spin"></span>
               <span v-else>Complete Registration</span>
@@ -309,7 +309,7 @@ const handleSubmit = async () => {
 
 <style scoped>
 .form-matrix-input {
-  @apply w-full bg-slate-50 border border-slate-100 rounded-3xl px-8 py-5 text-sm font-bold placeholder:text-slate-300 focus:bg-white focus:border-brand-cyan focus:ring-8 focus:ring-brand-cyan/5 transition-all outline-none;
+  @apply w-full bg-slate-50 border border-slate-100 rounded-3xl px-8 py-5 text-base font-bold placeholder:text-slate-300 focus:bg-white focus:border-brand-cyan focus:ring-8 focus:ring-brand-cyan/5 transition-all outline-none;
 }
 
 .animate-in {

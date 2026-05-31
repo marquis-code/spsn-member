@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "science": "Science",
+    "board": "Conseil",
+    "abstracts": "Résumés",
+    "events": "Événements",
+    "newsletters": "Bulletins",
+    "contact": "Contact",
+    "bookings": "Réservations",
+    "become_member": "Devenir Membre",
+    "our_scientific_excellence": "Notre excellence scientifique",
+    "research_and_publications": "Recherche et publications",
+    "official_inquiries": "Demandes officielles"
+  },
+  "home": {
+    "join_society": "Rejoindre la Société",
+    "our_mission": "Notre Mission",
+    "learn_more": "En savoir plus sur nous"
+  }
+}

@@ -2,8 +2,8 @@
   <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Support Tickets</h1>
-        <p class="text-slate-500 font-medium mt-1 text-sm">{{ cmsConfig?.member?.portal?.announcementText || 'Need help? Open a ticket to reach our administrative or technical teams.' }}</p>
+        <h1 class="text-3xl font-bold text-slate-800 -tight">Support Tickets</h1>
+        <p class="text-slate-500 font-medium mt-1 text-base">{{ cmsConfig?.member?.portal?.announcementText || 'Need help? Open a ticket to reach our administrative or technical teams.' }}</p>
       </div>
       <button @click="openNewTicket" class="btn-premium flex items-center gap-2 px-8 py-4">
         <Icon name="lucide:life-buoy" size="18" />
@@ -14,11 +14,11 @@
     <!-- Tickets Table -->
     <div class="bg-white rounded-[2rem] border border-slate-200 overflow-hidden mt-8">
       <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-        <h3 class="text-base font-bold text-slate-800 tracking-tight">Support History</h3>
+        <h3 class="text-base font-bold text-slate-800 -tight">Support History</h3>
         <div class="flex items-center gap-4">
            <div class="flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Tickets</p>
+              <p class="text-[10px] font-bold text-slate-400 ">Active Tickets</p>
            </div>
         </div>
       </div>
@@ -26,10 +26,10 @@
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-slate-50 border-b border-slate-100">
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Ticket ID</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Subject</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Priority</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 uppercase tracking-widest">Status</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Ticket ID</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Subject</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Priority</th>
+              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-50">
@@ -43,15 +43,15 @@
                 #{{ ticket.id }}
               </td>
               <td class="px-8 py-5">
-                <p class="text-sm font-bold text-slate-800">{{ ticket.subject }}</p>
+                <p class="text-base font-bold text-slate-800">{{ ticket.subject }}</p>
                 <div class="flex items-center gap-2 mt-0.5">
-                   <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{{ ticket.category }}</p>
+                   <p class="text-[10px] font-bold text-slate-400  -tighter">{{ ticket.category }}</p>
                    <span class="text-[10px] text-slate-300">•</span>
                    <p class="text-[10px] font-medium text-slate-400">{{ ticket.date }}</p>
                 </div>
               </td>
               <td class="px-8 py-5">
-                 <span class="text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5" :class="ticket.priority === 'High' ? 'text-rose-500' : 'text-slate-400'">
+                 <span class="text-[10px] font-black  flex items-center gap-1.5" :class="ticket.priority === 'High' ? 'text-rose-500' : 'text-slate-400'">
                     <Icon v-if="ticket.priority === 'High'" name="lucide:alert-circle" size="14" />
                     <Icon v-else name="lucide:minus" size="14" />
                     {{ ticket.priority }}
@@ -77,7 +77,7 @@
               <Icon name="lucide:life-buoy" size="24" />
             </div>
             <h4 class="text-base font-bold text-slate-800">No Support Requests</h4>
-            <p class="text-sm font-medium text-slate-500 mt-1">Everything looks clear in your help center.</p>
+            <p class="text-base font-medium text-slate-500 mt-1">Everything looks clear in your help center.</p>
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@
       <div v-if="selectedTicket" class="p-8 space-y-8">
          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
             <div class="space-y-1">
-               <h3 class="text-sm font-black text-[#033958] uppercase tracking-widest">{{ selectedTicket.category }}</h3>
+               <h3 class="text-base font-black text-[#033958] ">{{ selectedTicket.category }}</h3>
                <p class="text-xs font-bold text-slate-400">Opened on {{ selectedTicket.date }}</p>
             </div>
             <span :class="[
@@ -109,28 +109,28 @@
             <div class="space-y-3">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-[#033958] text-white rounded-full flex items-center justify-center font-bold text-xs">SC</div>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Inquiry Message</p>
+                    <p class="text-[10px] font-bold text-slate-400 ">Inquiry Message</p>
                 </div>
                 <div class="bg-slate-50 p-6 rounded-3xl rounded-tl-none border border-slate-100">
-                   <h4 class="text-sm font-bold text-[#033958] mb-2">{{ selectedTicket.subject }}</h4>
-                   <p class="text-sm font-medium text-slate-600 leading-relaxed">{{ selectedTicket.content }}</p>
+                   <h4 class="text-base font-bold text-[#033958] mb-2">{{ selectedTicket.subject }}</h4>
+                   <p class="text-base font-medium text-slate-600 leading-relaxed">{{ selectedTicket.content }}</p>
                 </div>
             </div>
 
             <!-- Admin Response -->
             <div class="space-y-3" v-if="selectedTicket.response">
                 <div class="flex items-center justify-end gap-3">
-                    <p class="text-[10px] font-bold text-brand-cyan uppercase tracking-widest">Administrative Response</p>
+                    <p class="text-[10px] font-bold text-brand-cyan ">Administrative Response</p>
                     <div class="w-8 h-8 bg-brand-cyan text-[#033958] rounded-full flex items-center justify-center font-bold text-xs"><Icon name="lucide:shield-check" size="14" /></div>
                 </div>
                 <div class="bg-brand-cyan/5 p-6 rounded-3xl rounded-tr-none border border-brand-cyan/10 ml-10">
-                   <p class="text-sm font-bold text-[#033958] leading-relaxed">{{ selectedTicket.response }}</p>
+                   <p class="text-base font-bold text-[#033958] leading-relaxed">{{ selectedTicket.response }}</p>
                 </div>
             </div>
          </div>
 
          <div v-if="selectedTicket.status === 'Resolved'" class="bg-slate-50 p-4 rounded-2xl text-center">
-             <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Ticket Resolved & Archived</p>
+             <p class="text-[10px] font-black text-slate-400  -[0.2em]">Ticket Resolved & Archived</p>
          </div>
       </div>
 

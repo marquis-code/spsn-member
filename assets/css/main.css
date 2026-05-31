@@ -16,23 +16,30 @@
     scroll-behavior: smooth;
   }
 
-  h1, h2, h3, h4, .font-heading {
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-heading {
     font-family: 'Outfit', sans-serif;
-    @apply tracking-tight;
+    @apply -tight;
   }
 
-  input, textarea, select {
+  input,
+  textarea,
+  select {
     @apply shadow-none !important;
     box-shadow: none !important;
   }
 }
 
 @layer components {
+
   /* Premium Glassmorphism - Minimalist */
   .glass {
     @apply bg-white/80 backdrop-blur-xl border border-slate-100;
   }
-  
+
   .glass-dark {
     @apply bg-slate-900/80 backdrop-blur-xl border border-white/5;
   }
@@ -76,11 +83,11 @@
 
   /* Form Elements */
   .premium-input {
-    @apply w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold text-brand-dark outline-none focus:border-brand-cyan focus:bg-white transition-all shadow-none;
+    @apply w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl text-base font-bold text-brand-dark outline-none focus:border-brand-cyan focus:bg-white transition-all shadow-none;
   }
 
   .premium-label {
-    @apply block text-sm font-bold text-brand-dark mb-2 ml-2;
+    @apply block text-base font-bold text-brand-dark mb-2 ml-2;
   }
 }
 
@@ -92,10 +99,11 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   @apply bg-slate-50;
 }
+
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
 }
-

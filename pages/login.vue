@@ -12,7 +12,7 @@
           {{ cmsConfig?.global?.siteName ? cmsConfig.global.siteName.split(' ').map(n => n[0]).join('').substring(0, 2) : 'SC' }}
         </div>
         <div class="space-y-6">
-          <h1 class="text-6xl font-black text-white tracking-tighter leading-none">
+          <h1 class="text-6xl font-black text-white -tighter leading-none">
             Welcome <br/> <span class="text-brand-cyan">Back</span>.
           </h1>
           <p class="text-xl text-white/50 font-medium max-w-md leading-relaxed">
@@ -23,7 +23,7 @@
           <div class="flex -space-x-3">
              <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-brand-dark bg-slate-200"></div>
           </div>
-          <p class="text-sm font-semibold text-white/60">500+ members joined</p>
+          <p class="text-base font-semibold text-white/60">500+ members joined</p>
         </div>
       </div>
     </div>
@@ -36,8 +36,8 @@
             <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
             <span class="text-xs font-semibold text-slate-500">Secure Connection</span>
           </div>
-          <h2 class="text-4xl font-black text-[#033958] tracking-tighter leading-none">Sign In.</h2>
-          <p class="text-sm text-slate-500 font-medium leading-relaxed">Enter your details below to continue.</p>
+          <h2 class="text-4xl font-black text-[#033958] -tighter leading-none">Sign In.</h2>
+          <p class="text-base text-slate-500 font-medium leading-relaxed">Enter your details below to continue.</p>
         </header>
 
         <form @submit.prevent="handleLogin" class="space-y-8">
@@ -80,7 +80,7 @@
         </form>
 
         <div class="text-center">
-           <p class="text-sm font-medium text-slate-500 leading-relaxed">
+           <p class="text-base font-medium text-slate-500 leading-relaxed">
               Don't have an account? 
               <NuxtLink to="/signup" class="text-brand-cyan font-bold hover:underline ml-2">Create an account</NuxtLink>
            </p>

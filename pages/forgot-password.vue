@@ -12,7 +12,7 @@
           SC
         </div>
         <div class="space-y-6">
-          <h1 class="text-6xl font-black text-white tracking-tighter leading-none">
+          <h1 class="text-6xl font-black text-white -tighter leading-none">
             Reset <br/> <span class="text-brand-cyan">Access</span>.
           </h1>
           <p class="text-xl text-white/50 font-medium max-w-md leading-relaxed">
@@ -30,8 +30,8 @@
             <div class="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-ping"></div>
             <span class="text-xs font-semibold text-slate-500">Security Protocol</span>
           </div>
-          <h2 class="text-4xl font-black text-[#033958] tracking-tighter leading-none">Forgot Password?</h2>
-          <p class="text-sm text-slate-500 font-medium leading-relaxed">Enter your registered email address to receive instructions.</p>
+          <h2 class="text-4xl font-black text-[#033958] -tighter leading-none">Forgot Password?</h2>
+          <p class="text-base text-slate-500 font-medium leading-relaxed">Enter your registered email address to receive instructions.</p>
         </header>
 
         <div v-if="success" class="bg-emerald-50 border border-emerald-100 p-8 rounded-[32px] space-y-4 animate-in fade-in slide-in-from-bottom-8">
@@ -39,7 +39,7 @@
               <Icon name="lucide:check" :size="24" />
            </div>
            <h3 class="text-lg font-bold text-emerald-900">Check your email</h3>
-           <p class="text-sm text-emerald-700 font-medium leading-relaxed">We've sent password reset instructions to <span class="font-bold">{{ email }}</span>.</p>
+           <p class="text-base text-emerald-700 font-medium leading-relaxed">We've sent password reset instructions to <span class="font-bold">{{ email }}</span>.</p>
            <button @click="success = false" class="text-xs font-bold text-emerald-600 hover:underline">Try another email</button>
         </div>
 
@@ -73,7 +73,7 @@
         </form>
 
         <div class="text-center">
-           <NuxtLink to="/login" class="text-sm font-bold text-slate-400 hover:text-[#033958] transition-colors flex items-center justify-center gap-2">
+           <NuxtLink to="/login" class="text-base font-bold text-slate-400 hover:text-[#033958] transition-colors flex items-center justify-center gap-2">
               <Icon name="lucide:arrow-left" :size="16" /> Back to Sign In
            </NuxtLink>
         </div>

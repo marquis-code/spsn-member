@@ -17,8 +17,8 @@
         </div>
         
         <div class="text-center mb-8">
-          <h3 class="text-xl font-bold text-[#003366] tracking-tight lowercase">{{ title }}</h3>
-          <p class="text-sm font-medium text-slate-500 mt-2 lowercase">{{ message }}</p>
+          <h3 class="text-xl font-bold text-[#003366] -tight lowercase">{{ title }}</h3>
+          <p class="text-base font-medium text-slate-500 mt-2 lowercase">{{ message }}</p>
         </div>
         
         <div class="flex gap-3">
