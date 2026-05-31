@@ -115,28 +115,27 @@
              <p class="text-base font-medium text-slate-500">Select a professional tier to begin your enrollment.</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-             <div v-for="(tier, i) in tiers" :key="i" class="p-10 rounded-[32px] border border-slate-100 flex flex-col space-y-8 group transition-all duration-500 hover:border-brand-cyan" :class="i === 1 ? 'bg-slate-50' : 'bg-white'">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+             <div v-for="(tier, i) in tiers" :key="i" class="p-10 rounded-[32px] border border-slate-100 flex flex-col space-y-8 group transition-all duration-500 hover:border-brand-cyan bg-slate-50/50">
                 <div class="space-y-3">
-                   <span class="text-base font-semibold text-brand-cyan">{{ tier.tag }}</span>
-                   <h3 class="text-2xl font-bold text-[#033958] -tight">{{ tier.title }}</h3>
+                   <h3 class="text-[26px] font-bold text-[#033958] -tight">{{ tier.title }}</h3>
                 </div>
                 
-                <div class="text-4xl font-black text-[#033958] -tighter flex items-baseline">
-                   <span class="text-base font-bold mr-1">₦</span>{{ tier.price }}<span class="text-base font-medium text-slate-400 ml-2 opacity-50"> / Year</span>
+                <div class="text-[44px] font-black text-brand-cyan -tighter flex items-baseline">
+                   <span class="mr-1">₦</span>{{ tier.price }}<span class="text-base font-bold text-slate-400 ml-1 opacity-70">/year</span>
                 </div>
                 
                 <div class="h-[1px] bg-slate-200/60 w-full"></div>
                 
-                <ul class="space-y-4 flex-1">
-                   <li v-for="feat in tier.features" :key="feat" class="text-slate-500 text-base font-medium flex items-center gap-3">
-                      <Icon name="lucide:check" :size="14" class="text-brand-cyan shrink-0" />
+                <ul class="space-y-5 flex-1 pt-2">
+                   <li v-for="feat in tier.features" :key="feat" class="text-slate-500 text-[17px] font-medium flex items-center gap-3">
+                      <Icon name="lucide:check-circle" :size="20" class="text-emerald-500 shrink-0" stroke-width="2" />
                       <span class="-wide">{{ feat }}</span>
                    </li>
                 </ul>
                 
-                <NuxtLink :to="'/signup?tier='+tier.title.toLowerCase()" class="block w-full text-center py-5 rounded-2xl text-base font-semibold transition-all" :class="i === 1 ? 'bg-[#033958] text-white hover:bg-brand-cyan hover:text-white' : 'bg-slate-100 text-slate-600 hover:bg-[#033958] hover:text-white'">
-                  Choose Plan
+                <NuxtLink :to="'/signup?tier='+tier.title.toLowerCase().replace(' ', '-')" class="block w-full text-center py-4 mt-4 rounded-xl text-lg font-bold transition-all bg-[#1f4a70] text-white hover:bg-[#033958]">
+                  Join Now
                 </NuxtLink>
              </div>
           </div>
@@ -204,27 +203,30 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import hero1 from "@/assets/img/gallery/photo4.jpeg"
+import hero2 from "@/assets/img/gallery/photo3.jpeg"
+import hero3 from "@/assets/img/gallery/photo2.jpeg"
 
 const currentSlide = ref(0)
 let slideInterval = null
 
 const slides = [
   {
-    image: '/images/hero/1.png',
+    image: hero1,
     tagline: 'Excellence in Pathology 2026',
     titlePart1: 'Advancing',
     titlePart2: 'Diagnostics',
     description: 'The professional network for pathology scientists in Nigeria. We verify credentials and promote high standards.'
   },
   {
-    image: '/images/hero/2.png',
+    image: hero2,
     tagline: 'Working Together',
     titlePart1: 'Fostering',
     titlePart2: 'Collaboration',
     description: 'Connect with pathology professionals worldwide. Share knowledge and collaborate on research.'
   },
   {
-    image: '/images/hero/3.png',
+    image: hero3,
     tagline: 'Accurate Results',
     titlePart1: 'Mastering',
     titlePart2: 'The Cell',
@@ -253,9 +255,8 @@ const benefits = [
 ]
 
 const tiers = [
-  { tag: 'Academic Entry', title: 'Student Member', price: '15,000', features: ['Repository Access', 'Forum Entry', 'Congress Discounts'] },
-  { tag: 'Core Practitioner', title: 'Full Member', price: '35,000', features: ['Board Certification', 'Voting Privileges', 'Grant Eligibility', 'Directory Listing'] },
-  { tag: 'Strategic Leadership', title: 'Fellow', price: '75,000', features: ['Advisory Role', 'Peer Review Board', 'Fellowship Title', 'VIP Event Access'] }
+  { title: 'New Registration', price: '20,000', features: ['Full association membership', 'Voting rights', 'Journal access', 'Conference discounts'] },
+  { title: 'Membership Renewal', price: '10,000', features: ['Maintain active status', 'Continuous journal access', 'Resource vault', 'Mentorship'] }
 ]
 
 const footerLinks = [
