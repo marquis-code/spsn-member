@@ -26,7 +26,7 @@
          :key="cat"
          @click="activeCategory = cat"
          :class="[
-           'px-6 py-2.5 rounded-xl text-xs font-black transition-all border shrink-0',
+           'px-6 py-2.5 rounded-xl text-sm font-black transition-all border shrink-0',
            activeCategory === cat ? 'bg-[#003366] text-white border-[#003366] shadow-lg shadow-[#003366]/20' : 'bg-white text-slate-400 border-slate-100 hover:border-slate-300'
          ]"
        >
@@ -38,7 +38,7 @@
     <section v-if="recentReads.length > 0" class="space-y-6">
        <div class="flex items-center gap-3">
           <Icon name="lucide:history" size="18" class="text-brand-cyan" />
-          <h3 class="text-xs font-black text-slate-400">Continue reading</h3>
+          <h3 class="text-sm font-black text-slate-400">Continue reading</h3>
        </div>
        <div class="space-y-3">
           <div 
@@ -107,7 +107,7 @@
                 </span>
               </td>
               <td class="px-8 py-6">
-                <p class="text-xs font-semibold text-slate-500 truncate max-w-[200px]">{{ pub.authors }}</p>
+                <p class="text-sm font-semibold text-slate-500 truncate max-w-[200px]">{{ pub.authors }}</p>
               </td>
               <td class="px-8 py-6">
                 <div class="flex items-center gap-4 text-[10px] font-black text-slate-400">
@@ -158,13 +158,13 @@
          <div class="grid grid-cols-4 gap-4">
             <div v-for="(val, lab) in { Pages: selectedPub.pages, Size: selectedPub.size, Date: selectedPub.date, Reads: selectedPub.readCount }" :key="lab" class="p-4 bg-white border border-slate-100 rounded-2xl text-center">
                <p class="text-[10px] font-black text-slate-400">{{ lab }}</p>
-               <p class="text-xs font-bold text-[#003366] mt-1">{{ val }}</p>
+               <p class="text-sm font-bold text-[#003366] mt-1">{{ val }}</p>
             </div>
          </div>
 
          <!-- Abstract / Summary -->
          <div class="space-y-4">
-            <h4 class="text-xs font-black text-slate-400 flex items-center gap-2">
+            <h4 class="text-sm font-black text-slate-400 flex items-center gap-2">
                <Icon name="lucide:info" size="14" class="text-brand-cyan" />
                Executive Summary
             </h4>
@@ -194,7 +194,7 @@
                   <Icon name="lucide:lock" size="32" class="text-[#003366] mx-auto" />
                   <h4 class="text-lg font-bold text-slate-800">Secure Document Viewer</h4>
                   <p class="text-base text-slate-500 font-medium">To maintain scientific integrity, full documents are available in PDF format for verified practitioners.</p>
-                  <button class="w-full bg-[#003366] text-white py-4 rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex items-center justify-center gap-2">
+                  <button class="w-full bg-[#003366] text-white py-4 rounded-xl text-sm font-bold hover:bg-[#002244] transition-all flex items-center justify-center gap-2">
                      <Icon name="lucide:file-down" size="16" />
                      Download Full Paper
                   </button>
@@ -205,8 +205,8 @@
       
       <template #footer>
          <div class="flex gap-3">
-            <button @click="isReaderOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold">Close Reader</button>
-            <button class="flex-1 py-3 bg-brand-cyan text-[#003366] rounded-xl text-xs font-bold hover:scale-[1.02] transition-all flex justify-center items-center gap-2">
+            <button @click="isReaderOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold">Close Reader</button>
+            <button class="flex-1 py-3 bg-brand-cyan text-[#003366] rounded-xl text-sm font-bold hover:scale-[1.02] transition-all flex justify-center items-center gap-2">
                <Icon name="lucide:share-2" size="16" />
                Share Archive
             </button>

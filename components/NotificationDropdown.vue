@@ -8,7 +8,7 @@
     <div class="max-h-[400px] overflow-y-auto custom-scrollbar-light">
       <div v-if="notifications.length === 0" class="p-12 text-center">
         <Icon name="lucide:bell-off" size="32" class="text-slate-200 mx-auto mb-3" />
-        <p class="text-xs font-bold text-slate-400">No new notifications</p>
+        <p class="text-sm font-bold text-slate-400">No new notifications</p>
       </div>
       
       <div 
@@ -32,7 +32,7 @@
             <h4 class="text-base font-bold text-slate-800">{{ notif.title }}</h4>
             <span class="text-[10px] font-medium text-slate-400">{{ notif.time }}</span>
           </div>
-          <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">{{ notif.message }}</p>
+          <p class="text-sm text-slate-500 leading-relaxed line-clamp-2">{{ notif.message }}</p>
         </div>
         <div v-if="!notif.read" class="w-2 h-2 bg-brand-cyan rounded-full mt-1.5 shrink-0"></div>
       </div>
@@ -40,7 +40,7 @@
     
     <NuxtLink 
       to="/dashboard/notifications" 
-      class="block p-4 text-center text-xs font-bold text-slate-500 hover:bg-slate-50 hover:text-[#003366] transition-all bg-slate-50/50"
+      class="block p-4 text-center text-sm font-bold text-slate-500 hover:bg-slate-50 hover:text-[#003366] transition-all bg-slate-50/50"
       @click="$emit('close')"
     >
       View all notifications

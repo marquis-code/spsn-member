@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-1.5 group">
     <!-- Label -->
-    <label v-if="label" class="text-xs font-bold text-slate-400 pl-1 pointer-events-none group-focus-within:text-[#003366] transition-colors">
+    <label v-if="label" class="text-sm font-bold text-slate-400 pl-1 pointer-events-none group-focus-within:text-[#003366] transition-colors">
       {{ label }} <span v-if="required" class="text-red-500">*</span>
     </label>
 
@@ -27,7 +27,7 @@
               v-model="searchQuery"
               type="text" 
               placeholder="Search country..." 
-              class="w-full px-4 py-2 text-xs font-bold bg-slate-50 border-none rounded-xl focus:ring-0 outline-none"
+              class="w-full px-4 py-2 text-sm font-bold bg-slate-50 border-none rounded-xl focus:ring-0 outline-none"
               ref="searchInput"
             />
           </div>
@@ -79,7 +79,7 @@
       leave-from-class="transform translate-y-0 opacity-100"
       leave-to-class="transform -translate-y-2 opacity-0"
     >
-      <p v-if="error" class="text-xs font-bold text-red-500 pl-4">
+      <p v-if="error" class="text-sm font-bold text-red-500 pl-4">
         {{ error }}
       </p>
     </transition>

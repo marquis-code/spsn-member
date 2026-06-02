@@ -26,10 +26,10 @@
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-slate-50 border-b border-slate-100">
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Ticket ID</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Subject</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Priority</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Status</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Ticket ID</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Subject</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Priority</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-50">
@@ -39,7 +39,7 @@
               @click="openTicketDrawer(ticket)"
               class="hover:bg-slate-50/50 cursor-pointer transition-colors group"
             >
-              <td class="px-8 py-5 text-xs font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors">
+              <td class="px-8 py-5 text-sm font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors">
                 #{{ ticket.id }}
               </td>
               <td class="px-8 py-5">
@@ -93,7 +93,7 @@
          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
             <div class="space-y-1">
                <h3 class="text-base font-black text-[#033958] ">{{ selectedTicket.category }}</h3>
-               <p class="text-xs font-bold text-slate-400">Opened on {{ selectedTicket.date }}</p>
+               <p class="text-sm font-bold text-slate-400">Opened on {{ selectedTicket.date }}</p>
             </div>
             <span :class="[
                   'px-3 py-1 text-[10px] font-bold rounded-lg',
@@ -108,7 +108,7 @@
             <!-- User Message -->
             <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-[#033958] text-white rounded-full flex items-center justify-center font-bold text-xs">SC</div>
+                    <div class="w-8 h-8 bg-[#033958] text-white rounded-full flex items-center justify-center font-bold text-sm">SC</div>
                     <p class="text-[10px] font-bold text-slate-400 ">Inquiry Message</p>
                 </div>
                 <div class="bg-slate-50 p-6 rounded-3xl rounded-tl-none border border-slate-100">
@@ -121,7 +121,7 @@
             <div class="space-y-3" v-if="selectedTicket.response">
                 <div class="flex items-center justify-end gap-3">
                     <p class="text-[10px] font-bold text-brand-cyan ">Administrative Response</p>
-                    <div class="w-8 h-8 bg-brand-cyan text-[#033958] rounded-full flex items-center justify-center font-bold text-xs"><Icon name="lucide:shield-check" size="14" /></div>
+                    <div class="w-8 h-8 bg-brand-cyan text-[#033958] rounded-full flex items-center justify-center font-bold text-sm"><Icon name="lucide:shield-check" size="14" /></div>
                 </div>
                 <div class="bg-brand-cyan/5 p-6 rounded-3xl rounded-tr-none border border-brand-cyan/10 ml-10">
                    <p class="text-base font-bold text-[#033958] leading-relaxed">{{ selectedTicket.response }}</p>
@@ -136,8 +136,8 @@
 
       <template #footer>
          <div class="flex gap-3">
-            <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold transition-all">Close Viewer</button>
-            <button v-if="selectedTicket?.status === 'Open'" @click="requestCancel" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-rose-50 hover:text-rose-600 transition-all flex justify-center items-center gap-2">
+            <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold transition-all">Close Viewer</button>
+            <button v-if="selectedTicket?.status === 'Open'" @click="requestCancel" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-rose-50 hover:text-rose-600 transition-all flex justify-center items-center gap-2">
                <Icon name="lucide:lock" size="16" />
                Mark as Resolved
             </button>
@@ -187,8 +187,8 @@
 
       <template #footer>
          <div class="flex gap-3">
-            <button @click="isNewTicketDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold">Cancel</button>
-            <button @click="createTicket" :disabled="isCreating" class="flex-1 py-3 bg-brand-dark text-white rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 disabled:opacity-50">
+            <button @click="isNewTicketDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold">Cancel</button>
+            <button @click="createTicket" :disabled="isCreating" class="flex-1 py-3 bg-brand-dark text-white rounded-xl text-sm font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 disabled:opacity-50">
                <Icon v-if="isCreating" name="lucide:loader-2" class="animate-spin" size="16" />
                <Icon v-else name="lucide:plus" size="16" />
                Open Ticket

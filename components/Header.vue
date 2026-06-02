@@ -43,6 +43,7 @@
 
         <!-- Desktop CTA -->
         <div class="hidden lg:flex items-center gap-4">
+          <LanguageSwitcher class="text-white" />
           <NuxtLink to="/login" class="px-5 py-2.5 text-base font-bold transition-colors text-white hover:text-brand-cyan">
             Login
           </NuxtLink>
@@ -109,6 +110,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 // use Nuxt auto-imports for route/router
+import LanguageSwitcher from '@/components/core/LanguageSwitcher.vue'
 
 const route = useRoute()
 const isScrolled = ref(false)

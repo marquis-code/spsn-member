@@ -28,7 +28,7 @@
         <header class="space-y-4">
           <div class="inline-flex items-center gap-3 px-5 py-2 bg-slate-50 border border-slate-100 rounded-full">
             <div class="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-ping"></div>
-            <span class="text-xs font-semibold text-slate-500">Security Protocol</span>
+            <span class="text-sm font-semibold text-slate-500">Security Protocol</span>
           </div>
           <h2 class="text-4xl font-black text-[#033958] -tighter leading-none">Forgot Password?</h2>
           <p class="text-base text-slate-500 font-medium leading-relaxed">Enter your registered email address to receive instructions.</p>
@@ -40,7 +40,7 @@
            </div>
            <h3 class="text-lg font-bold text-emerald-900">Check your email</h3>
            <p class="text-base text-emerald-700 font-medium leading-relaxed">We've sent password reset instructions to <span class="font-bold">{{ email }}</span>.</p>
-           <button @click="success = false" class="text-xs font-bold text-emerald-600 hover:underline">Try another email</button>
+           <button @click="success = false" class="text-sm font-bold text-emerald-600 hover:underline">Try another email</button>
         </div>
 
         <form v-else @submit.prevent="handleForgot" class="space-y-8">
@@ -57,7 +57,7 @@
               </AnimatedInput>
            </div>
 
-           <div v-if="error" class="p-4 bg-rose-50 border border-rose-100 rounded-xl text-xs font-bold text-rose-500">
+           <div v-if="error" class="p-4 bg-rose-50 border border-rose-100 rounded-xl text-sm font-bold text-rose-500">
              {{ error }}
            </div>
 
@@ -81,7 +81,7 @@
       
       <!-- Subtle Bottom Attribution -->
       <footer class="absolute bottom-12 left-1/2 -translate-x-1/2 w-full text-center px-6">
-         <p class="text-xs font-semibold text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria</p>
+         <p class="text-sm font-semibold text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria</p>
       </footer>
     </div>
   </div>

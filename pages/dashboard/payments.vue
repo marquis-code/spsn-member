@@ -18,7 +18,7 @@
           <div class="w-10 h-10 rounded-full bg-brand-cyan/10 flex items-center justify-center text-brand-cyan">
              <Icon name="lucide:check-circle" size="20" />
           </div>
-          <span class="text-xs font-bold text-slate-500">Account Status</span>
+          <span class="text-sm font-bold text-slate-500">Account Status</span>
         </div>
         <h3 class="text-2xl font-bold text-brand-dark">Active</h3>
         <p class="text-[11px] font-medium text-emerald-500">Next renewal: Jan 2027</p>
@@ -28,7 +28,7 @@
           <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
              <Icon name="lucide:history" size="20" />
           </div>
-          <span class="text-xs font-bold text-slate-500">Total Spent</span>
+          <span class="text-sm font-bold text-slate-500">Total Spent</span>
         </div>
         <h3 class="text-2xl font-bold text-brand-dark">$450.00</h3>
         <p class="text-[11px] font-medium text-slate-400">Lifetime contribution</p>
@@ -38,9 +38,9 @@
     <!-- Filter & Search -->
     <div class="flex flex-wrap gap-4 items-center justify-between mt-8">
       <div class="flex items-center gap-2">
-        <button class="px-5 py-2.5 bg-white border-2 border-brand-dark text-brand-dark rounded-full text-xs font-bold transition-all focus:ring-2 focus:ring-brand-dark/20">All Transactions</button>
-        <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-bold hover:border-slate-300 transition-all focus:ring-2 focus:ring-slate-200">Membership</button>
-        <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-bold hover:border-slate-300 transition-all focus:ring-2 focus:ring-slate-200">Events</button>
+        <button class="px-5 py-2.5 bg-white border-2 border-brand-dark text-brand-dark rounded-full text-sm font-bold transition-all focus:ring-2 focus:ring-brand-dark/20">All Transactions</button>
+        <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-500 rounded-full text-sm font-bold hover:border-slate-300 transition-all focus:ring-2 focus:ring-slate-200">Membership</button>
+        <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-500 rounded-full text-sm font-bold hover:border-slate-300 transition-all focus:ring-2 focus:ring-slate-200">Events</button>
       </div>
     </div>
 
@@ -50,11 +50,11 @@
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-slate-50 border-b border-slate-100">
-              <th class="px-8 py-5 text-xs font-bold text-slate-500">Reference ID</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500">Description</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500">Date</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500">Amount</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500">Status</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500">Reference ID</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500">Description</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500">Date</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500">Amount</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500">Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-50">
@@ -64,14 +64,14 @@
               @click="openTransactionDrawer(tx)"
               class="hover:bg-slate-50/50 cursor-pointer transition-colors group"
             >
-              <td class="px-8 py-5 text-xs font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors">
+              <td class="px-8 py-5 text-sm font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors">
                 {{ tx.reference?.substring(0,10) }}
               </td>
               <td class="px-8 py-5">
                 <p class="text-base font-bold text-slate-800">{{ tx.paymentType || 'Manual Payment' }}</p>
                 <p class="text-[11px] font-medium text-slate-400 mt-0.5">Bank Transfer</p>
               </td>
-              <td class="px-8 py-5 text-xs font-medium text-slate-500">{{ formatDate(tx.createdAt) }}</td>
+              <td class="px-8 py-5 text-sm font-medium text-slate-500">{{ formatDate(tx.createdAt) }}</td>
               <td class="px-8 py-5 text-base font-bold text-slate-800">₦{{ tx.amount?.toLocaleString() }}</td>
               <td class="px-8 py-5">
                 <span :class="[
@@ -109,7 +109,7 @@
         <div class="bg-slate-50 p-6 rounded-2xl rounded-tl-none border border-slate-100">
           <p class="text-[10px] font-black text-slate-400 lowercase mb-2">amount paid</p>
           <h2 class="text-4xl font-extrabold text-[#003366] tracking-tight">${{ selectedTransaction.amount.toFixed(2) }}</h2>
-          <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-bold border border-emerald-100">
+          <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-50 text-emerald-600 rounded-lg text-sm font-bold border border-emerald-100">
             <Icon name="lucide:check-circle" size="14" />
             successful payment
           </div>
@@ -139,7 +139,7 @@
 
       <template #footer>
         <div class="flex gap-3">
-          <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 rounded-xl text-xs font-bold transition-all lowercase">close</button>
+          <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 rounded-xl text-sm font-bold transition-all lowercase">close</button>
         </div>
       </template>
     </SideDrawer>
@@ -153,7 +153,7 @@
         
         <div class="space-y-6">
            <div class="space-y-2">
-              <label class="text-xs font-bold text-slate-800">Payment Type</label>
+              <label class="text-sm font-bold text-slate-800">Payment Type</label>
               <select v-model="newPayment.type" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-base font-bold text-slate-800 focus:outline-none focus:border-brand-dark">
                  <option value="Dues">Membership Dues</option>
                  <option value="Conference">Conference Registration</option>
@@ -176,7 +176,7 @@
            </div>
 
            <div class="space-y-2">
-              <label class="text-xs font-bold text-slate-800">Amount Paid (NGN)</label>
+              <label class="text-sm font-bold text-slate-800">Amount Paid (NGN)</label>
               <input v-model="newPayment.amount" type="number" :disabled="newPayment.type === 'Dues'" :class="['w-full border border-slate-200 rounded-xl p-4 text-base font-bold text-slate-800 focus:outline-none focus:border-brand-dark', newPayment.type === 'Dues' ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : 'bg-slate-50']" placeholder="e.g. 10000" />
               <p v-if="newPayment.type === 'Dues'" class="text-[10px] font-bold text-brand-cyan">
                  {{ hasPaidDues ? 'Annual Renewal Fee (₦10,000)' : 'First Time Registration Fee (₦20,000)' }}
@@ -184,15 +184,15 @@
            </div>
            
            <div class="space-y-2">
-              <label class="text-xs font-bold text-slate-800">Upload Payment Receipt</label>
+              <label class="text-sm font-bold text-slate-800">Upload Payment Receipt</label>
               <div @click="$refs.receiptInput.click()" class="border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center cursor-pointer hover:bg-slate-50 hover:border-brand-cyan transition-all group">
                  <div v-if="!newPayment.file">
                     <LucideUpload class="mx-auto text-slate-400 group-hover:text-brand-cyan mb-2" :size="24" />
-                    <p class="text-xs font-bold text-slate-500">Click to select receipt image</p>
+                    <p class="text-sm font-bold text-slate-500">Click to select receipt image</p>
                  </div>
                  <div v-else class="flex flex-col items-center gap-2 text-brand-cyan">
                     <LucideFileCheck :size="24" />
-                    <span class="text-xs font-bold max-w-full truncate">{{ newPayment.file.name }}</span>
+                    <span class="text-sm font-bold max-w-full truncate">{{ newPayment.file.name }}</span>
                  </div>
               </div>
               <input type="file" ref="receiptInput" class="hidden" accept="image/*" @change="handleFileChange" />

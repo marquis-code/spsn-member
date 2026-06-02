@@ -14,20 +14,20 @@
     <!-- Abstracts Table -->
     <div class="bg-white rounded-[2rem] border border-slate-200 overflow-hidden mt-8">
       <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-        <h3 class="text-xs font-black text-slate-400 lowercase">submission archives</h3>
+        <h3 class="text-sm font-black text-slate-400 lowercase">submission archives</h3>
         <div class="flex gap-2">
            <span class="w-2 h-2 rounded-full bg-emerald-500 border border-white mt-1"></span>
-           <p class="text-xs font-semibold text-slate-500 line-clamp-1 max-w-[200px]">{{ cmsConfig?.member?.pages?.abstracts?.deadlineText || 'Call for Papers is Open until May 2026' }}</p>
+           <p class="text-sm font-semibold text-slate-500 line-clamp-1 max-w-[200px]">{{ cmsConfig?.member?.pages?.abstracts?.deadlineText || 'Call for Papers is Open until May 2026' }}</p>
         </div>
       </div>
       <div class="overflow-x-auto custom-scrollbar">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-slate-50 border-b border-slate-100">
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">ID</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Scientific Title</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Date</th>
-              <th class="px-8 py-5 text-xs font-bold text-slate-500 ">Status</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">ID</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Scientific Title</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Date</th>
+              <th class="px-8 py-5 text-sm font-bold text-slate-500 ">Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-50">
@@ -37,14 +37,14 @@
               @click="openAbstractDrawer(paper)"
               class="hover:bg-slate-50/50 cursor-pointer transition-colors group"
             >
-              <td class="px-8 py-5 text-xs font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors">
+              <td class="px-8 py-5 text-sm font-semibold text-brand-dark group-hover:text-brand-cyan transition-colors">
                 #{{ paper.id }}
               </td>
               <td class="px-8 py-5">
                 <p class="text-base font-bold text-slate-800">{{ paper.title }}</p>
                 <p class="text-[11px] font-medium text-slate-400 mt-0.5 line-clamp-1 w-64">{{ paper.authors }}</p>
               </td>
-              <td class="px-8 py-5 text-xs font-medium text-slate-500">{{ paper.date }}</td>
+              <td class="px-8 py-5 text-sm font-medium text-slate-500">{{ paper.date }}</td>
               <td class="px-8 py-5">
                 <span :class="[
                   'px-3 py-1 text-[10px] font-bold rounded-lg',
@@ -105,8 +105,8 @@
 
       <template #footer>
          <div class="flex gap-3">
-            <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 rounded-xl text-xs font-bold transition-all">Close</button>
-            <button v-if="selectedAbstract?.status !== 'Accepted'" @click="requestRetract" class="flex-1 py-3 bg-rose-50 border border-rose-200 text-rose-600 rounded-xl text-xs font-bold hover:bg-rose-100 hover:border-rose-300 transition-all flex justify-center items-center gap-2">
+            <button @click="isDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 rounded-xl text-sm font-bold transition-all">Close</button>
+            <button v-if="selectedAbstract?.status !== 'Accepted'" @click="requestRetract" class="flex-1 py-3 bg-rose-50 border border-rose-200 text-rose-600 rounded-xl text-sm font-bold hover:bg-rose-100 hover:border-rose-300 transition-all flex justify-center items-center gap-2">
                <Icon name="lucide:trash-2" size="16" />
                Retract Submission
             </button>
@@ -147,19 +147,19 @@
            <div class="p-6 border-2 border-dashed border-slate-200 rounded-3xl text-center space-y-3 group hover:border-brand-cyan transition-all cursor-pointer" @click="$refs.docInput.click()">
               <Icon name="lucide:upload-cloud" size="32" class="text-slate-300 group-hover:text-brand-cyan transition-colors mx-auto" />
               <div class="space-y-1">
-                 <p class="text-xs font-bold text-slate-700">Attach Supplementary PDF</p>
+                 <p class="text-sm font-bold text-slate-700">Attach Supplementary PDF</p>
                  <p class="text-[10px] text-slate-400">Optional: Charts, graphs, or full paper (Max 10MB)</p>
               </div>
               <input type="file" ref="docInput" class="hidden" accept=".pdf" @change="handleFileChange" />
-              <p v-if="submissionForm.fileName" class="text-xs font-bold text-brand-cyan mt-2">{{ submissionForm.fileName }}</p>
+              <p v-if="submissionForm.fileName" class="text-sm font-bold text-brand-cyan mt-2">{{ submissionForm.fileName }}</p>
            </div>
         </div>
       </div>
 
       <template #footer>
          <div class="flex gap-3">
-            <button @click="isSubmitDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold">Cancel</button>
-            <button @click="submitAbstract" :disabled="isSubmitting" class="flex-1 py-3 bg-brand-dark text-white rounded-xl text-xs font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 disabled:opacity-50">
+            <button @click="isSubmitDrawerOpen = false" class="flex-1 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold">Cancel</button>
+            <button @click="submitAbstract" :disabled="isSubmitting" class="flex-1 py-3 bg-brand-dark text-white rounded-xl text-sm font-bold hover:bg-[#002244] transition-all flex justify-center items-center gap-2 disabled:opacity-50">
                <Icon v-if="isSubmitting" name="lucide:loader-2" class="animate-spin" size="16" />
                <Icon v-else name="lucide:send" size="16" />
                Submit Abstract

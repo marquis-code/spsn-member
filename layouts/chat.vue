@@ -33,12 +33,12 @@
         </div>
         <NuxtLink to="/dashboard/portfolio" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
            <div class="text-right hidden sm:block">
-              <p class="text-xs font-bold">{{ user?.fullName || 'Practitioner' }}</p>
+              <p class="text-sm font-bold">{{ user?.fullName || 'Practitioner' }}</p>
               <p class="text-[10px] text-white/50">{{ user?.category || 'Member' }}</p>
            </div>
            <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden">
               <img v-if="user?.profilePicture" :src="user.profilePicture" class="w-full h-full object-cover" />
-              <span v-else class="font-bold text-xs">{{ userInitials }}</span>
+              <span v-else class="font-bold text-sm">{{ userInitials }}</span>
            </div>
         </NuxtLink>
       </div>

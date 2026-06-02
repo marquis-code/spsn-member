@@ -135,7 +135,7 @@
                 </ul>
                 
                 <NuxtLink :to="'/signup?tier='+tier.title.toLowerCase().replace(' ', '-')" class="block w-full text-center py-4 mt-4 rounded-xl text-lg font-bold transition-all bg-[#1f4a70] text-white hover:bg-[#033958]">
-                  Join Now
+                  {{ tier.buttonText }}
                 </NuxtLink>
              </div>
           </div>
@@ -189,11 +189,11 @@
           </div>
           
           <div class="mt-20 pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
-             <p class="text-xs font-medium text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria &bull; All Rights Reserved.</p>
+             <p class="text-sm font-medium text-slate-400">© 2026 Society for Cellular Pathology Scientists of Nigeria &bull; All Rights Reserved.</p>
              <div class="flex gap-8">
-                <NuxtLink to="/signup" class="text-xs font-medium text-slate-400 hover:text-[#033958]">Sign Up</NuxtLink>
-                <NuxtLink to="/login" class="text-xs font-medium text-slate-400 hover:text-[#033958]">Login</NuxtLink>
-                <a href="#" class="text-xs font-medium text-slate-400 hover:text-[#033958]">Privacy</a>
+                <NuxtLink to="/signup" class="text-sm font-medium text-slate-400 hover:text-[#033958]">Sign Up</NuxtLink>
+                <NuxtLink to="/login" class="text-sm font-medium text-slate-400 hover:text-[#033958]">Login</NuxtLink>
+                <a href="#" class="text-sm font-medium text-slate-400 hover:text-[#033958]">Privacy</a>
              </div>
           </div>
        </div>
@@ -255,8 +255,8 @@ const benefits = [
 ]
 
 const tiers = [
-  { title: 'New Registration', price: '20,000', features: ['Full association membership', 'Voting rights', 'Journal access', 'Conference discounts'] },
-  { title: 'Membership Renewal', price: '10,000', features: ['Maintain active status', 'Continuous journal access', 'Resource vault', 'Mentorship'] }
+  { title: 'New Registration', price: '20,000', buttonText: 'Join Now', features: ['Full association membership', 'Voting rights', 'Journal access', 'Conference discounts'] },
+  { title: 'Membership Renewal', price: '10,000', buttonText: 'Renew Now', features: ['Maintain active status', 'Continuous journal access', 'Resource vault', 'Mentorship'] }
 ]
 
 const footerLinks = [

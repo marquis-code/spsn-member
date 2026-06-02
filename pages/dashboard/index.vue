@@ -11,7 +11,7 @@
         <div class="relative z-10 space-y-6">
           <div class="inline-flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/10">
             <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
-            <span class="text-xs font-bold lowercase">scientific network active</span>
+            <span class="text-sm font-bold lowercase">scientific network active</span>
           </div>
           <h1 class="text-4xl font-bold -tight leading-none">
             {{ cmsConfig?.member?.portal?.welcomeTitle || 'Welcome Back,' }} <br/> <span class="text-brand-cyan">{{ user?.fullName?.split(' ')[0] || 'Practitioner' }}</span>
@@ -20,30 +20,30 @@
             {{ cmsConfig?.member?.portal?.welcomeSubtitle || 'Your credentials have been re-validated for the current diagnostic cycle. You have access to the latest pathological archives.' }}
           </p>
           <div class="flex items-center gap-6 pt-4">
-            <NuxtLink to="/dashboard/library" class="bg-brand-cyan text-[#003366] px-8 py-3 rounded-xl text-xs font-bold hover:scale-105 transition-all">Explore Archives</NuxtLink>
-            <NuxtLink to="/dashboard/portfolio" class="text-xs font-bold text-white/80 hover:text-white transition-colors">Update Profile</NuxtLink>
+            <NuxtLink to="/dashboard/library" class="bg-brand-cyan text-[#003366] px-8 py-3 rounded-xl text-sm font-bold hover:scale-105 transition-all">Explore Archives</NuxtLink>
+            <NuxtLink to="/dashboard/portfolio" class="text-sm font-bold text-white/80 hover:text-white transition-colors">Update Profile</NuxtLink>
           </div>
         </div>
       </div>
 
       <div class="bg-white rounded-[2rem] border border-slate-200 p-6 lg:p-10 flex flex-col justify-between">
         <div class="space-y-4">
-          <span class="text-xs font-bold text-slate-400 lowercase">membership identity</span>
+          <span class="text-sm font-bold text-slate-400 lowercase">membership identity</span>
           <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-[#003366] -tight leading-none">{{ user?.category || 'Professional' }}</h3>
-            <div :class="statusClass" class="px-3 py-1 rounded-lg text-xs font-bold">
+            <div :class="statusClass" class="px-3 py-1 rounded-lg text-sm font-bold">
               {{ user?.status || 'Active' }}
             </div>
           </div>
           <div class="pt-6 space-y-3">
-             <div class="flex justify-between items-center text-xs font-bold">
+             <div class="flex justify-between items-center text-sm font-bold">
                <span class="text-slate-400 lowercase">renewal date</span>
                <span class="text-slate-800">{{ renewalDate }}</span>
              </div>
              <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
                <div :style="{ width: '75%' }" class="h-full bg-brand-cyan"></div>
              </div>
-             <p class="text-xs text-slate-400 font-medium">75% of membership cycle remaining</p>
+             <p class="text-sm text-slate-400 font-medium">75% of membership cycle remaining</p>
           </div>
         </div>
         <button 
@@ -64,7 +64,7 @@
           <div class="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-[#003366] border border-slate-100 group-hover:bg-[#003366] group-hover:text-white transition-all duration-500">
             <Icon :name="metric.icon" size="20" />
           </div>
-          <span class="text-xs font-bold text-emerald-500 leading-none">+{{ metric.growth }}%</span>
+          <span class="text-sm font-bold text-emerald-500 leading-none">+{{ metric.growth }}%</span>
         </div>
         <p class="text-base font-semibold text-slate-500">{{ metric.label }}</p>
         <h4 class="text-3xl font-bold text-slate-800 -tight mt-1">{{ metric.value }}</h4>
@@ -76,8 +76,8 @@
       <!-- Recent Publications / Journals -->
       <div class="lg:col-span-2 space-y-6">
         <div class="flex items-center justify-between">
-          <h3 class="text-xs font-black text-slate-400 lowercase">latest scientific publications</h3>
-          <NuxtLink to="/dashboard/library" class="text-xs font-bold text-brand-cyan hover:underline lowercase">view all library</NuxtLink>
+          <h3 class="text-sm font-black text-slate-400 lowercase">latest scientific publications</h3>
+          <NuxtLink to="/dashboard/library" class="text-sm font-bold text-brand-cyan hover:underline lowercase">view all library</NuxtLink>
         </div>
         
         <div class="space-y-4">
@@ -97,7 +97,7 @@
                  <h4 class="text-base font-bold text-slate-800 -tight truncate group-hover:text-brand-cyan transition-colors">{{ pub.title }}</h4>
                  <span class="px-2 py-0.5 rounded-md text-[8px] font-black bg-slate-100 text-slate-500 lowercase">{{ pub.category }}</span>
               </div>
-              <p class="text-xs text-slate-500 font-medium leading-relaxed line-clamp-1 mt-1">{{ pub.desc }}</p>
+              <p class="text-sm text-slate-500 font-medium leading-relaxed line-clamp-1 mt-1">{{ pub.desc }}</p>
               <div class="flex items-center gap-4 mt-2 text-[10px] font-bold text-slate-400 lowercase">
                  <span>{{ pub.date }}</span>
                  <div class="w-1 h-1 bg-slate-200 rounded-full"></div>
@@ -118,7 +118,7 @@
         <div class="bg-white p-6 lg:p-8 rounded-[2rem] border border-slate-200 space-y-6">
            <div class="space-y-2">
              <h4 class="text-base font-bold text-[#003366]">{{ cmsConfig?.member?.portal?.announcementTitle || 'Scientific Abstract Due' }}</h4>
-             <p class="text-xs text-slate-500 font-medium leading-relaxed">{{ cmsConfig?.member?.portal?.announcementText || 'The International Scientific Congress abstract submission is currently open for members.' }}</p>
+             <p class="text-sm text-slate-500 font-medium leading-relaxed">{{ cmsConfig?.member?.portal?.announcementText || 'The International Scientific Congress abstract submission is currently open for members.' }}</p>
            </div>
            <NuxtLink :to="cmsConfig?.member?.portal?.announcementLink || '/dashboard/abstracts'" class="block w-full text-center bg-[#003366] text-white py-4 rounded-xl text-base font-bold hover:bg-[#004080] transition-all">Take Action</NuxtLink>
            <div class="h-[1px] bg-slate-100"></div>

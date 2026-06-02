@@ -33,11 +33,11 @@
         <div class="w-full grid grid-cols-2 gap-4 pt-4 text-left">
            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
               <p class="text-[8px] font-black text-slate-400 ">Registry ID</p>
-              <p class="text-xs font-bold text-[#003366] mt-1">{{ user?.membershipId || 'SC-PENDING' }}</p>
+              <p class="text-sm font-bold text-[#003366] mt-1">{{ user?.membershipId || 'SC-PENDING' }}</p>
            </div>
            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
               <p class="text-[8px] font-black text-slate-400 ">Valid Until</p>
-              <p class="text-xs font-bold text-slate-800 mt-1">Dec 2026</p>
+              <p class="text-sm font-bold text-slate-800 mt-1">Dec 2026</p>
            </div>
         </div>
         

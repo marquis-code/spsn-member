@@ -26,9 +26,14 @@ export const useUser = () => {
     if (typeof window !== "undefined") {
       const storedUser = localStorage.getItem("user");
       const storedToken = localStorage.getItem("token");
-      if (storedUser && storedToken) {
-        user.value = JSON.parse(storedUser);
-        token.value = storedToken;
+      if (storedUser && storedUser !== "undefined" && storedToken) {
+        try {
+          user.value = JSON.parse(storedUser);
+          token.value = storedToken;
+        } catch (e) {
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+        }
       }
     }
   };

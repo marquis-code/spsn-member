@@ -84,9 +84,13 @@ export const useLibrary = () => {
   const loadRecentReads = () => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('recent_reads')
-      if (stored) {
-        const ids = JSON.parse(stored)
-        recentReads.value = ids.map((id: string) => publications.value.find(p => p.id === id)).filter(Boolean)
+      if (stored && stored !== 'undefined') {
+        try {
+          const ids = JSON.parse(stored)
+          recentReads.value = ids.map((id: string) => publications.value.find(p => p.id === id)).filter(Boolean)
+        } catch (e) {
+          localStorage.removeItem('recent_reads')
+        }
       }
     }
   }

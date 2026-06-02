@@ -5,7 +5,7 @@
         <h1 class="text-3xl font-bold text-slate-800 -tight">Notifications</h1>
         <p class="text-slate-500 font-medium mt-1 text-base">Stay updated with the latest activity in the scientific network.</p>
       </div>
-      <button @click="markAllAsRead" class="px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-xs font-bold hover:border-[#003366] hover:text-[#003366] transition-all">
+      <button @click="markAllAsRead" class="px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:border-[#003366] hover:text-[#003366] transition-all">
         Mark all as read
       </button>
     </div>
@@ -42,7 +42,7 @@
                 <h4 class="text-base font-bold text-slate-800">{{ notif.title }}</h4>
                 <span v-if="!notif.read" class="px-2 py-0.5 bg-brand-cyan text-[#003366] text-[9px] font-black rounded-full -widest">New</span>
               </div>
-              <span class="text-xs font-medium text-slate-400">{{ notif.time }}</span>
+              <span class="text-sm font-medium text-slate-400">{{ notif.time }}</span>
             </div>
             <p class="text-base text-slate-500 leading-relaxed max-w-3xl">{{ notif.message }}</p>
             

@@ -22,7 +22,7 @@
             <span v-else>{{ cmsConfig?.member?.portal?.siteInitials || 'SC' }}</span>
           </div>
           <div>
-            <span class="font-bold text-white text-xs block ">{{ cmsConfig?.member?.portal?.siteName || 'Scientific Hub' }}</span>
+            <span class="font-bold text-white text-sm block ">{{ cmsConfig?.member?.portal?.siteName || 'Scientific Hub' }}</span>
             <p class="text-[10px] text-white/60 font-medium mt-0.5">{{ cmsConfig?.member?.portal?.siteName ? 'Member Portal' : 'Society for Cellular Pathology' }}</p>
           </div>
         </div>
@@ -61,10 +61,10 @@
           </div>
           <div class="min-w-0">
             <h4 class="text-base font-bold -tight truncate">{{ userName }}</h4>
-            <span class="text-xs font-semibold text-emerald-400 block mt-0.5 uppercase -tighter">{{ userStatus }}</span>
+            <span class="text-sm font-semibold text-emerald-400 block mt-0.5 uppercase -tighter">{{ userStatus }}</span>
           </div>
         </div>
-        <button @click="showLogoutModal = true" class="w-full py-3 bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white rounded-xl text-xs font-bold transition-all border border-rose-500/20 flex items-center justify-center gap-2">
+        <button @click="showLogoutModal = true" class="w-full py-3 bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white rounded-xl text-sm font-bold transition-all border border-rose-500/20 flex items-center justify-center gap-2">
           <Icon name="lucide:log-out" size="14" />
           Logout
         </button>
@@ -90,7 +90,7 @@
             <input 
               type="text" 
               placeholder="Search registry..." 
-              class="w-full h-10 pl-10 pr-4 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 focus:bg-white focus:ring-2 focus:ring-[#003366]/5 focus:border-[#003366]/20 outline-none transition-all placeholder:text-slate-400"
+              class="w-full h-10 pl-10 pr-4 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:bg-white focus:ring-2 focus:ring-[#003366]/5 focus:border-[#003366]/20 outline-none transition-all placeholder:text-slate-400"
             />
             <Icon name="lucide:search" size="14" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#003366] transition-colors" />
           </div>
@@ -98,7 +98,7 @@
 
         <div class="flex items-center gap-2 lg:gap-6">
           <!-- Language Badge -->
-          <div class="flex items-center gap-1.5 uppercase text-xs font-bold text-slate-500">
+          <div class="flex items-center gap-1.5 uppercase text-sm font-bold text-slate-500">
             <Icon name="lucide:globe" size="16" />
             EN
           </div>

@@ -37,19 +37,19 @@
         <div class="flex-1 text-center md:text-left space-y-2">
           <div class="flex flex-wrap items-center gap-4 justify-center md:justify-start">
              <h1 class="text-4xl font-bold text-slate-800 -tight leading-none">{{ user?.fullName || 'Scientific Practitioner' }}</h1>
-             <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg text-xs font-bold mt-1">Verified Practitioner</span>
+             <span class="px-3 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded-lg text-sm font-bold mt-1">Verified Practitioner</span>
           </div>
           <p class="text-base font-semibold text-slate-400">{{ user?.category || 'General' }} Member • Registry ID: {{ user?.membershipId || 'SC-PENDING' }}</p>
           <p class="text-base font-medium text-slate-500 max-w-xl leading-relaxed italic">"{{ profileData.bio || cmsConfig?.member?.pages?.portfolio?.subtitle || 'Scientific bio not yet provided. Update your profile to showcase your expertise.' }}"</p>
         </div>
 
         <div class="flex flex-col gap-3 min-w-[200px]">
-           <button @click="savePortfolio" :disabled="isSaving" class="w-full bg-[#003366] text-white px-8 py-4 rounded-xl text-xs font-bold hover:bg-[#002244] transition-all disabled:opacity-50 flex items-center justify-center gap-2">
+           <button @click="savePortfolio" :disabled="isSaving" class="w-full bg-[#003366] text-white px-8 py-4 rounded-xl text-sm font-bold hover:bg-[#002244] transition-all disabled:opacity-50 flex items-center justify-center gap-2">
              <Icon v-if="isSaving" name="lucide:loader-2" class="animate-spin" size="16" />
              <Icon v-else name="lucide:refresh-cw" size="16" />
              {{ isSaving ? 'Syncing...' : 'Sync Portfolio' }}
            </button>
-           <button @click="exportCV" class="w-full bg-white border border-slate-200 text-slate-600 px-8 py-4 rounded-xl text-xs font-bold hover:border-slate-800 hover:text-slate-800 transition-all flex items-center justify-center gap-2">
+           <button @click="exportCV" class="w-full bg-white border border-slate-200 text-slate-600 px-8 py-4 rounded-xl text-sm font-bold hover:border-slate-800 hover:text-slate-800 transition-all flex items-center justify-center gap-2">
              <Icon name="lucide:download" size="16" />
              Export CV
            </button>
@@ -63,7 +63,7 @@
         <!-- Bio Editor -->
         <div class="bg-white rounded-[2rem] border border-slate-200 p-6 lg:p-10 space-y-8">
            <div class="flex items-center justify-between">
-              <h3 class="text-xs font-black text-slate-400 lowercase">scientific background</h3>
+              <h3 class="text-sm font-black text-slate-400 lowercase">scientific background</h3>
               <div class="flex items-center gap-2">
                  <span class="text-[10px] font-bold text-slate-400 lowercase">last synced: {{ lastSynced }}</span>
                  <Icon name="lucide:file-edit" size="16" class="text-brand-cyan" />
@@ -105,7 +105,7 @@
                       </button>
                    </div>
                    <div v-if="profileData.education.length === 0" class="py-10 text-center border-2 border-dashed border-slate-100 rounded-3xl">
-                      <p class="text-xs font-bold text-slate-300">No education records added</p>
+                      <p class="text-sm font-bold text-slate-300">No education records added</p>
                    </div>
                  </div>
                </div>
@@ -132,7 +132,7 @@
                       </button>
                    </div>
                    <div v-if="profileData.experience.length === 0" class="py-10 text-center border-2 border-dashed border-slate-100 rounded-3xl">
-                      <p class="text-xs font-bold text-slate-300">No experience records added</p>
+                      <p class="text-sm font-bold text-slate-300">No experience records added</p>
                    </div>
                  </div>
                </div>
@@ -145,7 +145,7 @@
       <div class="space-y-10">
         <div class="bg-white rounded-[2rem] border border-slate-200 p-8 space-y-8 h-full">
            <div class="flex items-center justify-between">
-              <h3 class="text-xs font-black text-slate-400 lowercase">validated documents</h3>
+              <h3 class="text-sm font-black text-slate-400 lowercase">validated documents</h3>
               <Icon name="lucide:shield-check" size="18" class="text-brand-cyan" />
            </div>
 
@@ -165,7 +165,7 @@
                     <Icon :name="status === 'verified' ? 'lucide:file-check' : 'lucide:file-text'" size="18" />
                   </div>
                   <div>
-                    <h5 class="text-xs font-bold text-slate-800">{{ name }}</h5>
+                    <h5 class="text-sm font-bold text-slate-800">{{ name }}</h5>
                     <div class="flex items-center gap-1.5 mt-0.5">
                        <span :class="['w-1 h-1 rounded-full', status === 'verified' ? 'bg-emerald-500' : 'bg-slate-300']"></span>
                        <p class="text-[9px] font-bold text-slate-400 lowercase">
@@ -191,7 +191,7 @@
               <div class="absolute inset-0 bg-brand-cyan opacity-0 group-hover:opacity-5 transition-opacity"></div>
               <Icon name="lucide:fingerprint" size="32" class="text-brand-cyan mx-auto animate-pulse" />
               <div class="space-y-1">
-                 <p class="text-xs font-black lowercase text-brand-cyan">vault encrypted</p>
+                 <p class="text-sm font-black lowercase text-brand-cyan">vault encrypted</p>
                  <p class="text-[11px] font-medium text-white/70 leading-relaxed">Your professional data is validated by the SCPSN registry protocol.</p>
               </div>
            </div>
