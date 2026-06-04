@@ -1,63 +1,177 @@
 <template>
-  <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="text-3xl font-bold text-slate-800 -tight">Notifications</h1>
-        <p class="text-slate-500 font-medium mt-1 text-base">Stay updated with the latest activity in the scientific network.</p>
-      </div>
-      <button @click="markAllAsRead" class="px-6 py-3 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:border-[#003366] hover:text-[#003366] transition-all">
-        Mark all as read
-      </button>
-    </div>
+  <div class="space-y-8 pb-20 font-body">
 
-    <div class="bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden shadow-sm">
-      <div class="divide-y divide-slate-50">
-        <div v-if="notifications.length === 0" class="p-20 text-center">
-           <div class="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
-             <Icon name="lucide:bell-off" size="32" class="text-slate-200" />
-           </div>
-           <h3 class="text-lg font-bold text-slate-800">No Notifications Yet</h3>
-           <p class="text-base text-slate-400 mt-2">When you receive updates, they will appear here.</p>
+    <!-- ─── PAGE HEADER ─────────────────────────────────────── -->
+    <section class="border-b border-slate-100">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+        <div class="flex items-start justify-between gap-6">
+          <div class="max-w-xl">
+            <div class="inline-flex items-center gap-2 bg-blue-50 text-[#1d4e89] text-xs font-semibold px-4 py-2 rounded-full mb-5 border border-blue-100">
+              <LucideBell :size="13" />
+              Activity Feed
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight tracking-tight mb-2">
+              Notifications
+            </h1>
+            <p class="text-[14px] text-slate-500 leading-relaxed">
+              Stay updated with the latest activity in the scientific network.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3 shrink-0 pt-2">
+            <span
+              v-if="unreadCount > 0"
+              class="inline-flex items-center gap-1.5 bg-blue-50 text-[#1d4e89] text-[11px] font-bold px-3 py-1.5 rounded-full border border-blue-100"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-[#1d4e89] animate-pulse" />
+              {{ unreadCount }} unread
+            </span>
+            <button
+              @click="markAllAsRead"
+              class="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-600 text-[13px] font-semibold px-5 py-2.5 rounded-xl hover:border-[#1d4e89] hover:text-[#1d4e89] transition-all duration-200"
+            >
+              <LucideCheckCheck :size="14" />
+              Mark all read
+            </button>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div 
-          v-for="notif in notifications" 
-          :key="notif.id"
-          class="p-8 hover:bg-slate-50/50 transition-all flex gap-6 items-start group"
-          :class="{ 'bg-blue-50/20': !notif.read }"
+
+    <!-- ─── FILTER STRIP ─────────────────────────────────────── -->
+    <section class="bg-slate-50 border-b border-slate-100 sticky top-0 z-10">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <button
+            v-for="f in filters"
+            :key="f.value"
+            @click="activeFilter = f.value"
+            :class="[
+              'shrink-0 inline-flex items-center gap-1.5 text-[12px] font-semibold px-4 py-2 rounded-lg transition-all duration-200',
+              activeFilter === f.value
+                ? 'bg-white text-[#1d4e89] border border-blue-200 shadow-sm'
+                : 'text-slate-400 hover:text-slate-600'
+            ]"
+          >
+            <component :is="f.icon" :size="12" />
+            {{ f.label }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─── NOTIFICATION LIST ─────────────────────────────────── -->
+    <section class="bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Empty state -->
+        <div
+          v-if="filteredNotifications.length === 0"
+          class="bg-white border border-slate-200 rounded-2xl p-20 text-center"
         >
-          <div :class="[
-            'w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border shadow-sm transition-transform group-hover:scale-110',
-            notif.type === 'success' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-            notif.type === 'warning' ? 'bg-amber-50 text-amber-600 border-amber-100' :
-            notif.type === 'error' ? 'bg-rose-50 text-rose-600 border-rose-100' :
-            'bg-blue-50 text-blue-600 border-blue-100'
-          ]">
-            <Icon :name="getIcon(notif.type)" size="24" />
+          <div class="w-16 h-16 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <LucideBellOff :size="26" class="text-slate-300" />
           </div>
+          <p class="text-[11px] font-semibold text-slate-400 tracking-widest uppercase mb-2">All clear</p>
+          <h3 class="text-[18px] font-bold text-slate-800 mb-2">No notifications</h3>
+          <p class="text-[13px] text-slate-400">When you receive updates, they will appear here.</p>
+        </div>
 
-          <div class="flex-1 space-y-2">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <h4 class="text-base font-bold text-slate-800">{{ notif.title }}</h4>
-                <span v-if="!notif.read" class="px-2 py-0.5 bg-brand-cyan text-[#003366] text-[9px] font-black rounded-full -widest">New</span>
-              </div>
-              <span class="text-sm font-medium text-slate-400">{{ notif.time }}</span>
+        <!-- List -->
+        <div
+          v-else
+          class="bg-white border border-slate-200 rounded-2xl overflow-hidden divide-y divide-slate-100"
+        >
+          <div
+            v-for="notif in filteredNotifications"
+            :key="notif.id"
+            class="group flex items-start gap-5 p-6 hover:bg-slate-50/60 transition-all duration-200"
+            :class="{ 'bg-blue-50/20': !notif.read }"
+          >
+            <!-- Unread dot -->
+            <div class="shrink-0 pt-1">
+              <span
+                class="block w-2 h-2 rounded-full transition-all"
+                :class="notif.read ? 'bg-transparent' : 'bg-[#1d4e89]'"
+              />
             </div>
-            <p class="text-base text-slate-500 leading-relaxed max-w-3xl">{{ notif.message }}</p>
-            
-            <div class="pt-4 flex items-center gap-4">
-               <button @click="markAsRead(notif.id)" v-if="!notif.read" class="text-[10px] font-black text-brand-cyan hover:underline">Mark as read</button>
-               <button class="text-[10px] font-black text-slate-400 hover:text-slate-800 transition-colors">Archive</button>
+
+            <!-- Icon -->
+            <div
+              class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-200 group-hover:scale-105"
+              :class="iconColors(notif.type).wrapper"
+            >
+              <component :is="getIcon(notif.type)" :size="17" :class="iconColors(notif.type).icon" />
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-4 mb-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="text-[14px] font-bold text-slate-800">{{ notif.title }}</h4>
+                  <span
+                    v-if="!notif.read"
+                    class="text-[9px] font-black tracking-widest uppercase bg-[#1d4e89] text-white px-2 py-0.5 rounded-full"
+                  >
+                    New
+                  </span>
+                </div>
+                <span class="text-[11px] font-medium text-slate-400 shrink-0">{{ notif.time }}</span>
+              </div>
+
+              <p class="text-[13px] text-slate-500 leading-relaxed mb-3">{{ notif.message }}</p>
+
+              <div class="flex items-center gap-4">
+                <button
+                  v-if="!notif.read"
+                  @click="markAsRead(notif.id)"
+                  class="text-[11px] font-bold text-[#1d4e89] hover:underline"
+                >
+                  Mark as read
+                </button>
+                <button class="text-[11px] font-bold text-slate-400 hover:text-slate-700 transition-colors">
+                  Archive
+                </button>
+                <div
+                  v-if="!notif.read"
+                  class="text-[10px] font-semibold px-2 py-0.5 rounded-md border"
+                  :class="iconColors(notif.type).badge"
+                >
+                  {{ notif.type }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Footer note -->
+        <p class="text-center text-[11px] text-slate-400 font-medium mt-6">
+          Showing {{ filteredNotifications.length }} of {{ notifications.length }} notifications
+        </p>
       </div>
-    </div>
+    </section>
+
   </div>
 </template>
 
+
 <script setup>
+import {
+  LucideBell,
+  LucideBellOff,
+  LucideCheckCheck,
+  LucideCheckCircle,
+  LucideAlertTriangle,
+  LucideXCircle,
+  LucideInfo,
+  LucideFilter,
+  LucideInbox,
+  LucideAlertCircle,
+  LucideShieldCheck,
+} from 'lucide-vue-next'
+import { ref, computed } from 'vue'
 import { useNotifications } from '@/composables/useNotifications'
 
 definePageMeta({
@@ -67,23 +181,70 @@ definePageMeta({
 
 const { notifications, markAsRead, markAllAsRead } = useNotifications()
 
+const activeFilter = ref('all')
+
+const filters = [
+  { label: 'All',     value: 'all',     icon: LucideInbox        },
+  { label: 'Unread',  value: 'unread',  icon: LucideBell         },
+  { label: 'Success', value: 'success', icon: LucideCheckCircle  },
+  { label: 'Warning', value: 'warning', icon: LucideAlertTriangle },
+  { label: 'Error',   value: 'error',   icon: LucideXCircle      },
+  { label: 'Info',    value: 'info',    icon: LucideInfo         },
+]
+
+const filteredNotifications = computed(() => {
+  if (activeFilter.value === 'all') return notifications.value
+  if (activeFilter.value === 'unread') return notifications.value.filter(n => !n.read)
+  return notifications.value.filter(n => n.type === activeFilter.value)
+})
+
+const unreadCount = computed(() => notifications.value.filter(n => !n.read).length)
+
 const getIcon = (type) => {
   switch (type) {
-    case 'success': return 'lucide:check-circle'
-    case 'warning': return 'lucide:alert-triangle'
-    case 'error': return 'lucide:x-circle'
-    default: return 'lucide:info'
+    case 'success': return LucideCheckCircle
+    case 'warning': return LucideAlertTriangle
+    case 'error':   return LucideXCircle
+    default:        return LucideInfo
+  }
+}
+
+const iconColors = (type) => {
+  switch (type) {
+    case 'success':
+      return {
+        wrapper: 'bg-emerald-50 border-emerald-100',
+        icon: 'text-emerald-600',
+        badge: 'bg-emerald-50 text-emerald-600 border-emerald-100',
+      }
+    case 'warning':
+      return {
+        wrapper: 'bg-amber-50 border-amber-100',
+        icon: 'text-amber-600',
+        badge: 'bg-amber-50 text-amber-600 border-amber-100',
+      }
+    case 'error':
+      return {
+        wrapper: 'bg-rose-50 border-rose-100',
+        icon: 'text-rose-600',
+        badge: 'bg-rose-50 text-rose-600 border-rose-100',
+      }
+    default:
+      return {
+        wrapper: 'bg-blue-50 border-blue-100',
+        icon: 'text-[#1d4e89]',
+        badge: 'bg-blue-50 text-[#1d4e89] border-blue-100',
+      }
   }
 }
 </script>
 
+
 <style scoped>
-.animate-in {
-  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.font-body {
+  font-family: 'DM Sans', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>

@@ -1,56 +1,87 @@
 <template>
-  <div class="h-full flex overflow-hidden">
-    <!-- Chat Sidebar (Contacts) -->
+  <div class="h-full flex overflow-hidden font-body">
+
+    <!-- ─── SIDEBAR ────────────────────────────────────────────── -->
     <aside class="w-80 lg:w-96 border-r border-slate-200 flex flex-col bg-white shrink-0">
-      <!-- WhatsApp Web style Header -->
-      <div class="p-3 bg-[#f0f2f5] border-b border-slate-200 shrink-0 flex items-center justify-between">
-        <div class="w-10 h-10 rounded-full bg-slate-300 overflow-hidden">
-          <img v-if="user?.avatar" :src="user.avatar" class="w-full h-full object-cover" />
-          <Icon v-else name="lucide:user" size="24" class="text-slate-500 m-2" />
+
+      <!-- Sidebar header -->
+      <div class="px-5 py-4 border-b border-slate-100 bg-white shrink-0 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-slate-100 overflow-hidden border border-slate-200">
+            <img v-if="user?.avatar" :src="user.avatar" class="w-full h-full object-cover" />
+            <div v-else class="w-full h-full flex items-center justify-center text-[12px] font-bold text-slate-500">
+              {{ user?.fullName?.split(' ').map(n => n[0]).join('').substring(0, 2) || 'ME' }}
+            </div>
+          </div>
+          <div>
+            <p class="text-[13px] font-bold text-slate-800 leading-none">{{ user?.fullName?.split(' ')[0] || 'My' }} Chats</p>
+            <p class="text-[11px] font-semibold text-blue-600 tracking-widest uppercase mt-0.5">SCPSN Network</p>
+          </div>
         </div>
-        <div class="flex gap-4 text-[#54656f]">
-          <button class="transition-colors hover:text-slate-800"><Icon name="lucide:users" size="20" /></button>
-          <button class="transition-colors hover:text-slate-800"><Icon name="lucide:message-square" size="20" /></button>
-          <button class="transition-colors hover:text-slate-800"><Icon name="lucide:more-vertical" size="20" /></button>
+        <div class="flex items-center gap-1">
+          <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+            <LucideUsers :size="16" />
+          </button>
+          <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+            <LucideMessageSquare :size="16" />
+          </button>
+          <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+            <LucideMoreVertical :size="16" />
+          </button>
         </div>
       </div>
-      
-      <div class="p-2 border-b border-slate-200 bg-white">
-        <div class="relative group bg-[#f0f2f5] rounded-lg overflow-hidden flex items-center px-3">
-          <Icon name="lucide:search" size="16" class="text-[#54656f] shrink-0" />
-          <input 
-            type="text" 
-            placeholder="Search or start new chat" 
-            class="w-full h-9 pl-4 bg-transparent text-[14px] text-[#111b21] outline-none placeholder:text-[#54656f]"
+
+      <!-- Search -->
+      <div class="px-4 py-3 border-b border-slate-100 bg-white">
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 h-9 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-50 transition-all duration-200">
+          <LucideSearch :size="14" class="text-slate-400 shrink-0" />
+          <input
+            type="text"
+            placeholder="Search conversations..."
+            class="flex-1 bg-transparent text-[13px] text-slate-800 placeholder:text-slate-400 outline-none"
           />
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto custom-scrollbar bg-white">
-        <div 
-          v-for="chat in chats" 
+      <!-- Chat list -->
+      <div class="flex-1 overflow-y-auto custom-scrollbar">
+        <div
+          v-for="chat in chats"
           :key="chat.id"
           @click="selectChat(chat)"
-          :class="[
-            'px-3 py-3 cursor-pointer transition-all flex gap-3 items-center relative group',
-            activeChatId === chat.id ? 'bg-[#f0f2f5]' : 'hover:bg-[#f5f6f6] bg-white'
-          ]"
+          class="px-4 py-3 cursor-pointer transition-all duration-150 flex gap-3 items-center border-b border-slate-50"
+          :class="activeChatId === chat.id ? 'bg-blue-50/60' : 'hover:bg-slate-50 bg-white'"
         >
-          <div class="relative shrink-0 ml-1">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg bg-slate-200 text-slate-500 overflow-hidden">
-               <img v-if="chat.avatar" :src="chat.avatar" class="w-full h-full object-cover" />
-               <span v-else>{{ chat.name.split(' ').map(n => n[0]).join('').substring(0, 2) }}</span>
+          <!-- Avatar -->
+          <div class="relative shrink-0">
+            <div
+              class="w-11 h-11 rounded-xl flex items-center justify-center font-bold text-[13px] overflow-hidden border"
+              :class="activeChatId === chat.id ? 'border-blue-200 bg-blue-50 text-[#1d4e89]' : 'border-slate-200 bg-slate-100 text-slate-500'"
+            >
+              <img v-if="chat.avatar" :src="chat.avatar" class="w-full h-full object-cover" />
+              <span v-else>{{ chat.name.split(' ').map(n => n[0]).join('').substring(0, 2) }}</span>
             </div>
+            <span
+              v-if="chat.status === 'online'"
+              class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-white rounded-full"
+            ></span>
           </div>
 
-          <div class="flex-1 min-w-0 border-b border-[#f0f2f5] pb-3 pt-1">
+          <!-- Meta -->
+          <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between mb-0.5">
-              <h4 class="text-[17px] text-[#111b21] truncate">{{ chat.name }}</h4>
-              <span class="text-[12px] text-[#667781]">{{ chat.time }}</span>
+              <h4 class="text-[14px] font-bold text-slate-800 truncate"
+                :class="activeChatId === chat.id ? 'text-[#1d4e89]' : ''">
+                {{ chat.name }}
+              </h4>
+              <span class="text-[11px] font-medium text-slate-400 flex-shrink-0 ml-2">{{ chat.time }}</span>
             </div>
             <div class="flex items-center justify-between">
-              <p class="text-[14px] text-[#667781] truncate pr-4">{{ chat.lastMessage }}</p>
-              <div v-if="chat.unreadCount > 0 && activeChatId !== chat.id" class="w-5 h-5 bg-[#25D366] text-white text-[10px] font-bold rounded-full flex items-center justify-center shrink-0">
+              <p class="text-[12px] text-slate-400 truncate">{{ chat.lastMessage }}</p>
+              <div
+                v-if="chat.unreadCount > 0 && activeChatId !== chat.id"
+                class="w-5 h-5 bg-[#1d4e89] text-white text-[10px] font-bold rounded-full flex items-center justify-center shrink-0 ml-2"
+              >
                 {{ chat.unreadCount }}
               </div>
             </div>
@@ -59,167 +90,209 @@
       </div>
     </aside>
 
-    <!-- Main Chat Window -->
-    <main class="flex-1 flex flex-col bg-[#F0F2F5] relative overflow-hidden">
+
+    <!-- ─── MAIN CHAT WINDOW ───────────────────────────────────── -->
+    <main class="flex-1 flex flex-col bg-slate-50 relative overflow-hidden">
       <div v-if="activeChat" class="flex flex-col h-full">
-        <!-- Chat Header -->
-        <header class="px-4 py-2.5 bg-[#f0f2f5] flex items-center justify-between z-20 shrink-0">
-          <div class="flex items-center gap-4 cursor-pointer">
-             <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-500 overflow-hidden">
-                <img v-if="activeChat.avatar" :src="activeChat.avatar" class="w-full h-full object-cover" />
-                <span v-else>{{ activeChat.name.split(' ').map(n => n[0]).join('').substring(0, 2) }}</span>
-             </div>
-             <div>
-                <h3 class="text-[16px] text-[#111b21]">{{ activeChat.name }}</h3>
-                <div class="text-[13px] text-[#667781] -wide mt-0.5">{{ activeChat.status === 'online' ? 'online' : 'offline' }}</div>
-             </div>
+
+        <!-- Chat header -->
+        <header class="px-6 py-3.5 bg-white border-b border-slate-100 flex items-center justify-between shrink-0">
+          <div class="flex items-center gap-3 cursor-pointer">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-[13px] text-[#1d4e89] overflow-hidden">
+              <img v-if="activeChat.avatar" :src="activeChat.avatar" class="w-full h-full object-cover" />
+              <span v-else>{{ activeChat.name.split(' ').map(n => n[0]).join('').substring(0, 2) }}</span>
+            </div>
+            <div>
+              <h3 class="text-[14px] font-bold text-slate-800 leading-none">{{ activeChat.name }}</h3>
+              <div class="flex items-center gap-1.5 mt-1">
+                <span
+                  class="w-1.5 h-1.5 rounded-full"
+                  :class="activeChat.status === 'online' ? 'bg-emerald-400' : 'bg-slate-300'"
+                ></span>
+                <span class="text-[11px] font-semibold text-slate-400">
+                  {{ activeChat.status === 'online' ? 'Online' : 'Offline' }}
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-5 text-[#54656f]">
-             <button class="hover:text-slate-800 transition-all"><Icon name="lucide:video" size="20" /></button>
-             <button class="hover:text-slate-800 transition-all"><Icon name="lucide:search" size="20" /></button>
-             <button class="hover:text-slate-800 transition-all"><Icon name="lucide:more-vertical" size="20" /></button>
+          <div class="flex items-center gap-1">
+            <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+              <LucideVideo :size="16" />
+            </button>
+            <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+              <LucideSearch :size="16" />
+            </button>
+            <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+              <LucideMoreVertical :size="16" />
+            </button>
           </div>
         </header>
 
-        <!-- Messages Viewport (WhatsApp Texture) -->
-        <div class="flex-1 overflow-y-auto px-16 py-8 space-y-2 custom-scrollbar bg-[#efeae2] bg-[url('https://static.whatsapp.net/rsrc.php/v3/yl/r/17vXoB8fKIE.png')] bg-repeat relative z-10">
-          <div class="absolute inset-0 bg-white/40 pointer-events-none"></div>
-          <div 
-            v-for="msg in activeChat.messages" 
+        <!-- Messages viewport -->
+        <div class="flex-1 overflow-y-auto px-6 lg:px-16 py-6 space-y-2 custom-scrollbar bg-slate-50">
+          <div
+            v-for="msg in activeChat.messages"
             :key="msg.id"
-            :class="['flex w-full relative z-10', msg.isMe ? 'justify-end' : 'justify-start']"
+            class="flex w-full"
+            :class="msg.isMe ? 'justify-end' : 'justify-start'"
           >
-            <div :class="[
-              'max-w-[85%] lg:max-w-[65%] px-2 pt-1.5 pb-2 rounded-lg shadow-sm relative text-[14.2px]',
-              msg.isMe ? 'bg-[#dcf8c6] rounded-tr-none' : 'bg-white rounded-tl-none'
-            ]">
-              <!-- Attachment Display -->
-              <div v-if="msg.attachments && msg.attachments.length > 0" class="p-1 space-y-1">
-                 <div v-for="(att, i) in msg.attachments" :key="i" class="rounded-lg overflow-hidden bg-black/5">
-                    <!-- Image -->
-                    <div v-if="att.type === 'image'" class="relative group">
-                       <img :src="att.url" class="w-full max-h-[300px] object-cover cursor-zoom-in" />
+            <div
+              class="max-w-[85%] lg:max-w-[60%] px-3 pt-2 pb-2 rounded-2xl relative text-[14px] shadow-sm"
+              :class="msg.isMe
+                ? 'bg-[#1d4e89] text-white rounded-tr-sm'
+                : 'bg-white text-slate-800 border border-slate-100 rounded-tl-sm'"
+            >
+              <!-- Attachments -->
+              <div v-if="msg.attachments && msg.attachments.length > 0" class="space-y-1.5 mb-1.5">
+                <div v-for="(att, i) in msg.attachments" :key="i" class="rounded-xl overflow-hidden">
+                  <div v-if="att.type === 'image'">
+                    <img :src="att.url" class="w-full max-h-[260px] object-cover rounded-xl cursor-zoom-in" />
+                  </div>
+                  <div v-else class="flex items-center gap-3 p-3 rounded-xl"
+                    :class="msg.isMe ? 'bg-white/10' : 'bg-slate-50 border border-slate-100'">
+                    <div class="w-9 h-9 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <LucideFileText :size="16" class="text-white" />
                     </div>
-                    <!-- PDF / Document -->
-                    <div v-else-if="att.type === 'pdf' || att.type === 'document'" class="p-3 flex items-center gap-3 bg-white/40 backdrop-blur-sm">
-                       <div class="w-10 h-10 bg-[#ea4335] text-white flex items-center justify-center rounded">
-                          <Icon :name="att.type === 'pdf' ? 'lucide:file-text' : 'lucide:file'" size="20" />
-                       </div>
-                       <div class="flex-1 min-w-0">
-                          <p class="text-[14px] text-slate-800 truncate">{{ att.name }}</p>
-                          <p class="text-[12px] text-slate-500 mt-0.5 -tighter">{{ att.size || '1.2 MB' }} • {{ att.type }}</p>
-                       </div>
-                       <button class="text-slate-500 hover:text-slate-800 transition-all">
-                          <Icon name="lucide:download" size="20" />
-                       </button>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-[13px] font-semibold truncate" :class="msg.isMe ? 'text-white' : 'text-slate-800'">{{ att.name }}</p>
+                      <p class="text-[11px] mt-0.5" :class="msg.isMe ? 'text-white/60' : 'text-slate-400'">{{ att.size || '1.2 MB' }} · {{ att.type }}</p>
                     </div>
-                 </div>
+                    <button class="transition-all" :class="msg.isMe ? 'text-white/70 hover:text-white' : 'text-slate-400 hover:text-slate-700'">
+                      <LucideDownload :size="16" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <!-- Message Text -->
-              <div v-if="msg.text" class="px-1 pr-14 relative">
-                 <p class="leading-snug text-[#111b21]">{{ msg.text }}</p>
+              <!-- Text -->
+              <div v-if="msg.text" class="pr-14 leading-snug">
+                <p>{{ msg.text }}</p>
               </div>
 
-              <!-- Status Footer -->
-              <div class="absolute bottom-[2px] right-2 flex items-center justify-end gap-1 text-[#667781] bg-transparent pointer-events-none">
-                 <span class="text-[11px] font-medium leading-none mt-1">{{ msg.time }}</span>
-                 <div v-if="msg.isMe" class="flex ml-0.5 mt-0.5">
-                    <Icon v-if="msg.status === 'sent'" name="lucide:check" size="14" />
-                    <Icon v-else-if="msg.status === 'delivered'" name="lucide:check-check" size="14" />
-                    <Icon v-else-if="msg.status === 'read'" name="lucide:check-check" size="14" class="text-[#53bDEB]" />
-                 </div>
+              <!-- Time + status -->
+              <div class="absolute bottom-1.5 right-2.5 flex items-center gap-1 pointer-events-none">
+                <span class="text-[10px] font-medium" :class="msg.isMe ? 'text-white/60' : 'text-slate-400'">{{ msg.time }}</span>
+                <div v-if="msg.isMe" class="ml-0.5">
+                  <LucideCheck v-if="msg.status === 'sent'" :size="12" class="text-white/60" />
+                  <LucideCheckCheck v-else-if="msg.status === 'delivered'" :size="12" class="text-white/60" />
+                  <LucideCheckCheck v-else-if="msg.status === 'read'" :size="12" class="text-blue-200" />
+                </div>
               </div>
-
-              <!-- WhatsApp Tails -->
-              <div v-if="msg.isMe" class="absolute top-0 -right-2 w-2 h-3 bg-[#dcf8c6] clip-path-bubble-right"></div>
-              <div v-else class="absolute top-0 -left-2 w-2 h-3 bg-white clip-path-bubble-left"></div>
             </div>
           </div>
           <div ref="scrollAnchor"></div>
         </div>
 
-        <!-- Robust Input Footer (WhatsApp Style) -->
-        <footer class="px-4 py-2.5 bg-[#f0f2f5] z-20 flex items-end gap-3 relative min-h-[62px]">
-           <!-- Attachment Menu Popup -->
-           <transition name="pop">
-              <div v-if="showAttachmentMenu" class="absolute bottom-[60px] left-14 w-52 bg-white rounded-2xl shadow-[0_2px_5px_0_rgba(11,20,26,.26)] py-3 px-4 flex flex-col gap-1 z-50">
-                 <button v-for="item in attachmentTypes" :key="item.label" @click="handleAttachmentClick(item.type)" class="flex items-center gap-3 p-2 hover:bg-[#f5f6f6] rounded-lg transition-all group">
-                    <div :class="['w-8 h-8 rounded-full flex items-center justify-center text-white shadow-sm', item.color]">
-                       <Icon :name="item.icon" size="16" />
-                    </div>
-                    <span class="text-[15px] text-[#111b21]">{{ item.label }}</span>
-                 </button>
-              </div>
-           </transition>
+        <!-- Input footer -->
+        <footer class="px-5 py-3.5 bg-white border-t border-slate-100 flex items-end gap-3 relative shrink-0">
 
-           <div class="flex gap-2 mb-2 text-[#54656f]">
-             <button class="p-1 hover:text-slate-700 transition-all"><Icon name="lucide:smile" size="26" /></button>
-             <button @click="showAttachmentMenu = !showAttachmentMenu" class="p-1 hover:text-slate-700 transition-all">
-                <Icon name="lucide:paperclip" size="24" :class="['transition-transform duration-300', showAttachmentMenu ? 'rotate-45' : '']" />
-             </button>
-           </div>
-           
-           <div class="flex-1 bg-white rounded-lg flex items-center overflow-hidden mb-1.5 shadow-sm border border-transparent">
-              <input 
-                v-model="newMessageText"
-                @keyup.enter="handleSend"
-                type="text" 
-                placeholder="Type a message" 
-                class="flex-1 px-4 py-2 bg-white text-[15px] text-[#111b21] outline-none placeholder:text-[#8696a0]"
-              />
-           </div>
-           
-           <div class="mb-2 text-[#54656f]">
-             <button 
-               @click="handleSend"
-               class="p-1 hover:text-slate-700 transition-all"
-             >
-                <Icon v-if="newMessageText.trim()" name="lucide:send" size="24" class="ml-1" />
-                <Icon v-else name="lucide:mic" size="24" />
-             </button>
-           </div>
+          <!-- Attachment popup -->
+          <transition name="pop">
+            <div v-if="showAttachmentMenu"
+              class="absolute bottom-[68px] left-14 bg-white border border-slate-200 rounded-2xl shadow-sm py-2 px-2 flex flex-col gap-0.5 z-50 w-48">
+              <button
+                v-for="item in attachmentTypes"
+                :key="item.label"
+                @click="handleAttachmentClick(item.type)"
+                class="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 rounded-xl transition-all duration-150 group"
+              >
+                <div class="w-8 h-8 rounded-xl flex items-center justify-center text-white" :class="item.color">
+                  <component :is="item.iconComponent" :size="15" />
+                </div>
+                <span class="text-[13px] font-semibold text-slate-700">{{ item.label }}</span>
+              </button>
+            </div>
+          </transition>
+
+          <!-- Left icons -->
+          <div class="flex gap-1 mb-1.5">
+            <button class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700 transition-all duration-200">
+              <LucideSmile :size="18" />
+            </button>
+            <button
+              @click="showAttachmentMenu = !showAttachmentMenu"
+              class="w-8 h-8 rounded-lg hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-[#1d4e89] transition-all duration-200"
+              :class="showAttachmentMenu ? 'bg-blue-50 text-[#1d4e89]' : ''"
+            >
+              <LucidePaperclip :size="18" :class="['transition-transform duration-300', showAttachmentMenu ? 'rotate-45' : '']" />
+            </button>
+          </div>
+
+          <!-- Input -->
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl flex items-center overflow-hidden focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-50 transition-all duration-200 mb-1.5">
+            <input
+              v-model="newMessageText"
+              @keyup.enter="handleSend"
+              type="text"
+              placeholder="Type a message..."
+              class="flex-1 px-4 py-2.5 bg-transparent text-[14px] text-slate-800 placeholder:text-slate-400 outline-none"
+            />
+          </div>
+
+          <!-- Send / mic -->
+          <button
+            @click="handleSend"
+            class="w-9 h-9 rounded-xl mb-1.5 flex items-center justify-center transition-all duration-200 flex-shrink-0"
+            :class="newMessageText.trim() ? 'bg-[#1d4e89] hover:bg-blue-800 text-white' : 'hover:bg-slate-100 text-slate-400 hover:text-slate-700'"
+          >
+            <LucideSend v-if="newMessageText.trim()" :size="16" />
+            <LucideMic v-else :size="18" />
+          </button>
         </footer>
       </div>
 
-      <!-- High-End Registry Waiting State -->
-      <div v-else class="flex-1 flex flex-col items-center justify-center bg-[#F8F9FA] border-b-[6px] border-[#25D366]">
-        <div class="p-8 text-center max-w-lg space-y-6">
-          <div class="w-72 mx-auto">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="w-20 h-20 mx-auto opacity-20 grayscale mb-6" />
+      <!-- Empty / waiting state -->
+      <div v-else class="flex-1 flex flex-col items-center justify-center bg-slate-50">
+        <div class="text-center max-w-sm space-y-5">
+          <div class="w-16 h-16 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center mx-auto">
+            <LucideMessageSquare :size="28" class="text-[#1d4e89]" />
           </div>
-          <div class="space-y-3">
-            <h2 class="text-[32px] font-light text-[#41525d]">WhatsApp Web</h2>
-            <p class="text-[#8696a0] text-base leading-relaxed">
-              Send and receive messages without keeping your phone online.<br/>
-              Use WhatsApp on up to 4 linked devices and 1 phone at the same time.
+          <div>
+            <p class="text-[11px] font-semibold text-blue-600 tracking-widest uppercase mb-2">SCPSN Messaging</p>
+            <h2 class="text-[22px] font-bold text-slate-800 mb-2">Select a conversation</h2>
+            <p class="text-[14px] text-slate-400 leading-relaxed">
+              Choose a contact from the sidebar to start messaging members of the scientific network.
             </p>
           </div>
-          <div class="flex flex-col items-center gap-3 pt-10">
-            <div class="flex items-center gap-1.5 px-6 py-3">
-               <Icon name="lucide:lock" size="12" class="text-[#8696a0]" />
-               <span class="text-sm text-[#8696a0]">End-to-end encrypted</span>
-            </div>
+          <div class="inline-flex items-center gap-2 bg-slate-100 text-slate-500 text-[11px] font-semibold px-4 py-2 rounded-full">
+            <LucideLock :size="11" />
+            End-to-end encrypted
           </div>
         </div>
       </div>
     </main>
 
-    <!-- Hidden File Input -->
+    <!-- Hidden file input -->
     <input type="file" ref="fileInput" class="hidden" @change="handleFileUpload" />
   </div>
 </template>
 
+
 <script setup>
+import {
+  LucideUsers,
+  LucideMessageSquare,
+  LucideMoreVertical,
+  LucideSearch,
+  LucideVideo,
+  LucideCheck,
+  LucideCheckCheck,
+  LucideFileText,
+  LucideDownload,
+  LucideSmile,
+  LucidePaperclip,
+  LucideSend,
+  LucideMic,
+  LucideLock,
+  LucideImage,
+  LucideCamera,
+} from 'lucide-vue-next'
 import { ref, onMounted, nextTick, watch } from 'vue'
 import { useChat } from '@/composables/useChat'
 import { useUploadFile } from '@/composables/useUploadFile'
 import { useUser } from '@/composables/modules/auth/user'
 
-definePageMeta({
-  layout: 'chat',
-  middleware: 'auth'
-})
+definePageMeta({ layout: 'chat', middleware: 'auth' })
 
 const { chats, activeChatId, activeChat, sendMessage, markAsRead } = useChat()
 const { uploadFile } = useUploadFile()
@@ -232,9 +305,9 @@ const fileInput = ref(null)
 const currentUploadType = ref(null)
 
 const attachmentTypes = [
-  { type: 'image', label: 'Photos & videos', icon: 'lucide:image', color: 'bg-blue-500' },
-  { type: 'pdf', label: 'Document', icon: 'lucide:file-text', color: 'bg-indigo-500' },
-  { type: 'image', label: 'Camera', icon: 'lucide:camera', color: 'bg-rose-500' },
+  { type: 'image',    label: 'Photos & Videos', iconComponent: LucideImage,    color: 'bg-[#1d4e89]' },
+  { type: 'pdf',      label: 'Document',         iconComponent: LucideFileText, color: 'bg-teal-600'   },
+  { type: 'image',   label: 'Camera',            iconComponent: LucideCamera,   color: 'bg-rose-500'   },
 ]
 
 const selectChat = (chat) => {
@@ -244,7 +317,7 @@ const selectChat = (chat) => {
 }
 
 const handleSend = () => {
-  if (activeChatId.value && (newMessageText.value.trim())) {
+  if (activeChatId.value && newMessageText.value.trim()) {
     sendMessage(activeChatId.value, newMessageText.value)
     newMessageText.value = ''
     scrollToBottom()
@@ -260,14 +333,13 @@ const handleAttachmentClick = (type) => {
 const handleFileUpload = async (event) => {
   const file = event.target.files[0]
   if (!file || !activeChatId.value) return
-
   try {
     const url = await uploadFile(file)
     const attachment = {
       type: currentUploadType.value,
       name: file.name,
-      url: url,
-      size: (file.size / (1024 * 1024)).toFixed(1) + ' MB'
+      url,
+      size: (file.size / (1024 * 1024)).toFixed(1) + ' MB',
     }
     sendMessage(activeChatId.value, '', [attachment])
     scrollToBottom()
@@ -281,57 +353,25 @@ const scrollToBottom = async () => {
   scrollAnchor.value?.scrollIntoView({ behavior: 'smooth' })
 }
 
-watch(activeChatId, () => {
-  if (activeChatId.value) scrollToBottom()
-})
-
-onMounted(() => {
-  if (activeChatId.value) scrollToBottom()
-})
+watch(activeChatId, () => { if (activeChatId.value) scrollToBottom() })
+onMounted(() => { if (activeChatId.value) scrollToBottom() })
 </script>
 
+
 <style scoped>
-.animate-in {
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.font-body {
+  font-family: 'DM Sans', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.pop-enter-active {
-  animation: pop-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.pop-leave-active {
-  animation: pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) reverse;
-}
+.pop-enter-active { animation: pop-in 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.pop-leave-active { animation: pop-in 0.15s cubic-bezier(0.16, 1, 0.3, 1) reverse; }
 
 @keyframes pop-in {
-  from { opacity: 0; transform: scale(0.5) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from { opacity: 0; transform: scale(0.85) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-.clip-path-bubble-right {
-  clip-path: polygon(0 0, 0% 100%, 100% 0);
-}
-.clip-path-bubble-left {
-  clip-path: polygon(100% 0, 0 0, 100% 100%);
-}
-
-::selection {
-  background: #00b8d4;
-  color: #003366;
-}
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
 </style>

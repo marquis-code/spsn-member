@@ -1,253 +1,258 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex flex-col justify-center items-center font-sans py-12 px-4 sm:px-6 lg:px-8 selection:bg-brand-cyan/20">
-    <!-- Centered Card Container -->
-    <div class="w-full max-w-2xl bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
-      <div class="p-8 md:p-12">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-10">
-          <div @click="router.push('/')" class="cursor-pointer hover:opacity-80 transition-opacity">
-            <img src="@/assets/img/logo.jpeg" alt="logo" class="h-12 w-auto rounded-xl" />
-          </div>
-          <div class="text-right">
-             <h2 class="text-2xl font-black text-[#033958] tracking-tight">Create Account</h2>
-             <p v-if="step < 5" class="text-sm font-semibold text-slate-400 mt-1">Step {{ step }} of 4</p>
-          </div>
-        </div>
+  <div class="min-h-screen bg-slate-50 font-body flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
 
-        <!-- Progress Bar -->
-        <div v-if="step < 5" class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex mb-10">
-          <div 
-            class="h-full bg-brand-cyan transition-all duration-700 ease-out" 
-            :style="{ width: `${(step / 4) * 100}%` }"
+    <div class="w-full max-w-2xl">
+
+      <!-- Top bar -->
+      <div class="flex items-center justify-between mb-6">
+        <div @click="router.push('/')" class="cursor-pointer hover:opacity-75 transition-opacity flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl overflow-hidden border border-slate-200">
+            <img src="@/assets/img/logo.jpeg" alt="SCPSN" class="w-full h-full object-cover" />
+          </div>
+          <span class="text-[13px] font-bold text-slate-700 hidden sm:block">SCPSN</span>
+        </div>
+        <div v-if="step < 4" class="inline-flex items-center gap-2 bg-blue-50 text-[#1d4e89] text-[11px] font-semibold px-4 py-1.5 rounded-full border border-blue-100">
+          Step {{ step }} of 3
+        </div>
+      </div>
+
+      <!-- Main card -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+
+        <!-- Progress bar -->
+        <div v-if="step < 4" class="h-1 w-full bg-slate-100">
+          <div
+            class="h-full bg-[#1d4e89] transition-all duration-700 ease-out rounded-full"
+            :style="{ width: `${(step / 3) * 100}%` }"
           ></div>
         </div>
 
-        <!-- Form -->
-        <form @submit.prevent="handleSubmit" class="space-y-8">
-          
-          <!-- Step 1: Details -->
-          <div v-if="step === 1" class="space-y-6 animate-in fade-in slide-in-from-right-4">
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <AnimatedInput v-model="form.fullName" type="text" label="Full Name" placeholder="e.g. Dr. Jane Smith" />
-                <AnimatedInput v-model="form.email" type="email" label="Email Address" placeholder="jane@example.com" />
-                <AnimatedInput v-model="form.password" type="password" label="Password" placeholder="••••••••••••" />
-                <PhoneInput v-model="form.phoneNumber" label="Phone Number" placeholder="e.g. 080..." />
-                <!-- RA/RF Number added here -->
-                <AnimatedInput v-model="form.membershipId" type="text" label="RA/RF Number *" placeholder="e.g. RF-12345" required />
-                <SelectInput v-model="form.category" :options="categories" label="Membership Category" />
-             </div>
-             <AnimatedInput v-model="form.organization" type="text" label="Organization / Hospital" placeholder="e.g. University Teaching Hospital" />
+        <div class="p-7 lg:p-10">
+
+          <!-- Step header -->
+          <div v-if="step < 4" class="mb-8">
+            <p class="text-[11px] font-semibold text-blue-600 tracking-widest uppercase mb-1.5">{{ stepMeta[step - 1].label }}</p>
+            <h2 class="text-[22px] font-bold text-slate-800 leading-snug">{{ stepMeta[step - 1].title }}</h2>
+            <p class="text-[14px] text-slate-400 mt-1">{{ stepMeta[step - 1].subtitle }}</p>
           </div>
 
-          <!-- Step 2: Upload Documents -->
-          <div v-if="step === 2" class="space-y-6 animate-in fade-in slide-in-from-right-4">
-             <div class="mb-4">
-               <h3 class="text-lg font-bold text-[#033958]">Professional Documents <span class="text-slate-400 text-sm font-normal">(Optional)</span></h3>
-               <p class="text-sm text-slate-500 mt-1">You can upload these now or provide them later in your dashboard.</p>
-             </div>
-             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div v-for="doc in documentFields" :key="doc.key" class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 hover:border-brand-cyan transition-all group relative">
-                   <div v-if="uploadStatuses[doc.key] === 'success'" class="absolute top-3 right-3">
-                      <Icon name="lucide:shield-check" :size="16" class="text-emerald-500" />
-                   </div>
-                   
-                   <div class="space-y-0.5">
-                      <h4 class="text-sm font-bold text-[#033958]">{{ doc.label }}</h4>
-                   </div>
+          <form @submit.prevent="handleSubmit">
 
-                   <div 
-                      @click="$refs[doc.key][0].click()" 
-                      class="relative h-24 rounded-xl bg-white border border-dashed border-slate-300 flex items-center justify-center cursor-pointer hover:bg-brand-cyan/5 hover:border-brand-cyan transition-all overflow-hidden group"
-                   >
-                      <img v-if="getPreviewUrl(doc.key)" :src="getPreviewUrl(doc.key)" class="w-full h-full object-cover" />
-                      
-                      <div v-else-if="previews[doc.key]" class="flex flex-col items-center gap-1 p-2 text-center w-full">
-                         <Icon name="lucide:file-text" :size="20" class="text-brand-cyan" />
-                         <p class="text-[10px] font-bold text-slate-700 truncate px-2 w-full">
-                            {{ uploadMetadata[doc.key]?.original_name || 'Uploaded' }}
-                         </p>
-                      </div>
-
-                      <div v-else class="flex flex-col items-center gap-2 text-slate-400 group-hover:text-brand-cyan transition-colors">
-                         <Icon name="lucide:upload-cloud" :size="20" />
-                         <p class="text-sm font-semibold">Upload</p>
-                      </div>
-
-                      <div v-if="uploadStatuses[doc.key] === 'uploading'" class="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
-                         <div class="w-6 h-6 border-2 border-slate-200 border-t-brand-cyan rounded-full animate-spin"></div>
-                      </div>
-                   </div>
-                   <input type="file" :ref="doc.key" class="hidden" @change="e => handleFileUpload(e, doc.key)" accept=".jpg,.jpeg,.png,.pdf" />
+            <!-- ── Step 1: Personal Details ── -->
+            <div v-if="step === 1" class="space-y-5">
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div class="space-y-1.5">
+                  <label class="text-[12px] font-semibold text-slate-500">Full Name</label>
+                  <input v-model="form.fullName" type="text" placeholder="Dr. Jane Smith, MLS" class="field" required />
                 </div>
-             </div>
-          </div>
-
-          <!-- Step 3: Bio -->
-          <div v-if="step === 3" class="space-y-6 animate-in fade-in slide-in-from-right-4">
-             <AnimatedInput 
-               v-model="form.professionalProfile.bio" 
-               type="textarea"
-               label="Professional Summary (Optional)"
-               placeholder="Briefly describe your professional background..." 
-               class="min-h-[140px]"
-             />
-             <div class="space-y-2">
-                <AnimatedInput v-model="form.refereeName" type="text" label="Referee Name (Optional)" placeholder="e.g. Bankole Julius" />
-                <p class="text-[11px] text-slate-400 ml-1">Helps expedite approval if verified by an active SCPSN Fellow.</p>
-             </div>
-          </div>
-
-          <!-- Step 4: OTP Verification -->
-          <div v-if="step === 4" class="space-y-6 animate-in fade-in slide-in-from-right-4 text-center py-6">
-             <div class="w-20 h-20 bg-brand-cyan/10 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-cyan">
-               <Icon name="lucide:mail" :size="32" />
-             </div>
-             <h3 class="text-2xl font-bold text-[#033958]">Verify your email</h3>
-             <p class="text-slate-500 font-medium">We've sent a 6-digit verification code to <span class="text-[#033958] font-bold">{{ form.email }}</span>. Please enter it below to complete your registration.</p>
-             
-             <div class="max-w-xs mx-auto mt-8">
-               <AnimatedInput v-model="otpCode" type="text" label="Verification Code" placeholder="e.g. 123456" class="text-center tracking-widest text-lg font-bold" />
-             </div>
-
-             <div class="mt-8">
-               <p v-if="resendTimer > 0" class="text-sm text-slate-400 font-medium">
-                 You can request a new code in {{ resendTimer }}s
-               </p>
-               <button 
-                 v-else 
-                 type="button" 
-                 @click="handleResendOTP" 
-                 :disabled="loading"
-                 class="text-sm font-bold text-brand-cyan hover:underline transition-all"
-               >
-                 Resend Verification Code
-               </button>
-             </div>
-          </div>
-
-          <!-- Step 5: Congratulations -->
-          <div v-if="step === 5" class="space-y-6 animate-in fade-in slide-in-from-right-4 text-center py-10">
-             <div class="relative w-24 h-24 mx-auto mb-6">
-                <!-- Outer glowing ring -->
-                <div class="absolute inset-0 bg-emerald-100 rounded-full animate-ping opacity-75"></div>
-                <!-- Inner solid icon container -->
-                <div class="relative flex items-center justify-center w-full h-full bg-emerald-500 rounded-full shadow-xl shadow-emerald-500/30">
-                  <Icon name="lucide:check" :size="48" class="text-white" />
+                <div class="space-y-1.5">
+                  <label class="text-[12px] font-semibold text-slate-500">Email Address</label>
+                  <input v-model="form.email" type="email" placeholder="jane@example.com" class="field" required />
                 </div>
-             </div>
-             <h3 class="text-3xl font-black text-[#033958] mb-2">Congratulations!</h3>
-             <p class="text-slate-500 font-medium max-w-md mx-auto">
-               You are officially a member of the Society for Cellular Pathology Scientists of Nigeria. 
-               We've securely emailed your <span class="font-bold text-[#033958]">Certificate of Joining</span>.
-             </p>
-             
-             <div class="pt-8">
-               <NuxtLink 
-                 to="/login"
-                 class="inline-flex items-center gap-2 bg-[#033958] text-white px-10 py-4 rounded-xl text-lg font-black hover:bg-[#022a42] transition-colors"
-               >
-                 Proceed to Login <Icon name="lucide:arrow-right" :size="20" />
-               </NuxtLink>
-             </div>
-          </div>
-
-          <!-- Footer Actions -->
-          <div v-if="step < 5" class="flex items-center justify-between pt-6 border-t border-slate-100">
-             <button 
-               v-if="step > 1" 
-               type="button" 
-               @click="handleBack" 
-               class="text-sm font-bold text-slate-500 hover:text-[#033958] flex items-center gap-2 transition-colors"
-             >
-               <Icon name="lucide:arrow-left" :size="16" /> Back
-             </button>
-             <div v-else>
-                <NuxtLink to="/login" class="text-sm font-bold text-brand-cyan hover:underline">Already have an account?</NuxtLink>
-             </div>
-
-            <div class="flex items-center gap-4">
-               <button 
-                 v-if="step === 2" 
-                 type="button" 
-                 @click="handleNext"
-                 :disabled="Object.values(uploadStatuses).includes('uploading')"
-                 class="text-sm font-bold text-slate-500 hover:text-[#033958] transition-colors"
-               >
-                 Skip for now
-               </button>
-
-               <button 
-                 v-if="step < 3" 
-                 type="button" 
-                 @click="handleNext"
-                 :disabled="Object.values(uploadStatuses).includes('uploading')"
-                 class="bg-[#033958] text-white px-8 py-3 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-[#022a42] transition-colors disabled:opacity-50"
-               >
-                 Continue <Icon name="lucide:arrow-right" :size="16" />
-               </button>
-               
-               <button 
-                 v-else-if="step === 3" 
-                 type="button" 
-                 @click="handleInitialSubmit" 
-                 :disabled="loading || Object.values(uploadStatuses).includes('uploading')" 
-                 class="bg-brand-cyan text-[#033958] px-8 py-3 rounded-xl text-sm font-black flex items-center gap-2 hover:bg-[#00a0b8] transition-colors disabled:opacity-50"
-               >
-                 <span v-if="loading" class="w-4 h-4 border-2 border-[#033958]/30 border-t-[#033958] rounded-full animate-spin"></span>
-                 <span v-else>Continue</span>
-               </button>
-
-               <button 
-                 v-else-if="step === 4" 
-                 type="submit" 
-                 :disabled="loading || otpCode.length < 5" 
-                 class="bg-brand-cyan text-[#033958] px-8 py-3 rounded-xl text-sm font-black flex items-center gap-2 hover:bg-[#00a0b8] transition-colors disabled:opacity-50"
-               >
-                 <span v-if="loading" class="w-4 h-4 border-2 border-[#033958]/30 border-t-[#033958] rounded-full animate-spin"></span>
-                 <span v-else>Verify & Create Account</span>
-               </button>
+                <div class="space-y-1.5">
+                  <label class="text-[12px] font-semibold text-slate-500">Password</label>
+                  <input v-model="form.password" type="password" placeholder="••••••••••••" class="field" required />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-[12px] font-semibold text-slate-500">Phone Number</label>
+                  <PhoneInput v-model="form.phoneNumber" placeholder="e.g. 0801 234 5678" class="field" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-[12px] font-semibold text-slate-500">RA / RF Number <span class="text-[#1d4e89]">*</span></label>
+                  <input v-model="form.membershipId" type="text" placeholder="e.g. RF-12345" class="field" required />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-[12px] font-semibold text-slate-500">Membership Category</label>
+                  <div class="relative">
+                    <select v-model="form.category" class="field appearance-none cursor-pointer pr-9" required>
+                      <option value="" disabled>Select category</option>
+                      <option v-for="c in categories" :key="c.value" :value="c.value">{{ c.label }}</option>
+                    </select>
+                    <LucideChevronDown class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" :size="16" />
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="text-[12px] font-semibold text-slate-500">Organization / Hospital</label>
+                <input v-model="form.organization" type="text" placeholder="e.g. University Teaching Hospital, Abuja" class="field" />
+              </div>
             </div>
+
+
+            <!-- ── Step 2: Documents ── -->
+            <div v-if="step === 2" class="space-y-5">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div
+                  v-for="doc in documentFields"
+                  :key="doc.key"
+                  class="bg-slate-50 border border-slate-200 rounded-2xl p-4 hover:border-blue-200 transition-all duration-200 relative"
+                  :class="uploadStatuses[doc.key] === 'success' ? 'border-emerald-200 bg-emerald-50/30' : ''"
+                >
+                  <!-- Success badge -->
+                  <div v-if="uploadStatuses[doc.key] === 'success'"
+                    class="absolute top-3 right-3 w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <LucideCheckCircle :size="12" class="text-emerald-600" />
+                  </div>
+
+                  <p class="text-[12px] font-bold text-slate-700 mb-3">{{ doc.label }}</p>
+
+                  <div
+                    @click="$refs[doc.key][0].click()"
+                    class="h-20 rounded-xl bg-white border border-dashed border-slate-300 hover:border-[#1d4e89] hover:bg-blue-50/30 flex items-center justify-center cursor-pointer transition-all duration-200 overflow-hidden relative"
+                  >
+                    <img v-if="getPreviewUrl(doc.key)" :src="getPreviewUrl(doc.key)" class="w-full h-full object-cover" />
+
+                    <div v-else-if="previews[doc.key]" class="flex flex-col items-center gap-1">
+                      <LucideFileText :size="18" class="text-[#1d4e89]" />
+                      <p class="text-[10px] font-semibold text-slate-600 truncate px-3 max-w-full">
+                        {{ uploadMetadata[doc.key]?.original_name || 'Uploaded' }}
+                      </p>
+                    </div>
+
+                    <div v-else class="flex flex-col items-center gap-1.5 text-slate-400">
+                      <LucideUploadCloud :size="18" />
+                      <p class="text-[11px] font-semibold">Click to upload</p>
+                    </div>
+
+                    <div v-if="uploadStatuses[doc.key] === 'uploading'"
+                      class="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+                      <div class="w-5 h-5 border-2 border-slate-200 border-t-[#1d4e89] rounded-full animate-spin"></div>
+                    </div>
+                  </div>
+
+                  <input type="file" :ref="doc.key" class="hidden" @change="e => handleFileUpload(e, doc.key)" accept=".jpg,.jpeg,.png,.pdf" />
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ── Step 3: Bio & Referee ── -->
+            <div v-if="step === 3" class="space-y-5">
+              <div class="space-y-1.5">
+                <label class="text-[12px] font-semibold text-slate-500">Professional Summary <span class="text-slate-400 font-normal">(Optional)</span></label>
+                <textarea
+                  v-model="form.professionalProfile.bio"
+                  rows="5"
+                  placeholder="Briefly describe your professional background and areas of expertise..."
+                  class="field resize-none leading-relaxed"
+                ></textarea>
+              </div>
+              <div class="space-y-1.5">
+                <label class="text-[12px] font-semibold text-slate-500">Referee Name <span class="text-slate-400 font-normal">(Optional)</span></label>
+                <input v-model="form.refereeName" type="text" placeholder="e.g. Dr. Bankole Julius, Fellow SCPSN" class="field" />
+                <p class="text-[11px] text-slate-400 mt-1 ml-0.5">Helps expedite approval if verified by an active SCPSN Fellow.</p>
+              </div>
+
+              <!-- Info card -->
+              <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 flex items-start gap-3">
+                <div class="w-8 h-8 bg-[#1d4e89]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <LucideInfo :size="15" class="text-[#1d4e89]" />
+                </div>
+                <div>
+                  <p class="text-[12px] font-bold text-[#1d4e89] mb-1">Almost there</p>
+                  <p class="text-[12px] text-blue-700/70 leading-relaxed">After submitting, we'll send a 6-digit OTP to your email address for verification.</p>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ── Footer actions ── -->
+            <div v-if="step < 4" class="flex items-center justify-between pt-8 mt-8 border-t border-slate-100">
+              <button
+                v-if="step > 1"
+                type="button"
+                @click="handleBack"
+                class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-500 hover:text-slate-800 transition-colors duration-200"
+              >
+                <LucideArrowLeft :size="14" /> Back
+              </button>
+              <NuxtLink v-else to="/login"
+                class="text-[13px] font-semibold text-[#1d4e89] hover:underline">
+                Already have an account?
+              </NuxtLink>
+
+              <div class="flex items-center gap-3">
+                <button
+                  v-if="step === 2"
+                  type="button"
+                  @click="handleNext"
+                  :disabled="Object.values(uploadStatuses).includes('uploading')"
+                  class="text-[13px] font-semibold text-slate-400 hover:text-slate-700 transition-colors duration-200"
+                >
+                  Skip for now
+                </button>
+
+                <!-- Steps 1 & 2 next -->
+                <button
+                  v-if="step < 3"
+                  type="button"
+                  @click="handleNext"
+                  :disabled="Object.values(uploadStatuses).includes('uploading')"
+                  class="inline-flex items-center gap-2 bg-[#1d4e89] hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[14px] font-semibold px-6 py-3 rounded-xl transition-colors duration-200"
+                >
+                  Continue
+                  <LucideArrowRight :size="14" />
+                </button>
+
+                <!-- Step 3 submit -->
+                <button
+                  v-else-if="step === 3"
+                  type="button"
+                  @click="handleInitialSubmit"
+                  :disabled="loading || Object.values(uploadStatuses).includes('uploading')"
+                  class="inline-flex items-center gap-2 bg-[#1d4e89] hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[14px] font-semibold px-6 py-3 rounded-xl transition-colors duration-200"
+                >
+                  <div v-if="loading" class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span v-if="loading">Submitting...</span>
+                  <span v-else class="flex items-center gap-2">Continue <LucideArrowRight :size="14" /></span>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Card footer -->
+        <div class="bg-slate-50 border-t border-slate-100 px-7 lg:px-10 py-4 flex items-center justify-between">
+          <p class="text-[11px] font-medium text-slate-400">© {{ new Date().getFullYear() }} Society for Cellular Pathology Scientists of Nigeria</p>
+          <div class="flex items-center gap-1.5">
+            <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+            <p class="text-[11px] font-semibold text-slate-400">Secure Registration</p>
           </div>
-        </form>
-      </div>
-      
-      <!-- Footer Note -->
-      <div class="bg-slate-50 p-6 text-center border-t border-slate-100">
-        <p class="text-sm font-semibold text-slate-400">
-           © {{ new Date().getFullYear() }} Society for Cellular Pathology Scientists of Nigeria
-        </p>
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
+
 <script setup>
+import {
+  LucideArrowRight,
+  LucideArrowLeft,
+  LucideChevronDown,
+  LucideCheckCircle,
+  LucideUploadCloud,
+  LucideFileText,
+  LucideInfo,
+} from 'lucide-vue-next'
 import { ref, reactive, onUnmounted } from 'vue'
 import { useRegisterMember } from '@/composables/modules/members/useRegisterMember'
 import { useUploadFile } from '@/composables/useUploadFile'
+import { useUser } from '@/composables/modules/auth/user'
 import { useRouter } from 'vue-router'
 
 const step = ref(1)
-const { loading, register, verifyRegistration, resendOTP } = useRegisterMember()
+const { loading, register } = useRegisterMember()
 const { uploadFile } = useUploadFile()
 const router = useRouter()
 
-const otpCode = ref('')
-const resendTimer = ref(0)
-let timerInterval = null
-
-const startTimer = () => {
-  resendTimer.value = 60
-  if (timerInterval) clearInterval(timerInterval)
-  timerInterval = setInterval(() => {
-    if (resendTimer.value > 0) resendTimer.value--
-    else clearInterval(timerInterval)
-  }, 1000)
-}
-
-onUnmounted(() => {
-  if (timerInterval) clearInterval(timerInterval)
-})
+const stepMeta = [
+  { label: 'Personal Details', title: 'Create your account', subtitle: 'Fill in your professional information to get started.' },
+  { label: 'Documents', title: 'Upload your documents', subtitle: 'Professional credentials — you can also complete this later.' },
+  { label: 'Profile', title: 'Tell us about yourself', subtitle: 'A brief background helps the committee review your application.' }
+]
 
 const previews = reactive({})
 const fileTypes = reactive({})
@@ -258,7 +263,7 @@ const categories = [
   { label: 'Student', value: 'Student' },
   { label: 'Associate', value: 'Associate' },
   { label: 'Full Member', value: 'Full' },
-  { label: 'Fellow', value: 'Fellow' }
+  { label: 'Fellow', value: 'Fellow' },
 ]
 
 const documentFields = [
@@ -267,7 +272,7 @@ const documentFields = [
   { key: 'license', label: 'Practicing License' },
   { key: 'cv', label: 'Curriculum Vitae (CV)' },
   { key: 'id', label: 'National ID / Voter Card' },
-  { key: 'proofOfPayment', label: 'Proof of Payment' }
+  { key: 'proofOfPayment', label: 'Proof of Payment' },
 ]
 
 const form = reactive({
@@ -278,11 +283,9 @@ const form = reactive({
   organization: '',
   category: '',
   membershipId: '',
-  professionalProfile: {
-    bio: ''
-  },
+  professionalProfile: { bio: '' },
   refereeName: '',
-  documents: {}
+  documents: {},
 })
 
 const isImage = (key) => {
@@ -296,14 +299,8 @@ const isImage = (key) => {
 const getPreviewUrl = (key) => {
   const preview = previews[key]
   if (!preview) return null
-  
   const metadata = uploadMetadata[key]
-  
-  // If it's a PDF already uploaded to Cloudinary, we can show a thumbnail
-  if (metadata?.format === 'pdf' && metadata?.url) {
-    return metadata.url.replace('.pdf', '.jpg')
-  }
-  
+  if (metadata?.format === 'pdf' && metadata?.url) return metadata.url.replace('.pdf', '.jpg')
   if (isImage(key)) return preview
   return null
 }
@@ -311,17 +308,15 @@ const getPreviewUrl = (key) => {
 const handleFileUpload = async (event, key) => {
   const file = event.target.files[0]
   if (!file) return
-
   fileTypes[key] = file.type
   previews[key] = URL.createObjectURL(file)
   uploadStatuses[key] = 'uploading'
-
   try {
     const res = await uploadFile(file)
     form.documents[key] = res.url
-    uploadMetadata[key] = res // Store full response metadata
+    uploadMetadata[key] = res
     uploadStatuses[key] = 'success'
-  } catch (error) {
+  } catch {
     uploadStatuses[key] = 'error'
     previews[key] = null
   }
@@ -330,9 +325,8 @@ const handleFileUpload = async (event, key) => {
 const handleNext = () => {
   if (step.value === 1) {
     if (!form.fullName || !form.email || !form.membershipId) {
-      // Basic validation for required fields
-      alert("Please fill in all required fields (Name, Email, RA/RF Number).")
-      return;
+      alert('Please fill in all required fields (Name, Email, RA/RF Number).')
+      return
     }
   }
   step.value++
@@ -343,52 +337,27 @@ const handleBack = () => step.value--
 const handleInitialSubmit = async () => {
   const data = await register(form)
   if (data?.requiresOtp) {
-    step.value = 4
-    startTimer()
+    router.push({ path: '/verify-email', query: { email: form.email } })
   } else if (data) {
-    // Fallback if OTP is skipped by backend somehow
     router.push('/login')
   }
 }
 
-const handleResendOTP = async () => {
-  const res = await resendOTP(form.email)
-  if (res) {
-    startTimer()
-  }
-}
-
 const handleSubmit = async () => {
-  if (step.value === 3) {
-    await handleInitialSubmit()
-    return
-  }
-  
-  if (step.value === 4) {
-    const data = await verifyRegistration({ email: form.email, otp: otpCode.value.trim() })
-    if (data) {
-      step.value = 5 // Transition to Congratulations UI
-    }
-  }
+  if (step.value === 3) { await handleInitialSubmit(); return }
 }
 
-definePageMeta({
-  layout: 'auth'
-})
+definePageMeta({ layout: 'auth' })
 </script>
 
+
 <style scoped>
-.animate-in {
-  animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.font-body {
+  font-family: 'DM Sans', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
+.field {
+  @apply w-full bg-slate-50 border border-slate-200 text-slate-800 placeholder:text-slate-400 text-[14px] px-4 py-3 rounded-xl focus:outline-none focus:border-blue-300 focus:bg-white focus:ring-2 focus:ring-blue-50 transition-all duration-200;
 }
 
-::selection {
-  background: #00b8d4;
-  color: #033958;
-}
 </style>
