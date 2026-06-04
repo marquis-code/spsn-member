@@ -9,13 +9,13 @@ export const useResetPassword = () => {
     error.value = null
     try {
       const config = useRuntimeConfig()
-      const apiBase = config.public.apiBase || 'http://localhost:3000/api'
-      
+      const apiBase = config.public.apiBase || 'https://spsn-backend.onrender.com/api'
+
       const response = await $fetch(`${apiBase}/auth/reset-password`, {
         method: 'POST',
         body: { token, password }
       })
-      
+
       return response
     } catch (err: any) {
       error.value = err.data?.message || 'Failed to update password'

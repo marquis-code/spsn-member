@@ -394,7 +394,7 @@ const handleDocumentUpload = async (event, name) => {
 const syncProfileUpdate = async (update) => {
   if (!user.value?.id) {
     const config = useRuntimeConfig()
-    const apiBase = config.public.apiBase || 'http://localhost:3000/api'
+    const apiBase = config.public.apiBase || 'https://spsn-backend.onrender.com/api'
     const response = await $fetch(`${apiBase}/members/profile`, {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${userToken.value}` },
