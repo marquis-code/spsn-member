@@ -54,7 +54,7 @@ let socket: Socket | null = null
 export const useChat = () => {
   const config = useRuntimeConfig()
   const { user } = useUser()
-  const apiBase = config.public.apiBase || 'https://spsn-backend.onrender.com'
+  const apiBase = config.public.apiBase || 'https://spsn-backend.onrender.com/api'
   
   const activeChat = computed(() => chats.value.find(c => c.id === activeChatId.value))
 
