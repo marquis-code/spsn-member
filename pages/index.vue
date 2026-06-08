@@ -12,20 +12,40 @@
             <span class="text-[13px] font-bold text-slate-800 tracking-tight hidden sm:block">SCPSN</span>
           </div>
           <div class="hidden md:flex items-center gap-1">
-            <a v-for="link in navLinks" :key="link" href="#"
+            <a v-for="link in navLinks" :key="link.label" :href="link.href"
               class="text-[13px] font-medium text-slate-500 hover:text-[#1d4e89] px-4 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200">
-              {{ link }}
+              {{ link.label }}
             </a>
           </div>
           <div class="flex items-center gap-2">
             <NuxtLink to="/login"
-              class="text-[13px] font-semibold text-slate-600 hover:text-[#1d4e89] px-4 py-2 rounded-lg hover:bg-slate-50 transition-all duration-200">
+              class="hidden sm:block text-[13px] font-semibold text-slate-600 hover:text-[#1d4e89] px-4 py-2 rounded-lg hover:bg-slate-50 transition-all duration-200">
               Login
             </NuxtLink>
             <NuxtLink to="/signup"
               class="inline-flex items-center gap-1.5 bg-[#1d4e89] hover:bg-blue-800 text-white text-[13px] font-semibold px-4 py-2 rounded-xl transition-colors duration-200">
               Join Now
               <LucideArrowRight :size="13" />
+            </NuxtLink>
+            <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="md:hidden p-2 text-slate-600 hover:bg-slate-50 rounded-lg">
+              <LucideMenu v-if="!isMobileMenuOpen" :size="20" />
+              <LucideX v-else :size="20" />
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div v-if="isMobileMenuOpen" class="md:hidden border-t border-slate-100 bg-white">
+        <div class="px-4 pt-2 pb-6 space-y-1">
+          <a v-for="link in navLinks" :key="link.label" :href="link.href" @click="isMobileMenuOpen = false"
+            class="block px-4 py-3 text-[14px] font-medium text-slate-600 hover:text-[#1d4e89] hover:bg-blue-50 rounded-xl transition-colors">
+            {{ link.label }}
+          </a>
+          <div class="pt-4 mt-2 border-t border-slate-100 px-4">
+            <NuxtLink to="/login" @click="isMobileMenuOpen = false"
+              class="block w-full text-center text-[14px] font-semibold text-slate-600 hover:text-[#1d4e89] py-3 rounded-xl hover:bg-slate-50 transition-colors">
+              Login
             </NuxtLink>
           </div>
         </div>
@@ -332,6 +352,8 @@ import {
   LucideAward,
   LucideActivity,
   LucideUsers,
+  LucideMenu,
+  LucideX
 } from 'lucide-vue-next'
 import { ref, onMounted, onUnmounted } from 'vue'
 import hero1 from "@/assets/img/gallery/photo4.jpeg"
@@ -340,8 +362,14 @@ import hero3 from "@/assets/img/gallery/photo2.jpeg"
 
 const currentSlide = ref(0)
 let slideInterval = null
+const isMobileMenuOpen = ref(false)
 
-const navLinks = ['About', 'Features', 'Pricing', 'Community', 'Contact']
+const navLinks = [
+  { label: 'About', href: '#about' },
+  { label: 'Features', href: '#features' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Community', href: '#community' },
+]
 
 const slides = [
   { image: hero1, tagline: 'Excellence in Pathology 2026', titlePart1: 'Advancing', titlePart2: 'Diagnostics' },

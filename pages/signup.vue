@@ -260,10 +260,10 @@ const uploadStatuses = reactive({})
 const uploadMetadata = reactive({})
 
 const categories = [
-  { label: 'Student', value: 'Student' },
-  { label: 'Associate', value: 'Associate' },
-  { label: 'Full Member', value: 'Full' },
-  { label: 'Fellow', value: 'Fellow' },
+  { label: 'Ordinary Member', value: 'Ordinary' },
+  { label: 'Student Member', value: 'Student' },
+  { label: 'Honorary Member', value: 'Honorary' },
+  { label: 'Emeritus Member', value: 'Emeritus' },
 ]
 
 const documentFields = [
